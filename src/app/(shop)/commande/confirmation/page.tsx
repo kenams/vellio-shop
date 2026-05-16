@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CheckCircle2, Package, Truck, Mail, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatPrice, formatDate } from "@/lib/utils";
+import CartClearer from "@/components/ui/CartClearer";
 
 interface Props {
   searchParams: { session_id?: string };
@@ -47,6 +48,7 @@ export default async function ConfirmationPage({ searchParams }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
+      <CartClearer />
       {/* Header */}
       <div className="text-center mb-12">
         <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-5 shadow-lg">

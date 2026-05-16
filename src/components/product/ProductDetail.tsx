@@ -29,7 +29,7 @@ export default function ProductDetail({ product, related }: Props) {
   const faq = product.faqJson as { question: string; answer: string }[] | null;
   const hasDiscount = product.comparePrice && product.comparePrice > product.price;
   const discountPct = hasDiscount ? Math.round(((product.comparePrice! - product.price) / product.comparePrice!) * 100) : 0;
-  const stockCount = Math.floor(Math.random() * 8) + 3;
+  const stockCount = (product.id.charCodeAt(product.id.length - 1) % 8) + 3;
 
   useEffect(() => { setViewers(Math.floor(Math.random() * 12) + 4); }, []);
 
