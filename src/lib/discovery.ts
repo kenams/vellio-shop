@@ -276,30 +276,53 @@ async function fetchProductImages(
 }
 
 // ─── Google Trends by geo ─────────────────────────────────────────────────────
+const TREND_FALLBACKS: Record<string, string[]> = {
+  FR: ["gadgets maison connectée", "accessoires sport fitness", "beauté naturelle soin", "cuisine pratique rapide", "tech gadgets tendance", "montre connectée", "aspirateur robot", "lampe LED intelligente", "massage bien-être", "organisateur bureau"],
+  US: ["home gadgets", "fitness gear 2026", "smart home devices", "kitchen tools viral", "tech accessories trending", "wireless earbuds", "robot vacuum", "LED desk lamp", "massage gun", "office organizer"],
+  GB: ["home gadgets uk", "fitness accessories", "smart home devices", "kitchen gadgets viral", "tech deals uk", "wireless earbuds", "robot hoover", "smart lighting", "massage gun", "desk organiser"],
+  AU: ["outdoor gear australia", "fitness gadgets", "smart home tech", "kitchen tools", "tech accessories au", "wireless earbuds", "robot vacuum", "smart lights", "massage device", "home organisation"],
+};
+
 async function fetchTrends(geo: string): Promise<string[]> {
   try {
     const res = await fetch(
       `https://trends.google.fr/trends/trendingsearches/daily/rss?geo=${geo}`,
-      { headers: { "User-Agent": "Mozilla/5.0 (compatible; VellioBot/1.0)" }, next: { revalidate: 0 } }
+      {
+        headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" },
+        signal: AbortSignal.timeout(8000),
+        cache: "no-store",
+      }
     );
+    if (!res.ok) {
+      console.log(`[discovery] Trends HTTP ${res.status} for ${geo}, using fallback`);
+      return TREND_FALLBACKS[geo] || TREND_FALLBACKS.US;
+    }
     const xml = await res.text();
     const titles: string[] = [];
-    const regex = /<title><!\[CDATA\[(.*?)\]\]><\/title>/g;
+    // Try CDATA format
+    const cdataRegex = /<title><!\[CDATA\[(.*?)\]\]><\/title>/g;
     let match;
-    while ((match = regex.exec(xml)) !== null) {
+    while ((match = cdataRegex.exec(xml)) !== null) {
       if (!["Daily Search Trends", "Trending Searches"].includes(match[1])) {
         titles.push(match[1]);
       }
     }
+    // Try plain title format (Google sometimes changes format)
+    if (titles.length === 0) {
+      const plainRegex = /<title>(?!\s*(?:Daily Search Trends|Trending Searches|RSS))(.*?)<\/title>/g;
+      while ((match = plainRegex.exec(xml)) !== null) {
+        const t = match[1].trim();
+        if (t && t.length > 2 && t.length < 100) titles.push(t);
+      }
+    }
+    if (titles.length === 0) {
+      console.log(`[discovery] No trends parsed from XML for ${geo}, using fallback`);
+      return TREND_FALLBACKS[geo] || TREND_FALLBACKS.US;
+    }
     return titles.slice(0, 25);
-  } catch {
-    const fallbacks: Record<string, string[]> = {
-      FR: ["gadgets maison", "accessoires sport", "beauté naturelle", "cuisine rapide", "tech connecté"],
-      US: ["home gadgets", "fitness gear", "smart home", "kitchen tools", "tech accessories"],
-      GB: ["home gadgets", "fitness accessories", "smart devices", "kitchen gadgets", "tech deals"],
-      AU: ["outdoor gear", "fitness gadgets", "smart home", "kitchen tools", "tech accessories"],
-    };
-    return fallbacks[geo] || fallbacks.US;
+  } catch (err: any) {
+    console.log(`[discovery] Trends fetch failed for ${geo}: ${err.message}, using fallback`);
+    return TREND_FALLBACKS[geo] || TREND_FALLBACKS.US;
   }
 }
 
@@ -373,10 +396,16 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
   console.log(`[discovery] Starting for market=${market} (geo=${geo}, locale=${locale})`);
 
   const trends = await fetchTrends(geo);
-  console.log(`[discovery] ${trends.length} trends fetched`);
+  console.log(`[discovery] ${trends.length} trends fetched: ${trends.slice(0, 3).join(", ")}`);
 
-  const opportunities = await identifyOpportunities(trends, market);
-  console.log(`[discovery] ${opportunities.length} opportunities identified`);
+  let opportunities: any[] = [];
+  try {
+    opportunities = await identifyOpportunities(trends, market);
+    console.log(`[discovery] ${opportunities.length} opportunities identified`);
+  } catch (err: any) {
+    console.error(`[discovery] OpenAI error: ${err.message}`);
+    return result;
+  }
 
   for (const opp of opportunities) {
     try {
