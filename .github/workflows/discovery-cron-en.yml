@@ -1,0 +1,30 @@
+name: Vellio — EN Market Prospecting 21h
+
+on:
+  schedule:
+    # 19:00 UTC = 21:00 Paris / 20:00 London / 15:00 New York
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+
+jobs:
+  discover-en:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger EN market discovery (US)
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://vellio-shop.vercel.app/api/cron/discover-en?secret=${{ secrets.CRON_SECRET }}&market=en-US")
+          echo "US Status: $response"
+          if [ "$response" != "200" ]; then
+            echo "Error: status $response"
+            exit 1
+          fi
+          echo "US market discovery launched"
+
+      - name: Trigger EN market discovery (GB)
+        run: |
+          sleep 30
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://vellio-shop.vercel.app/api/cron/discover-en?secret=${{ secrets.CRON_SECRET }}&market=en-GB")
+          echo "GB Status: $response"
+          echo "GB market discovery launched"

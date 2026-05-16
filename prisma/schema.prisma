@@ -57,6 +57,7 @@ model Product {
   marketingAngle   String?
   estimatedMargin  Float?
   seasonality      String?
+  locale           String         @default("fr")
   trendData        TrendScore?
   orderItems       OrderItem[]
   reviews          Review[]

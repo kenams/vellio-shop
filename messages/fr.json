@@ -1,0 +1,151 @@
+{
+  "nav": {
+    "catalogue": "Catalogue",
+    "categories": "Catégories",
+    "blog": "Blog",
+    "cta": "Voir les tendances",
+    "cart": "Panier"
+  },
+  "delivery": {
+    "banner": "🎉 Livraison GRATUITE dès 50€  ·  Paiement 100% sécurisé  ·  Retours 30 jours"
+  },
+  "hero": {
+    "badge": "IA mise à jour",
+    "title1": "Découvrez ce qui est",
+    "title2": "tendance",
+    "title3": "avant tout le monde.",
+    "subtitle": "Notre IA analyse Google Trends, TikTok et les données fournisseurs chaque jour pour sélectionner uniquement les meilleurs produits.",
+    "cta1": "Voir les tendances",
+    "cta2": "Top produits IA",
+    "stat1v": "12k+",
+    "stat1l": "Clients satisfaits",
+    "stat2v": "4.8★",
+    "stat2l": "Note moyenne",
+    "stat3v": "30j",
+    "stat3l": "Retours garantis",
+    "trust1": "Paiement sécurisé Stripe",
+    "trust2": "Livraison suivie 7-14j"
+  },
+  "product": {
+    "addToCart": "Ajouter au panier",
+    "added": "ajouté au panier !",
+    "inStock": "En stock",
+    "limitedStock": "Stock limité",
+    "viewers": "personnes regardent",
+    "deliveryEst": "Livraison estimée : avant le",
+    "securePayment": "Paiement 100% sécurisé",
+    "freeReturns": "Retours 30 jours",
+    "trackedDelivery": "Livraison suivie",
+    "remaining": "Plus que",
+    "available": "disponibles",
+    "savings": "Économisez",
+    "reviews": "avis",
+    "faq": "Questions fréquentes",
+    "description": "Description",
+    "related": "Vous aimerez aussi",
+    "pciDss": "PCI-DSS ✓",
+    "accepted": "Accepté :",
+    "viewAll": "Tout voir →"
+  },
+  "cart": {
+    "title": "Mon panier",
+    "items": "article",
+    "itemsPlural": "articles",
+    "empty": "Votre panier est vide",
+    "emptyDesc": "Découvrez nos produits tendance sélectionnés par IA.",
+    "discoverCta": "Voir les tendances",
+    "checkout": "Payer en toute sécurité →",
+    "loading": "Redirection...",
+    "total": "Total TTC",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison",
+    "freeShipping": "Gratuite 🎉",
+    "freeShippingMsg": "Livraison gratuite débloquée !",
+    "freeShippingProgress": "Encore",
+    "freeShippingProgress2": "pour la livraison gratuite !",
+    "emailLabel": "Email pour le suivi *",
+    "emailPlaceholder": "votre@email.fr",
+    "emailError": "Veuillez entrer une adresse email valide",
+    "continue": "Continuer mes achats",
+    "removed": "Retiré du panier",
+    "trust1": "Paiement 100% sécurisé — Stripe PCI-DSS",
+    "trust2": "Livraison suivie 7-14 jours ouvrés",
+    "trust3": "Retours gratuits sous 30 jours",
+    "trust4": "4.8/5 — Plus de 2 400 clients satisfaits"
+  },
+  "categories": {
+    "title": "Explorez par catégorie",
+    "tag": "Collections"
+  },
+  "featured": {
+    "title": "Coup de cœur du moment",
+    "subtitle": "Détectés et scorés par notre algorithme de tendances",
+    "tag": "Sélection IA",
+    "viewAll": "Voir tout →"
+  },
+  "trending": {
+    "tag": "Top tendances",
+    "title": "Le palmarès IA",
+    "titleAccent": "de cette semaine",
+    "desc": "Classés par score de viralité TikTok, volume de recherche et marge fournisseur en temps réel.",
+    "cta": "Voir tous les tops →"
+  },
+  "trust": {
+    "tag": "Nos garanties",
+    "title": "Pourquoi choisir Vellio ?",
+    "subtitle": "Intelligence artificielle + sourcing rigoureux = les meilleurs produits tendance au meilleur prix."
+  },
+  "reviews": {
+    "tag": "Avis clients",
+    "title": "Ils adorent Vellio",
+    "rating": "4.8/5 — plus de 2 400 avis vérifiés",
+    "verified": "Vérifié"
+  },
+  "newsletter": {
+    "title": "Soyez le premier informé",
+    "subtitle": "Recevez chaque semaine les 5 produits les plus tendance détectés par notre IA.",
+    "placeholder": "votre@email.fr",
+    "cta": "S'inscrire gratuitement",
+    "note": "Pas de spam · Désabonnement en 1 clic · RGPD compliant"
+  },
+  "footer": {
+    "desc": "La boutique intelligente qui détecte les produits tendance avant tout le monde grâce à l'IA.",
+    "shop": "Boutique",
+    "info": "Informations",
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Recevez les produits tendance en avant-première chaque semaine.",
+    "noSpam": "Pas de spam. Désabonnement en 1 clic.",
+    "legal": "Paiement sécurisé · Stripe PCI-DSS Niveau 1",
+    "rights": "Tous droits réservés. Boutique en ligne France."
+  },
+  "catalogue": {
+    "title": "Catalogue produits",
+    "subtitle": "produits disponibles — triés par score tendance IA",
+    "search": "Rechercher un produit...",
+    "sort": "Trier par",
+    "category": "Catégorie",
+    "apply": "Appliquer",
+    "allCategories": "Toutes catégories",
+    "trending": "📈 Tendance",
+    "priceAsc": "💰 Prix croissant",
+    "priceDesc": "💎 Prix décroissant",
+    "noResults": "Aucun produit trouvé",
+    "noResultsDesc": "Essayez d'autres termes ou effacez les filtres",
+    "clearAll": "Effacer tout"
+  },
+  "common": {
+    "viewAll": "Tout voir",
+    "back": "Retour",
+    "home": "Accueil",
+    "loading": "Chargement...",
+    "securePayment": "Paiement 100% sécurisé via Stripe",
+    "deliveryInfo": "Livraison suivie 7-14 jours",
+    "returnsInfo": "Retours 30 jours"
+  },
+  "cookie": {
+    "text": "Nous utilisons des cookies pour améliorer votre expérience et analyser notre trafic.",
+    "learnMore": "En savoir plus",
+    "accept": "Accepter",
+    "refuse": "Refuser"
+  }
+}

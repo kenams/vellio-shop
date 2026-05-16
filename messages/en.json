@@ -1,0 +1,151 @@
+{
+  "nav": {
+    "catalogue": "Catalogue",
+    "categories": "Categories",
+    "blog": "Blog",
+    "cta": "See trending products",
+    "cart": "Cart"
+  },
+  "delivery": {
+    "banner": "🎉 FREE shipping over £/€50  ·  100% secure payment  ·  30-day returns"
+  },
+  "hero": {
+    "badge": "AI updated daily",
+    "title1": "Discover what's",
+    "title2": "trending",
+    "title3": "before everyone else.",
+    "subtitle": "Our AI analyzes Google Trends, TikTok and supplier data every day to find only the best trending products.",
+    "cta1": "See trending products",
+    "cta2": "AI top picks",
+    "stat1v": "12k+",
+    "stat1l": "Happy customers",
+    "stat2v": "4.8★",
+    "stat2l": "Average rating",
+    "stat3v": "30d",
+    "stat3l": "Return guarantee",
+    "trust1": "Secure Stripe payment",
+    "trust2": "Tracked delivery 7-14d"
+  },
+  "product": {
+    "addToCart": "Add to cart",
+    "added": "added to cart!",
+    "inStock": "In stock",
+    "limitedStock": "Limited stock",
+    "viewers": "people viewing",
+    "deliveryEst": "Estimated delivery: before",
+    "securePayment": "100% secure payment",
+    "freeReturns": "30-day free returns",
+    "trackedDelivery": "Tracked delivery",
+    "remaining": "Only",
+    "available": "left in stock",
+    "savings": "Save",
+    "reviews": "reviews",
+    "faq": "Frequently asked questions",
+    "description": "Description",
+    "related": "You might also like",
+    "pciDss": "PCI-DSS ✓",
+    "accepted": "Accepted:",
+    "viewAll": "View all →"
+  },
+  "cart": {
+    "title": "My cart",
+    "items": "item",
+    "itemsPlural": "items",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Discover our AI-curated trending products.",
+    "discoverCta": "See trending products",
+    "checkout": "Pay securely →",
+    "loading": "Redirecting...",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "freeShipping": "Free 🎉",
+    "freeShippingMsg": "Free shipping unlocked!",
+    "freeShippingProgress": "Only",
+    "freeShippingProgress2": "more for free shipping!",
+    "emailLabel": "Email for order tracking *",
+    "emailPlaceholder": "your@email.com",
+    "emailError": "Please enter a valid email address",
+    "continue": "Continue shopping",
+    "removed": "Removed from cart",
+    "trust1": "100% secure payment — Stripe PCI-DSS",
+    "trust2": "Tracked delivery 7-14 business days",
+    "trust3": "Free 30-day returns",
+    "trust4": "4.8/5 — Over 2,400 happy customers"
+  },
+  "categories": {
+    "title": "Browse by category",
+    "tag": "Collections"
+  },
+  "featured": {
+    "title": "AI Top Picks",
+    "subtitle": "Detected and scored by our trend algorithm",
+    "tag": "AI Selection",
+    "viewAll": "View all →"
+  },
+  "trending": {
+    "tag": "Top trending",
+    "title": "This week's",
+    "titleAccent": "AI leaderboard",
+    "desc": "Ranked by TikTok virality score, search volume and supplier margin in real time.",
+    "cta": "View all top picks →"
+  },
+  "trust": {
+    "tag": "Our guarantees",
+    "title": "Why choose Vellio?",
+    "subtitle": "Artificial intelligence + rigorous sourcing = the best trending products at the best prices."
+  },
+  "reviews": {
+    "tag": "Customer reviews",
+    "title": "They love Vellio",
+    "rating": "4.8/5 — over 2,400 verified reviews",
+    "verified": "Verified"
+  },
+  "newsletter": {
+    "title": "Be the first to know",
+    "subtitle": "Receive the 5 hottest AI-detected trending products every week before they explode.",
+    "placeholder": "your@email.com",
+    "cta": "Subscribe for free",
+    "note": "No spam · Unsubscribe in 1 click · GDPR compliant"
+  },
+  "footer": {
+    "desc": "The intelligent shop that detects trending products before everyone else using AI.",
+    "shop": "Shop",
+    "info": "Information",
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Get the hottest trending products first every week.",
+    "noSpam": "No spam. Unsubscribe in 1 click.",
+    "legal": "Secure payment · Stripe PCI-DSS Level 1",
+    "rights": "All rights reserved. Online store."
+  },
+  "catalogue": {
+    "title": "Product catalogue",
+    "subtitle": "products available — sorted by AI trend score",
+    "search": "Search a product...",
+    "sort": "Sort by",
+    "category": "Category",
+    "apply": "Apply",
+    "allCategories": "All categories",
+    "trending": "📈 Trending",
+    "priceAsc": "💰 Price low to high",
+    "priceDesc": "💎 Price high to low",
+    "noResults": "No products found",
+    "noResultsDesc": "Try different terms or clear the filters",
+    "clearAll": "Clear all"
+  },
+  "common": {
+    "viewAll": "View all",
+    "back": "Back",
+    "home": "Home",
+    "loading": "Loading...",
+    "securePayment": "100% secure payment via Stripe",
+    "deliveryInfo": "Tracked delivery 7-14 days",
+    "returnsInfo": "30-day returns"
+  },
+  "cookie": {
+    "text": "We use cookies to improve your experience and analyze our traffic.",
+    "learnMore": "Learn more",
+    "accept": "Accept",
+    "refuse": "Decline"
+  }
+}
