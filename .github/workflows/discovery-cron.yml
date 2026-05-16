@@ -1,0 +1,22 @@
+name: Vellio — Prospection produits 19h
+
+on:
+  schedule:
+    # 17:00 UTC = 19:00 Paris (heure d'été)
+    - cron: "0 17 * * *"
+  workflow_dispatch: # Déclenchement manuel possible
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Déclencher la prospection automatique
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://vellio-shop.vercel.app/api/cron/discover?secret=${{ secrets.CRON_SECRET }}")
+          echo "Status HTTP: $response"
+          if [ "$response" != "200" ]; then
+            echo "Erreur: status $response"
+            exit 1
+          fi
+          echo "Prospection lancée avec succès"
