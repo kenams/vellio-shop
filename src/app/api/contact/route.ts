@@ -1,8 +1,8 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const schema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
@@ -15,8 +15,11 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, email, subject, message } = schema.parse(body);
 
+    const resend = new Resend(process.env.RESEND_API_KEY || "re_placeholder");
+    const FROM = process.env.EMAIL_FROM || "Vellio <noreply@vellio.fr>";
+
     await resend.emails.send({
-      from: process.env.EMAIL_FROM || "Vellio <noreply@vellio.fr>",
+      from: FROM,
       to: process.env.CONTACT_EMAIL || "support@vellio.fr",
       reply_to: email,
       subject: `[Contact Vellio] ${subject || "Nouvelle demande"} — de ${name}`,
@@ -37,11 +40,10 @@ export async function POST(req: NextRequest) {
       `,
     });
 
-    // Accusé de réception à l'expéditeur
     await resend.emails.send({
-      from: process.env.EMAIL_FROM || "Vellio <noreply@vellio.fr>",
+      from: FROM,
       to: email,
-      subject: "✉️ Nous avons bien reçu votre message — Vellio",
+      subject: "Nous avons bien reçu votre message — Vellio",
       html: `
         <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <h2 style="color:#1a1a2e">Merci pour votre message, ${name} !</h2>
@@ -52,8 +54,7 @@ export async function POST(req: NextRequest) {
           <p>À très bientôt,<br/><strong>L'équipe Vellio</strong></p>
           <hr style="margin:20px 0;border:none;border-top:1px solid #eee"/>
           <p style="color:#999;font-size:12px">
-            Vellio — boutique tendance intelligente<br/>
-            <a href="${process.env.NEXT_PUBLIC_APP_URL}">vellio.fr</a>
+            Vellio — boutique tendance intelligente
           </p>
         </div>
       `,

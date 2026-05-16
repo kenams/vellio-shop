@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.EMAIL_FROM || "Vellio <noreply@vellio.fr>";
+const getResend = () => new Resend(process.env.RESEND_API_KEY || "re_placeholder");
 
 export async function sendOrderConfirmation(order: {
   orderNumber: string;
@@ -14,7 +14,7 @@ export async function sendOrderConfirmation(order: {
     .map((i) => `<tr><td>${i.name}</td><td>${i.quantity}</td><td>${i.price.toFixed(2)}€</td></tr>`)
     .join("");
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM,
     to: order.customerEmail,
     subject: `✅ Commande confirmée — ${order.orderNumber}`,
@@ -38,7 +38,7 @@ export async function sendOrderConfirmation(order: {
 }
 
 export async function sendAbandonedCart(email: string, cartUrl: string) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM,
     to: email,
     subject: "🛒 Vous avez oublié quelque chose...",
