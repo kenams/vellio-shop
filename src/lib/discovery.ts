@@ -385,6 +385,7 @@ export interface DiscoveryResult {
   errors: number;
   products: string[];
   market: string;
+  debug?: string;
 }
 
 export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResult> {
@@ -401,9 +402,16 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
   let opportunities: any[] = [];
   try {
     opportunities = await identifyOpportunities(trends, market);
-    console.log(`[discovery] ${opportunities.length} opportunities identified`);
+    console.log(`[discovery] ${opportunities.length} opportunities: ${opportunities.map((o: any) => o.name).join(", ")}`);
   } catch (err: any) {
-    console.error(`[discovery] OpenAI error: ${err.message}`);
+    const msg = `OpenAI error: ${err.message || String(err)}`;
+    console.error(`[discovery] ${msg}`);
+    result.debug = msg;
+    return result;
+  }
+  if (opportunities.length === 0) {
+    result.debug = "OpenAI returned 0 opportunities";
+    console.warn("[discovery] 0 opportunities returned by OpenAI");
     return result;
   }
 
