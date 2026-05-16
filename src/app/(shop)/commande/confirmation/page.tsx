@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { CheckCircle2, Package, Truck, Mail, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";

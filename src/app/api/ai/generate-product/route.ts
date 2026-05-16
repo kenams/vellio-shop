@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { generateProductSheet, calculateTrendScore } from "@/lib/openai";
 import { prisma } from "@/lib/prisma";

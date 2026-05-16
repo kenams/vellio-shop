@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { Zap, TrendingUp, Shield, Truck, RotateCcw, Star, ArrowRight, Flame } from "lucide-react";
