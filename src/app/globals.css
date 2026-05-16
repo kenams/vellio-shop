@@ -11,6 +11,16 @@
   h1,h2,h3,h4 { @apply font-bold tracking-tight; }
 }
 
+@layer utilities {
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out forwards;
+  }
+}
+
 @layer components {
   .btn-primary {
     @apply bg-brand-accent hover:bg-red-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;

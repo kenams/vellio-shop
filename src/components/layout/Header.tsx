@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ShoppingCart, Search, Menu, Zap } from "lucide-react";
+import { ShoppingCart, Search, Menu, Zap, Truck } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useState } from "react";
 import CartDrawer from "./CartDrawer";
@@ -19,6 +19,11 @@ export default function Header() {
 
   return (
     <>
+      {/* Barre livraison gratuite */}
+      <div className="bg-brand text-white text-xs text-center py-2 px-4 flex items-center justify-center gap-2">
+        <Truck className="w-3.5 h-3.5 text-brand-accent" />
+        <span>🎉 Livraison <strong>GRATUITE</strong> dès 50€ — Paiement sécurisé SSL — Retours 30 jours</span>
+      </div>
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
