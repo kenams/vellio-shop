@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Bloquer les zones admin et API
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+
+# Autoriser les assets statiques
+Allow: /_next/static/
+Allow: /images/
+
+# Sitemap
+Sitemap: https://vellio.fr/sitemap.xml

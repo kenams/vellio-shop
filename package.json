@@ -1,0 +1,50 @@
+{
+  "name": "vellio-shop",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "db:seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' scripts/seed.ts",
+    "cron:trend": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' scripts/cron-trend.ts"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^4.29.5",
+    "@prisma/client": "^5.14.0",
+    "@stripe/stripe-js": "^4.1.0",
+    "autoprefixer": "^10.5.0",
+    "cloudinary": "^2.4.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.3.19",
+    "lucide-react": "^0.408.0",
+    "next": "14.2.5",
+    "next-auth": "^4.24.7",
+    "openai": "^4.52.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "resend": "^3.3.0",
+    "sharp": "^0.33.4",
+    "stripe": "^16.2.0",
+    "tailwind-merge": "^2.4.0",
+    "zod": "^4.4.3",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "prisma": "^5.14.0",
+    "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  }
+}
