@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Brain, Sparkles, Save, Flame, TrendingUp, ShoppingBag, ChevronDown, ChevronUp } from "lucide-react";
+import { Brain, Sparkles, Save, Flame, TrendingUp, ShoppingBag, ChevronDown, ChevronUp, Bot, RefreshCw, CheckCircle2, Clock } from "lucide-react";
 import toast from "react-hot-toast";
 import { formatPrice } from "@/lib/utils";
 
@@ -129,17 +129,86 @@ export default function AdminIAPage() {
     return "bg-red-500";
   };
 
+  const [prospecting, setProspecting] = useState(false);
+  const [prospectResult, setProspectResult] = useState<{ added: number; skipped: number; products: string[] } | null>(null);
+
+  async function handleProspect() {
+    setProspecting(true);
+    setProspectResult(null);
+    try {
+      const res = await fetch(`/api/cron/discover?secret=${encodeURIComponent("Vellio@Admin2026!")}`, { method: "GET" });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        setProspectResult(data);
+        toast.success(`${data.added} produit(s) ajouté(s) automatiquement !`);
+      } else {
+        toast.error(data.error || "Erreur lors de la prospection.");
+      }
+    } catch {
+      toast.error("Erreur réseau.");
+    } finally {
+      setProspecting(false);
+    }
+  }
+
   const categories = ["Gadgets auto", "Maison intelligente", "Cuisine pratique", "Beauté & bien-être", "Sport & fitness", "Enfants & jouets", "Jardinage", "Bureautique"];
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-black text-brand flex items-center gap-2">
-          <Brain className="w-6 h-6 text-primary-600" /> Module IA — Générer un produit
+          <Brain className="w-6 h-6 text-primary-600" /> Module IA — Produits & Prospection
         </h1>
         <p className="text-gray-500 text-sm mt-0.5">
-          L'IA génère une fiche produit complète + score de tendance basés sur vos paramètres.
+          Génération manuelle de fiches + prospection automatique 2x/jour via Google Trends.
         </p>
+      </div>
+
+      {/* Bloc prospection automatique */}
+      <div className="card p-6 border-2 border-primary-100 bg-gradient-to-br from-primary-50/50 to-white">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="font-black text-brand flex items-center gap-2 mb-1">
+              <Bot className="w-5 h-5 text-primary-600" /> Prospection automatique
+            </h2>
+            <p className="text-sm text-gray-500 max-w-lg">
+              Le robot analyse Google Trends France, identifie 3 produits tendance et les ajoute automatiquement à la boutique avec descriptions, photos et scores IA.
+            </p>
+            <div className="flex items-center gap-4 mt-3 text-xs text-gray-400">
+              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> Automatique : 7h et 19h chaque jour</span>
+              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> Publié immédiatement</span>
+            </div>
+          </div>
+          <button
+            onClick={handleProspect}
+            disabled={prospecting}
+            className="btn-primary flex items-center gap-2 whitespace-nowrap disabled:opacity-60 flex-shrink-0"
+          >
+            <RefreshCw className={`w-4 h-4 ${prospecting ? "animate-spin" : ""}`} />
+            {prospecting ? "Analyse en cours..." : "Lancer maintenant"}
+          </button>
+        </div>
+
+        {prospectResult && (
+          <div className="mt-4 bg-white rounded-xl border border-green-100 p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+              <span className="font-bold text-green-700">
+                {prospectResult.added} produit(s) ajouté(s) — {prospectResult.skipped} déjà existant(s)
+              </span>
+            </div>
+            {prospectResult.products.length > 0 && (
+              <ul className="space-y-1">
+                {prospectResult.products.map((name, i) => (
+                  <li key={i} className="text-sm text-gray-700 flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-primary-100 text-primary-600 text-xs font-bold flex items-center justify-center">{i + 1}</span>
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
