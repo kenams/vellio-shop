@@ -38,7 +38,29 @@ export default function CommandePage() {
   const orderTotal = subtotal + shipping;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const updated = { ...form, [e.target.name]: e.target.value };
+    setForm(updated);
+
+    // Capturer email pour abandoned cart (envoi si la page est quittée)
+    if (e.target.name === "email" && e.target.value.includes("@")) {
+      const emailCaptured = e.target.value;
+      if (typeof sessionStorage !== "undefined" && !sessionStorage.getItem(`recover_sent_${emailCaptured}`)) {
+        sessionStorage.setItem("recover_email", emailCaptured);
+        sessionStorage.setItem("recover_name", `${updated.firstName} ${updated.lastName}`.trim());
+      }
+    }
+  }
+
+  // Abandoned cart: send recovery email if user leaves without completing
+  if (typeof window !== "undefined") {
+    window.addEventListener("beforeunload", () => {
+      const email = sessionStorage.getItem("recover_email");
+      if (!email || sessionStorage.getItem(`recover_sent_${email}`)) return;
+      sessionStorage.setItem(`recover_sent_${email}`, "1");
+      const name = sessionStorage.getItem("recover_name") || "";
+      const cartItems = items.map((i) => ({ name: i.name, price: i.price }));
+      navigator.sendBeacon("/api/email/recover", JSON.stringify({ email, name, items: cartItems }));
+    }, { once: true });
   }
 
   async function handleSubmit(e: React.FormEvent) {

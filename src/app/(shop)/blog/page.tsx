@@ -14,13 +14,49 @@ export const metadata: Metadata = {
 
 const articles = [
   {
+    slug: "meilleurs-cadeaux-homme-originaux-2026",
+    title: "Meilleurs cadeaux originaux pour homme en 2026 — sélection premium",
+    excerpt: "Trouver un cadeau original pour homme est un art. Objets utiles, premium et mémorables pour tous les budgets.",
+    image: "https://images.pexels.com/photos/9775357/pexels-photo-9775357.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    category: "Cadeau",
+    readTime: "7 min",
+    date: "17 mai 2026",
+  },
+  {
+    slug: "idee-cadeau-anniversaire-original-femme",
+    title: "Idée cadeau anniversaire original pour femme : 12 pièces qui marquent",
+    excerpt: "Des cadeaux d'anniversaire originaux et premium : objets de soin, accessoires maison et tech lifestyle.",
+    image: "https://images.pexels.com/photos/28255125/pexels-photo-28255125.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    category: "Cadeau",
+    readTime: "6 min",
+    date: "14 mai 2026",
+  },
+  {
+    slug: "accessoires-bureau-design-premium-teletravail",
+    title: "Accessoires bureau design premium : équiper son espace de télétravail en 2026",
+    excerpt: "Un bureau bien équipé améliore la concentration et l'image professionnelle. Sélection premium pour le télétravail.",
+    image: "https://images.pexels.com/photos/9741343/pexels-photo-9741343.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    category: "Tech",
+    readTime: "6 min",
+    date: "16 mai 2026",
+  },
+  {
+    slug: "objets-design-tendance-maison-2026",
+    title: "Objets design tendance maison 2026 : ce que l'on remarque vraiment",
+    excerpt: "Les tendances déco 2026 font la part belle aux matières naturelles et aux objets fonctionnels. Notre sélection.",
+    image: "https://images.pexels.com/photos/10736999/pexels-photo-10736999.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    category: "Maison",
+    readTime: "5 min",
+    date: "15 mai 2026",
+  },
+  {
     slug: "art-du-detail-maison-vellio",
     title: "L'art du détail dans une maison contemporaine",
     excerpt: "Comment quelques objets bien choisis peuvent transformer la perception d'un intérieur sans le surcharger.",
     image: "https://images.pexels.com/photos/10736999/pexels-photo-10736999.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     category: "Maison",
     readTime: "5 min",
-    date: "17 mai 2026",
+    date: "13 mai 2026",
   },
   {
     slug: "tech-signature-sans-bruit-visuel",
@@ -29,7 +65,7 @@ const articles = [
     image: "https://images.pexels.com/photos/9741343/pexels-photo-9741343.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     category: "Tech",
     readTime: "4 min",
-    date: "16 mai 2026",
+    date: "12 mai 2026",
   },
   {
     slug: "cadeaux-haut-de-gamme-utiles",
@@ -38,7 +74,7 @@ const articles = [
     image: "https://images.pexels.com/photos/9775357/pexels-photo-9775357.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     category: "Cadeau",
     readTime: "6 min",
-    date: "15 mai 2026",
+    date: "11 mai 2026",
   },
   {
     slug: "rituels-beaute-minimalistes",
@@ -47,7 +83,7 @@ const articles = [
     image: "https://images.pexels.com/photos/28255125/pexels-photo-28255125.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     category: "Beauté",
     readTime: "4 min",
-    date: "14 mai 2026",
+    date: "10 mai 2026",
   },
 ];
 

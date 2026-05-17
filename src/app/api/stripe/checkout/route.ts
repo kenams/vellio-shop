@@ -6,7 +6,7 @@ import { generateOrderNumber } from "@/lib/utils";
 import { getPremiumProductPresentation } from "@/lib/premium-brand";
 import { z } from "zod";
 
-const FREE_SHIPPING_THRESHOLD = 80;
+const FREE_SHIPPING_THRESHOLD = 50;
 const SHIPPING_COST = 4.99;
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://vellio-shop.vercel.app";
 

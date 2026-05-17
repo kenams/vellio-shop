@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendWelcomeEmail } from "@/lib/email";
 import { z } from "zod";
 
 const schema = z.object({ email: z.string().email() });
@@ -22,12 +23,15 @@ export async function POST(req: NextRequest) {
     if (existing) {
       if (!existing.active) {
         await prisma.newsletterSubscriber.update({ where: { email }, data: { active: true } });
+        sendWelcomeEmail(email).catch(console.error);
         return NextResponse.json({ ok: true, message: "Réabonnement effectué." });
       }
       return NextResponse.json({ ok: true, message: "Vous êtes déjà inscrit." });
     }
 
     await prisma.newsletterSubscriber.create({ data: { email } });
+    sendWelcomeEmail(email).catch(console.error);
+
     return NextResponse.json({ ok: true, message: "Inscription réussie !" }, { status: 201 });
   } catch (err: any) {
     if (err.name === "ZodError") {

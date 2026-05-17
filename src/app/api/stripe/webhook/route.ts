@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
-import { sendOrderConfirmation } from "@/lib/email";
+import { sendOrderConfirmation, sendPostPurchaseUpsell } from "@/lib/email";
 import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
@@ -31,14 +31,24 @@ export async function POST(req: NextRequest) {
           shippingAddress: (session.shipping_details?.address || {}) as object,
         },
       });
-      // Envoyer email confirmation
-      await sendOrderConfirmation({
+
+      // Email confirmation immédiat
+      sendOrderConfirmation({
         orderNumber: order.orderNumber,
         customerEmail: order.customerEmail,
         customerName: order.customerName,
         items: order.items,
         total: order.total,
       }).catch(console.error);
+
+      // Email upsell post-achat (décalé de 10 min)
+      setTimeout(() => {
+        sendPostPurchaseUpsell({
+          orderNumber: order.orderNumber,
+          customerEmail: order.customerEmail,
+          customerName: order.customerName,
+        }).catch(console.error);
+      }, 10 * 60 * 1000);
     }
   }
 
