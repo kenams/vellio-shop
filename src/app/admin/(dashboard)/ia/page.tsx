@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Brain, Sparkles, Save, Flame, TrendingUp, ShoppingBag, ChevronDown, ChevronUp, Bot, RefreshCw, CheckCircle2, Clock } from "lucide-react";
+import { Search, Sparkles, Save, Flame, TrendingUp, ShoppingBag, ChevronDown, ChevronUp, Package, RefreshCw, CheckCircle2, Clock } from "lucide-react";
 import toast from "react-hot-toast";
 import { formatPrice } from "@/lib/utils";
 
@@ -157,10 +157,10 @@ export default function AdminIAPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-black text-brand flex items-center gap-2">
-          <Brain className="w-6 h-6 text-primary-600" /> Studio éditorial — Produits & Prospection
+          <Search className="w-6 h-6 text-primary-600" /> Veille & Catalogue — Découverte Produits
         </h1>
         <p className="text-gray-500 text-sm mt-0.5">
-          Génération de fiches premium et prospection assistée par signaux publics.
+          Sélection éditoriale basée sur les tendances Google, Amazon et eBay.
         </p>
       </div>
 
@@ -169,13 +169,13 @@ export default function AdminIAPage() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="font-black text-brand flex items-center gap-2 mb-1">
-              <Bot className="w-5 h-5 text-primary-600" /> Prospection automatique
+              <Package className="w-5 h-5 text-primary-600" /> Veille marché & ajout catalogue
             </h2>
             <p className="text-sm text-gray-500 max-w-lg">
-              Le studio analyse des signaux publics, identifie 3 opportunités premium et prépare des fiches avec descriptions, photos et scores de désirabilité.
+              Analyse les tendances publiques (Google, Amazon, eBay), identifie les meilleures ventes et enrichit le catalogue avec fiches complètes, photos et scores de tendance.
             </p>
             <div className="flex items-center gap-4 mt-3 text-xs text-gray-400">
-              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> Automatique : 7h et 19h chaque jour</span>
+              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> Veille quotidienne : 7h et 17h</span>
               <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> Publié immédiatement</span>
             </div>
           </div>

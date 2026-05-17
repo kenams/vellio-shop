@@ -1,16 +1,16 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { BarChart3, Brain, LayoutDashboard, LogOut, Radar, ShoppingBag, ShoppingCart } from "lucide-react";
+import { BarChart3, LayoutDashboard, LogOut, Package, Pencil, ShoppingBag, ShoppingCart } from "lucide-react";
 
 const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
 
 const navItems = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/admin/prospection", icon: Radar, label: "Prospection" },
   { href: "/admin/produits", icon: ShoppingBag, label: "Produits" },
   { href: "/admin/commandes", icon: ShoppingCart, label: "Commandes" },
-  { href: "/admin/ia", icon: Brain, label: "Studio IA" },
+  { href: "/admin/prospection", icon: Package, label: "Catalogue" },
+  { href: "/admin/ia", icon: Pencil, label: "Éditorial" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

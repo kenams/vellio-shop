@@ -3,16 +3,20 @@ import { useEffect, useState } from "react";
 import { ShoppingBag, X } from "lucide-react";
 
 const ACTIVITIES = [
-  { name: "Sophie", city: "Lyon", product: "Support GPS Magnétique", ago: "il y a 2 min" },
-  { name: "Lucas", city: "Paris", product: "Balance Connectée Pro", ago: "il y a 5 min" },
-  { name: "Emma", city: "Bordeaux", product: "Purificateur d'Air Compact", ago: "il y a 8 min" },
-  { name: "Nathan", city: "Marseille", product: "Montre Fitness Ultra", ago: "il y a 3 min" },
-  { name: "Léa", city: "Toulouse", product: "Lampe LED Intelligente", ago: "il y a 1 min" },
-  { name: "Théo", city: "Nantes", product: "Aspirateur Robot Mini", ago: "il y a 6 min" },
-  { name: "Chloé", city: "Strasbourg", product: "Kit Soin Visage Pro", ago: "il y a 4 min" },
-  { name: "Hugo", city: "Lille", product: "Clé USB 3.1 256Go", ago: "il y a 7 min" },
-  { name: "Manon", city: "Rennes", product: "Carnet Connecté Smart", ago: "il y a 9 min" },
-  { name: "Jules", city: "Nice", product: "Coussin Lombaire Ergonomique", ago: "il y a 2 min" },
+  { name: "Sophie", city: "Lyon", product: "Support Téléphone Voiture", ago: "il y a 2 min" },
+  { name: "Lucas", city: "Paris", product: "Pistolet de Massage Pro", ago: "il y a 5 min" },
+  { name: "Emma", city: "Bordeaux", product: "Écouteurs Bluetooth ANC", ago: "il y a 8 min" },
+  { name: "Nathan", city: "Marseille", product: "Montre Sport GPS", ago: "il y a 3 min" },
+  { name: "Léa", city: "Toulouse", product: "Lampe Bureau LED", ago: "il y a 1 min" },
+  { name: "Théo", city: "Nantes", product: "Friteuse à Air Chaud", ago: "il y a 6 min" },
+  { name: "Chloé", city: "Strasbourg", product: "Masque LED Visage", ago: "il y a 4 min" },
+  { name: "Hugo", city: "Lille", product: "Hub USB-C 9-en-1", ago: "il y a 7 min" },
+  { name: "Manon", city: "Rennes", product: "Diffuseur Huiles Essentielles", ago: "il y a 9 min" },
+  { name: "Jules", city: "Nice", product: "Repose-Poignets Ergonomique", ago: "il y a 2 min" },
+  { name: "Alice", city: "Bordeaux", product: "Brosse Lissante Vapeur", ago: "il y a 11 min" },
+  { name: "Marc", city: "Montpellier", product: "Tapis de Yoga Premium", ago: "il y a 4 min" },
+  { name: "Julie", city: "Grenoble", product: "Chargeur Sans Fil 3-en-1", ago: "il y a 13 min" },
+  { name: "Romain", city: "Nantes", product: "Caméra Surveillance 2K", ago: "il y a 8 min" },
 ];
 
 export default function LiveActivity() {

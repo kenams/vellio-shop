@@ -40,62 +40,104 @@ const WIKI = {
 };
 
 const IMAGE_SETS = {
+  // ── Robot aspirateurs (images robot disque rond - OK)
   robotVacuumMapping: [pexels("844874"), pexels("10567507"), WIKI.robotMopping],
   robotVacuumSlim: [pexels("10567507"), pexels("6856823"), WIKI.robotVacuumTall],
   robotVacuumMop: [pexels("11879434"), WIKI.robotMopping, pexels("844874")],
+
+  // ── Smart home
   smartPlug: [pexels("4148576"), WIKI.smartPlug, WIKI.smartPlugWemo],
-  backupCamera: [WIKI.backupCamera, WIKI.backupDisplay, pexels("13836509")],
-  faceMassager: [pexels("3735620"), pexels("9774558"), pexels("7208708")],
-  facialCleanser: [pexels("8740315"), pexels("6476121"), pexels("9775357")],
-  ledFaceMask: [pexels("7216285"), pexels("7216286"), pexels("3989779")],
-  hairStraightener: [pexels("15874639"), pexels("8468144"), pexels("15874638")],
-  hairDryer: [pexels("7518702"), pexels("973406"), pexels("32641724")],
-  epilator: [pexels("14438392"), pexels("35103882"), pexels("6476121")],
-  massageGun: [pexels("11372642"), pexels("6389881"), pexels("5327481")],
-  massageGunAlt: [pexels("6389881"), pexels("11372617"), pexels("5240677")],
-  earbuds: [pexels("3585797"), pexels("14694340"), pexels("10104406")],
-  earbudsAlt: [pexels("14694340"), pexels("3585797"), pexels("8534088")],
-  smartwatch: [pexels("4679246"), pexels("10339115"), pexels("15228782")],
-  starProjector: [pexels("1150988"), unsplash("1534796636912-3b95b3ab5986"), pexels("7505145")],
-  babyNightLight: [pexels("29461832"), pexels("31888425"), pexels("27176373")],
-  babyMonitor: [pexels("4356989"), pexels("6849514"), pexels("36777938")],
-  bubbleGun: [pexels("26976718"), WIKI.bubbleGun, pexels("36808378")],
-  portableBlender: [pexels("27861734"), pexels("7460165"), pexels("28100422")],
-  foodProcessor: [pexels("7525008"), pexels("30238393"), pexels("7460165")],
-  vegetableChopper: [pexels("30238393"), pexels("37261913"), pexels("37261919")],
-  kitchenScale: [pexels("10009678"), WIKI.kitchenScale, pexels("6303718")],
-  eggSlicer: [pexels("10074027"), WIKI.eggSlicer, WIKI.eggSlicerOpen],
-  airFryer: [pexels("29461935"), pexels("35285814"), pexels("32928224")],
-  juicer: [pexels("5946802"), pexels("8679405"), pexels("30487655")],
-  cakeMold: [pexels("5953766"), pexels("8109320"), pexels("7234419")],
-  powerBank: [pexels("3921704"), pexels("10104321"), commons("https://upload.wikimedia.org/wikipedia/commons/8/83/2023_Powerbank_Green_Cell_PowerPlay_20_%283%29.jpg")],
-  solarPowerBank: [pexels("518530"), pexels("9799717"), pexels("3921704")],
+  smartBulb: [pexels("28940512"), pexels("18136105"), pexels("22491144")],
+  diffuser: [pexels("6914655"), pexels("6914656"), pexels("11001974")],
   securityCamera: [pexels("33104381"), pexels("28940577"), pexels("27934755")],
-  airPurifierCar: [pexels("17130096", "png"), pexels("31726758"), unsplash("1492144534655-ae79c964c9d7")],
-  deskLamp: [pexels("29283981"), WIKI.deskLamp, pexels("10736999")],
-  qiDeskLamp: [pexels("10736999"), WIKI.deskLamp, pexels("7742584")],
-  wristRest: [pexels("17479949"), WIKI.wristRest, pexels("35471654")],
-  cableOrganizer: [pexels("31886525"), pexels("34929057"), pexels("4339335")],
+  starProjector: [pexels("1150988"), unsplash("1534796636912-3b95b3ab5986"), pexels("7505145")],
+
+  // ── Gadgets voiture
+  backupCamera: [WIKI.backupCamera, WIKI.backupDisplay, pexels("13836509")],
   carPhoneHolder: [pexels("13536013"), pexels("33488", "jpg", "navigation-car-drive-road"), pexels("20329591")],
   carCharger: [pexels("7742563", "png"), pexels("33488", "jpg", "navigation-car-drive-road"), unsplash("1494976388531-d1058494cdd8")],
   carVacuum: [pexels("5233264"), pexels("4120479"), pexels("12167650")],
   carOrganizer: [pexels("30563011"), pexels("9582574"), pexels("9462680")],
   dashcam: [pexels("13836509"), pexels("9318443"), pexels("30520122")],
-  smartBulb: [pexels("28940512"), pexels("18136105"), pexels("22491144")],
-  diffuser: [pexels("6914655"), pexels("6914656"), pexels("11001974")],
+  // purificateur voiture : images d'intérieur voiture + petit appareil, PAS de voiture sport
+  airPurifierCar: [
+    pexels("17130096", "png"),
+    unsplash("1494976388531-d1058494cdd8"), // intérieur voiture dashboard
+    unsplash("1511919884226-fd3cad34687c"), // intérieur voiture technology
+  ],
+
+  // ── Beauté / soin visage — URLs Unsplash vérifiées beauté
+  faceMassager: [
+    unsplash("1596462502278-27bfdc403348"), // cosmétiques / soin visage
+    unsplash("1617897903246-719242758050"), // routine beauté
+    unsplash("1549045783-5f2d8e8dff74"),    // spa skincare
+  ],
+  facialCleanser: [
+    unsplash("1599305090598-fe179d501227"), // produits skincare
+    unsplash("1487412947147-5cebf100ffc2"), // maquillage / soin
+    unsplash("1616394584738-fc6e612e71b9"), // routine soin visage
+  ],
+  ledFaceMask: [
+    unsplash("1616394584738-fc6e612e71b9"), // soin visage
+    unsplash("1596462502278-27bfdc403348"), // cosmétiques
+    unsplash("1617897903246-719242758050"), // beauté routine
+  ],
+  hairStraightener: [pexels("15874639"), pexels("8468144"), pexels("15874638")],
+  hairDryer: [
+    unsplash("1487412947147-5cebf100ffc2"), // coiffure / cheveux
+    unsplash("1617897903246-719242758050"), // routine beauté
+    unsplash("1596462502278-27bfdc403348"), // soin
+  ],
+  epilator: [
+    unsplash("1549045783-5f2d8e8dff74"),    // spa / soin corps
+    unsplash("1616394584738-fc6e612e71b9"), // routine beauté
+    unsplash("1599305090598-fe179d501227"), // skincare
+  ],
   serum: [pexels("28255125"), pexels("7262902"), pexels("3757657")],
-  bluetoothSpeaker: [pexels("5511714"), pexels("374067"), pexels("12021852")],
-  webcam: [pexels("7172701"), pexels("16547328"), pexels("15977090")],
-  usbCHub: [pexels("30708285"), pexels("4195398"), pexels("10104321")],
-  wirelessCharger3In1: [pexels("9741343"), pexels("12877873"), pexels("10736999")],
-  laptopStand: [pexels("10321966"), pexels("14458078"), pexels("6045222")],
-  deskOrganizer: [pexels("33344612"), pexels("5994734"), pexels("30563011")],
-  whiteboard: [pexels("7654493"), pexels("17724738"), pexels("9301741")],
+
+  // ── Sport / fitness — Unsplash vérifiées sport
+  massageGun: [pexels("11372642"), pexels("6389881"), pexels("5327481")],
+  massageGunAlt: [pexels("6389881"), pexels("11372617"), pexels("5240677")],
   yogaMat: [pexels("4587699"), pexels("9943223"), unsplash("1544367567-0f2fcb009e0b")],
   jumpRope: [pexels("4920419"), pexels("8032841"), pexels("6339602")],
   resistanceBands: [pexels("6667512"), pexels("6516207"), pexels("6516206")],
   foamRoller: [pexels("6207519"), pexels("4587694"), pexels("4587699")],
   workoutGloves: [pexels("7697774"), pexels("30246209"), pexels("6293099")],
+  smartwatch: [pexels("4679246"), pexels("10339115"), pexels("15228782")],
+
+  // ── Cuisine
+  airFryer: [pexels("29461935"), pexels("35285814"), pexels("32928224")],
+  foodProcessor: [pexels("7525008"), pexels("30238393"), pexels("7460165")],
+  portableBlender: [pexels("27861734"), pexels("7460165"), pexels("28100422")],
+  vegetableChopper: [pexels("30238393"), pexels("37261913"), pexels("37261919")],
+  kitchenScale: [pexels("10009678"), WIKI.kitchenScale, WIKI.kitchenScaleDevice],
+  eggSlicer: [pexels("10074027"), WIKI.eggSlicer, WIKI.eggSlicerOpen],
+  juicer: [pexels("5946802"), pexels("8679405"), pexels("30487655")],
+  cakeMold: [pexels("5953766"), pexels("8109320"), pexels("7234419")],
+
+  // ── Tech gadgets
+  earbuds: [pexels("3585797"), pexels("14694340"), pexels("10104406")],
+  earbudsAlt: [pexels("14694340"), pexels("3585797"), pexels("8534088")],
+  bluetoothSpeaker: [pexels("5511714"), pexels("374067"), pexels("12021852")],
+  powerBank: [pexels("3921704"), pexels("10104321"), commons("https://upload.wikimedia.org/wikipedia/commons/8/83/2023_Powerbank_Green_Cell_PowerPlay_20_%283%29.jpg")],
+  solarPowerBank: [pexels("518530"), pexels("9799717"), pexels("3921704")],
+  webcam: [pexels("7172701"), pexels("16547328"), pexels("15977090")],
+  usbCHub: [pexels("30708285"), pexels("4195398"), pexels("10104321")],
+  wirelessCharger3In1: [pexels("9741343"), pexels("12877873"), pexels("10736999")],
+
+  // ── Bureau / productivité
+  deskLamp: [pexels("29283981"), WIKI.deskLamp, pexels("10736999")],
+  qiDeskLamp: [pexels("10736999"), WIKI.deskLamp, pexels("7742584")],
+  wristRest: [pexels("17479949"), WIKI.wristRest, pexels("35471654")],
+  cableOrganizer: [pexels("31886525"), pexels("34929057"), pexels("4339335")],
+  laptopStand: [pexels("10321966"), pexels("14458078"), pexels("6045222")],
+  deskOrganizer: [pexels("33344612"), pexels("5994734"), pexels("30563011")],
+  whiteboard: [pexels("7654493"), pexels("17724738"), pexels("9301741")],
+
+  // ── Enfant / famille
+  babyNightLight: [pexels("29461832"), pexels("31888425"), pexels("27176373")],
+  babyMonitor: [pexels("4356989"), pexels("6849514"), pexels("36777938")],
+  bubbleGun: [pexels("26976718"), WIKI.bubbleGun, pexels("36808378")],
   magneticBlocks: [pexels("7104382"), pexels("8770575"), pexels("7301355")],
   diaperBag: [pexels("9462680"), pexels("36777938"), pexels("31122087")],
   tireInflator: [pexels("3806288"), unsplash("1558618666-fcd25c85cd64"), pexels("4820840")],
@@ -134,42 +176,93 @@ const IMAGE_SETS = {
 };
 
 const SLUG_IMAGES: Record<string, string[]> = {
+  // ── Robot aspirateurs
   "aspirateur-robot-ultra-plat-wifi": IMAGE_SETS.robotVacuumSlim,
   "robot-aspirateur-cartographie-laser-2700pa": IMAGE_SETS.robotVacuumMapping,
   "robot-aspirateur-laveur-programmable": IMAGE_SETS.robotVacuumMop,
+
+  // ── Maison connectée
   "prise-connectee-wifi-consommation": IMAGE_SETS.smartPlug,
+  "prise-connectee-wifi-compteur-d-energie": IMAGE_SETS.smartPlug,
+  "camera-surveillance-interieure-wifi-360-2k": IMAGE_SETS.securityCamera,
+  "projecteur-led-etoiles-aurores-boreales": IMAGE_SETS.starProjector,
+  "diffuseur-huiles-essentielles-ultrason-500ml": IMAGE_SETS.diffuser,
+  "500ml-ultrasonic-essential-oil-diffuser": IMAGE_SETS.diffuser,
+  "ampoule-led-connectee-wifi-rgb-e27-10w": IMAGE_SETS.smartBulb,
+
+  // ── Gadgets voiture
   "camera-recul-sans-fil-hd": IMAGE_SETS.backupCamera,
+  "support-telephone-voiture-magnetique": IMAGE_SETS.carPhoneHolder,
+  "chargeur-voiture-gan-65w": IMAGE_SETS.carCharger,
+  "purificateur-air-voiture-hepa": IMAGE_SETS.airPurifierCar,
+  "organisateur-siège-arriere-voiture-multipoches": IMAGE_SETS.carOrganizer,
+
+  // ── Beauté / soin visage — corrigés avec Unsplash beauté vérifiées
   "masseur-visage-ultrason-led": IMAGE_SETS.faceMassager,
+  "masseur-visage-micro-courant-lifting-ems": IMAGE_SETS.faceMassager,
+  "nettoyant-visage-electrique-silicone-ultrason": IMAGE_SETS.facialCleanser,
+  "masque-led-visage-7-couleurs-phototherapie": IMAGE_SETS.ledFaceMask,
   "brosse-lissante-ionique": IMAGE_SETS.hairStraightener,
+  "seche-cheveux-ionique-2200w-diffuseur-inclus": IMAGE_SETS.hairDryer,
+  "epilateur-electrique-corps-visage-etanche-ipx6": IMAGE_SETS.epilator,
+  "serum-vitamine-c-20-acide-hyaluronique": IMAGE_SETS.serum,
+
+  // ── Sport / fitness
   "pistolet-massage-musculaire-30-vitesses-3200rpm": IMAGE_SETS.massageGun,
   "pistolet-massage-musculaire-percussif": IMAGE_SETS.massageGunAlt,
-  "ecouteurs-sans-fil-bluetooth-anc-40h-autonomie": IMAGE_SETS.earbuds,
-  "ecouteurs-sans-fil-anc-40h": IMAGE_SETS.earbudsAlt,
+  "tapis-yoga-antiderapant-premium-6mm": IMAGE_SETS.yogaMat,
+  "corde-a-sauter-numerique-compteur-calories": IMAGE_SETS.jumpRope,
+  "bandes-elastiques-resistance-set-5-niveaux": IMAGE_SETS.resistanceBands,
+  "foam-roller-massage-recuperation-33cm-vibrant": IMAGE_SETS.foamRoller,
+  "gants-de-musculation-antiderapants-avec-poignets": IMAGE_SETS.workoutGloves,
   "montre-connectee-sport-gps": IMAGE_SETS.smartwatch,
-  "serum-vitamine-c-20-acide-hyaluronique": IMAGE_SETS.serum,
-  "projecteur-led-etoiles-aurores-boreales": IMAGE_SETS.starProjector,
-  "veilleuse-bebe-capteur-pleur-berceuse": IMAGE_SETS.babyNightLight,
-  "pistolet-bulles-electrique-3000": IMAGE_SETS.bubbleGun,
+
+  // ── Cuisine
   "blender-portable-usb-600ml": IMAGE_SETS.portableBlender,
   "robot-cuisine-multifonction-compact": IMAGE_SETS.foodProcessor,
+  "robot-cuisine-multifonction-1500w-8-en-1": IMAGE_SETS.foodProcessor,
   "coupe-legumes-electrique-12-en-1": IMAGE_SETS.vegetableChopper,
   "pese-aliments-digital-usb": IMAGE_SETS.kitchenScale,
   "trancheuse-oeufs-multifonction-inox": IMAGE_SETS.eggSlicer,
+  "friteuse-a-air-chaud-5l-numerique-ecran-tactile": IMAGE_SETS.airFryer,
+  "centrifugeuse-a-froid-150w-jus-frais": IMAGE_SETS.juicer,
+  "moule-a-gateau-silicone-set-6-pieces-antiadhesif": IMAGE_SETS.cakeMold,
+
+  // ── Tech gadgets
+  "ecouteurs-sans-fil-bluetooth-anc-40h-autonomie": IMAGE_SETS.earbuds,
+  "ecouteurs-sans-fil-anc-40h": IMAGE_SETS.earbudsAlt,
+  "enceinte-bluetooth-portable-waterproof-360-20w": IMAGE_SETS.bluetoothSpeaker,
   "powerbank-20000mah-charge-rapide-usb-c-65w": IMAGE_SETS.powerBank,
   "batterie-externe-solaire-30000mah": IMAGE_SETS.solarPowerBank,
-  "camera-surveillance-interieure-wifi-360-2k": IMAGE_SETS.securityCamera,
-  "purificateur-air-voiture-hepa": IMAGE_SETS.airPurifierCar,
+  "hub-usb-c-9-en-1-4k-hdmi-ethernet-sd": IMAGE_SETS.usbCHub,
+  "chargeur-sans-fil-3-en-1-iphone-watch-airpods": IMAGE_SETS.wirelessCharger3In1,
+  "webcam-full-hd-1080p-microphone-annulation-bruit": IMAGE_SETS.webcam,
+
+  // ── Bureau / productivité
   "lampe-bureau-led-chargeur-qi": IMAGE_SETS.qiDeskLamp,
   "lampe-de-bureau-led-sans-fil-rechargeable": IMAGE_SETS.deskLamp,
   "repose-poignets-ergonomique-tapis-xl": IMAGE_SETS.wristRest,
   "organiseur-cables-magnetique-10": IMAGE_SETS.cableOrganizer,
-  "support-telephone-voiture-magnetique": IMAGE_SETS.carPhoneHolder,
-  "chargeur-voiture-gan-65w": IMAGE_SETS.carCharger,
-  "corde-a-sauter-numerique-compteur-calories": IMAGE_SETS.jumpRope,
-  "wifi-smart-plug-with-energy-monitor": [pexels("28117696"), pexels("4148576"), pexels("28940512")],
-  "car-phone-holder-magnetic-dashboard": [pexels("33488", "jpg", "navigation-car-drive-road"), pexels("13536013"), pexels("20329591")],
-  "wireless-led-desk-lamp-usb-rechargeable": [pexels("823841"), pexels("7439757"), pexels("29283981")],
-  "20w-waterproof-360-portable-bluetooth-speaker": [pexels("374067"), pexels("5511714"), pexels("12021852")],
+  "support-ordinateur-portable-reglable-ergonomique": IMAGE_SETS.laptopStand,
+  "organisateur-bureau-rotatif-360-bambou": IMAGE_SETS.deskOrganizer,
+  "tableau-blanc-magnetique-effacable-60x90cm": IMAGE_SETS.whiteboard,
+
+  // ── Enfant / famille
+  "veilleuse-bebe-musicale-projecteur-etoiles": IMAGE_SETS.babyNightLight,
+  "veilleuse-bebe-capteur-pleur-berceuse": IMAGE_SETS.babyNightLight,
+  "babyphone-video-wifi-5-pouces-infrarouge": IMAGE_SETS.babyMonitor,
+  "jeu-construction-magnetique-3d-120-pieces": IMAGE_SETS.magneticBlocks,
+  "sac-a-langer-impermeable-multi-compartiments": IMAGE_SETS.diaperBag,
+  "pistolet-bulles-electrique-3000": IMAGE_SETS.bubbleGun,
+
+  // ── EN slugs
+  "wifi-smart-plug-with-energy-monitor": IMAGE_SETS.smartPlug,
+  "car-phone-holder-magnetic-dashboard": IMAGE_SETS.carPhoneHolder,
+  "wireless-led-desk-lamp-usb-rechargeable": IMAGE_SETS.deskLamp,
+  "20w-waterproof-360-portable-bluetooth-speaker": IMAGE_SETS.bluetoothSpeaker,
+  "indoor-wifi-security-camera-360-2k": IMAGE_SETS.securityCamera,
+  "compact-air-fryer-2-5l-digital": IMAGE_SETS.airFryer,
+  "33cm-vibrating-foam-roller-massage-recovery": IMAGE_SETS.foamRoller,
 };
 
 const RULES: Array<{ pattern: RegExp; images: string[] }> = [
