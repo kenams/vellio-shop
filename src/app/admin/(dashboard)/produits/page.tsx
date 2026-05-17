@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { formatPrice, getTrendLabel } from "@/lib/utils";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
-import { Plus, ExternalLink, Flame } from "lucide-react";
+import { Plus, ExternalLink, Flame, TrendingUp, ShoppingCart } from "lucide-react";
 
 async function togglePublish(id: string, published: boolean) {
   "use server";
@@ -14,8 +14,13 @@ async function togglePublish(id: string, published: boolean) {
 export default async function AdminProduitsPage() {
   const products = await prisma.product.findMany({
     orderBy: { createdAt: "desc" },
-    include: { category: true, images: { take: 1 } },
+    include: { category: true, images: { take: 1 }, trendData: { select: { margin: true } } },
   });
+
+  const totalRevenuePotential = products.filter(p => p.published).reduce((acc, p) => acc + p.price * p.stock, 0);
+  const avgMargin = products.length > 0
+    ? Math.round(products.reduce((acc, p) => acc + (p.estimatedMargin || Math.round(((p.price - p.cost) / p.price) * 100)), 0) / products.length)
+    : 0;
 
   return (
     <div className="space-y-6">
@@ -29,13 +34,29 @@ export default async function AdminProduitsPage() {
         </Link>
       </div>
 
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+        <div className="card p-4">
+          <p className="text-xs text-gray-500 uppercase font-bold">Produits publiés</p>
+          <p className="text-2xl font-black text-brand">{products.filter(p => p.published).length}/{products.length}</p>
+        </div>
+        <div className="card p-4">
+          <p className="text-xs text-gray-500 uppercase font-bold">Marge moyenne</p>
+          <p className="text-2xl font-black text-green-600">{avgMargin}%</p>
+        </div>
+        <div className="card p-4 hidden md:block">
+          <p className="text-xs text-gray-500 uppercase font-bold">Stock potentiel</p>
+          <p className="text-2xl font-black text-primary-600">{formatPrice(totalRevenuePotential)}</p>
+        </div>
+      </div>
+
       <div className="card overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50">
               <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Produit</th>
               <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide hidden md:table-cell">Catégorie</th>
-              <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Prix</th>
+              <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Prix / Coût</th>
+              <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide hidden sm:table-cell">Marge</th>
               <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide hidden sm:table-cell">Stock</th>
               <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide hidden lg:table-cell">Score</th>
               <th className="text-center px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Statut</th>
@@ -75,10 +96,15 @@ export default async function AdminProduitsPage() {
                 <td className="px-4 py-3 text-right">
                   <div>
                     <span className="font-bold text-brand">{formatPrice(product.price)}</span>
-                    {product.comparePrice && (
-                      <span className="block text-xs text-gray-400 line-through">{formatPrice(product.comparePrice)}</span>
-                    )}
+                    <span className="block text-xs text-gray-400">{formatPrice(product.cost)} coût</span>
                   </div>
+                </td>
+                <td className="px-4 py-3 text-right hidden sm:table-cell">
+                  {(() => {
+                    const margin = product.estimatedMargin ?? Math.round(((product.price - product.cost) / product.price) * 100);
+                    const color = margin >= 70 ? "text-green-600" : margin >= 50 ? "text-yellow-600" : "text-red-500";
+                    return <span className={`font-bold text-sm ${color}`}>{margin}%</span>;
+                  })()}
                 </td>
                 <td className="px-4 py-3 text-right hidden sm:table-cell">
                   <span className={`font-medium ${product.stock <= 5 ? "text-red-500" : "text-gray-700"}`}>
@@ -107,13 +133,27 @@ export default async function AdminProduitsPage() {
                   </form>
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <Link
-                    href={`/produits/${product.slug}`}
-                    target="_blank"
-                    className="p-1.5 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition-colors inline-flex"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </Link>
+                  <div className="flex items-center justify-center gap-1">
+                    <Link
+                      href={`/produits/${product.slug}`}
+                      target="_blank"
+                      className="p-1.5 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition-colors inline-flex"
+                      title="Voir le produit"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </Link>
+                    {product.supplierUrl && (
+                      <a
+                        href={product.supplierUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 text-gray-400 hover:text-orange-500 rounded-lg hover:bg-orange-50 transition-colors inline-flex"
+                        title="Voir fournisseur AliExpress"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}

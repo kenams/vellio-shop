@@ -155,6 +155,32 @@ async function fetchGoogleTrends(geo: string): Promise<string[]> {
   }
 }
 
+// ─── eBay Trending Items (public feed, no API key) ────────────────────────────
+async function fetchEbayTrending(geo: string): Promise<string[]> {
+  const domain = geo === "FR" ? "ebay.fr" : geo === "GB" ? "ebay.co.uk" : "ebay.com";
+  const titles: string[] = [];
+  try {
+    const url = `https://www.${domain}/deals`;
+    const res = await fetch(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": geo === "FR" ? "fr-FR,fr;q=0.9" : "en-US,en;q=0.9",
+      },
+      signal: AbortSignal.timeout(2500),
+    });
+    if (!res.ok) return [];
+    const html = await res.text();
+    const matches = html.matchAll(/aria-label="([^"]{10,80})"/g);
+    for (const m of matches) {
+      const t = m[1].trim();
+      if (t && !titles.includes(t)) titles.push(t);
+      if (titles.length >= 20) break;
+    }
+  } catch { /* silent */ }
+  console.log(`[discovery] eBay ${geo}: ${titles.length} items`);
+  return titles;
+}
+
 // ─── Amazon Movers & Shakers RSS (no AI, no account needed) ──────────────────
 const AMAZON_CATEGORY_MAP: Record<string, Record<string, string>> = {
   FR: {
@@ -302,13 +328,14 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
 
   console.log(`[discovery] === START market=${market} geo=${geo} locale=${locale} ===`);
 
-  // 1. Fetch trending data from Google Trends + Amazon (no AI)
-  const [googleTrends, amazonTrends] = await Promise.all([
+  // 1. Fetch trending data from Google Trends + Amazon + eBay (no AI)
+  const [googleTrends, amazonTrends, ebayTrends] = await Promise.all([
     fetchGoogleTrends(geo),
     fetchAmazonTrending(geo),
+    fetchEbayTrending(geo),
   ]);
-  const allTrends = [...googleTrends, ...amazonTrends];
-  console.log(`[discovery] Trends: ${googleTrends.length} Google + ${amazonTrends.length} Amazon = ${allTrends.length} total`);
+  const allTrends = [...googleTrends, ...amazonTrends, ...ebayTrends];
+  console.log(`[discovery] Trends: ${googleTrends.length} Google + ${amazonTrends.length} Amazon + ${ebayTrends.length} eBay = ${allTrends.length} total`);
 
   // 2. Match trends to categories
   const categoryOrder = matchTrendToCategories(allTrends);
@@ -389,6 +416,9 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
           salesArguments: premiumData.salesArguments,
           marketingAngle: premiumData.marketingAngle,
           tiktokHashtags: catalogProduct.tags.map(t => `#${t.replace(/\s+/g, "")}`),
+          supplierUrl: catalogProduct.supplierUrl || null,
+          supplierName: catalogProduct.supplierUrl ? "AliExpress" : null,
+          estimatedMargin: Math.round(((catalogProduct.price - catalogProduct.cost) / catalogProduct.price) * 100),
           images: {
             create: images.map((url, i) => ({ url, position: i })),
           },
