@@ -6,13 +6,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 
+const FREE_SHIPPING_THRESHOLD = 50;
+
 export default function CartDrawer() {
   const { items, isOpen, setOpen, removeItem, updateQuantity, total, count } = useCartStore();
 
   if (!isOpen) return null;
 
   const subtotal = total();
-  const shipping = subtotal >= 80 ? 0 : 4.99;
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 4.99;
+  const progressPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
+  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
   return (
     <div className="fixed inset-0 z-[60] flex">
@@ -22,7 +26,9 @@ export default function CartDrawer() {
         <div className="flex items-center justify-between border-b border-black/10 px-5 py-5">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand/42">Maison Vellio</p>
-            <h2 className="mt-1 font-serif text-3xl font-semibold text-brand">Votre sélection</h2>
+            <h2 className="mt-1 font-serif text-3xl font-semibold text-brand">
+              Votre sélection{count() > 0 && <span className="ml-2 text-lg text-brand-accent">({count()})</span>}
+            </h2>
           </div>
           <button onClick={() => setOpen(false)} className="rounded-full border border-black/10 bg-white p-2 text-brand/60 transition-colors hover:text-brand" aria-label="Fermer">
             <X className="h-4 w-4" />
@@ -73,17 +79,26 @@ export default function CartDrawer() {
 
         {items.length > 0 && (
           <div className="border-t border-black/10 bg-white/60 p-5">
+            {/* Shipping progress bar */}
             {shipping > 0 ? (
-              <p className="rounded-full bg-brand-ivory px-4 py-2 text-center text-xs font-medium text-brand/60">
-                Encore <strong className="text-brand">{formatPrice(80 - subtotal)}</strong> pour la livraison offerte.
-              </p>
+              <div className="mb-4">
+                <p className="mb-2 text-center text-xs font-medium text-brand/60">
+                  Encore <strong className="text-brand">{formatPrice(remaining)}</strong> pour la livraison offerte
+                </p>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/8">
+                  <div
+                    className="h-full rounded-full bg-brand-accent transition-all duration-500"
+                    style={{ width: `${progressPct}%` }}
+                  />
+                </div>
+              </div>
             ) : (
-              <p className="rounded-full bg-brand-accent/10 px-4 py-2 text-center text-xs font-medium text-brand">
-                Livraison offerte débloquée.
-              </p>
+              <div className="mb-4 flex items-center justify-center gap-2 rounded-full bg-green-50 py-2 text-xs font-semibold text-green-700">
+                <span>✓</span> Livraison offerte débloquée
+              </div>
             )}
 
-            <div className="mt-4 flex items-end justify-between">
+            <div className="flex items-end justify-between">
               <span className="text-sm font-medium text-brand/55">Total TTC</span>
               <div className="text-right">
                 <p className="text-2xl font-semibold text-brand">{formatPrice(subtotal + shipping)}</p>

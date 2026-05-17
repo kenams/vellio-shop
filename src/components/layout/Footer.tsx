@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LockKeyhole, Mail, PackageCheck, RotateCcw, ShieldCheck } from "lucide-react";
+import { Instagram, LockKeyhole, Mail, PackageCheck, RotateCcw, ShieldCheck, Twitter } from "lucide-react";
 import Container from "@/components/ui/Container";
 
 const reassurance = [
@@ -29,9 +29,9 @@ export default function Footer() {
   return (
     <footer className="bg-brand text-white">
       <div className="border-y border-white/10 bg-white/[0.03]">
-        <Container className="grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+        <Container className="grid gap-0 divide-y divide-white/8 py-0 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
           {reassurance.map(({ icon: Icon, title, sub }) => (
-            <div key={title} className="flex items-start gap-3">
+            <div key={title} className="flex items-start gap-3 px-6 py-7">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
                 <Icon className="h-4 w-4 text-brand-accent" />
               </div>
@@ -47,7 +47,7 @@ export default function Footer() {
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.7fr_0.7fr_1fr]">
         <div>
           <Link href="/" className="inline-flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-accent/35 bg-white/5 font-serif text-brand-accent">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-accent/35 bg-white/5 font-serif text-brand-accent text-lg">
               V
             </span>
             <span className="font-serif text-3xl font-semibold">Vellio</span>
@@ -55,10 +55,18 @@ export default function Footer() {
           <p className="mt-5 max-w-sm text-sm leading-7 text-white/52">
             Maison de sélection contemporaine dédiée aux objets raffinés, à la tech premium et aux cadeaux haut de gamme.
           </p>
-          <a href="mailto:contact@vellio-shop.vercel.app" className="mt-5 inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white">
+          <a href="mailto:contact@vellio.fr" className="mt-5 inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white">
             <Mail className="h-4 w-4" />
-            contact@vellio-shop.vercel.app
+            contact@vellio.fr
           </a>
+          <div className="mt-5 flex gap-3">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/45 transition-colors hover:border-brand-accent/50 hover:text-brand-accent" aria-label="Instagram">
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/45 transition-colors hover:border-brand-accent/50 hover:text-brand-accent" aria-label="Twitter / X">
+              <Twitter className="h-4 w-4" />
+            </a>
+          </div>
         </div>
 
         <div>
