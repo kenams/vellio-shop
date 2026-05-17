@@ -12,3 +12,5 @@ prisma/migrations/
 
 .vercel
 .env.vercel
+
+.env*.local

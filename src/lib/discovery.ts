@@ -88,7 +88,7 @@ async function fetchPexelsImages(keyword: string): Promise<string[]> {
   try {
     const res = await fetch(
       `https://api.pexels.com/v1/search?query=${encodeURIComponent(keyword)}&per_page=4&orientation=square`,
-      { headers: { Authorization: key }, signal: AbortSignal.timeout(7000) }
+      { headers: { Authorization: key }, signal: AbortSignal.timeout(4000) }
     );
     if (!res.ok) return [];
     const data = await res.json();
@@ -128,7 +128,7 @@ async function fetchGoogleTrends(geo: string): Promise<string[]> {
       `https://trends.google.fr/trends/trendingsearches/daily/rss?geo=${geo}`,
       {
         headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" },
-        signal: AbortSignal.timeout(8000),
+        signal: AbortSignal.timeout(4000),
         cache: "no-store",
       }
     );
@@ -199,8 +199,8 @@ async function fetchAmazonTrending(geo: string): Promise<string[]> {
   const categories = Object.values(catMap);
   const titles: string[] = [];
 
-  // Pick 3 random categories to fetch (avoid too many requests)
-  const shuffled = categories.sort(() => Math.random() - 0.5).slice(0, 3);
+  // Pick 1 random category to fetch (fast fail)
+  const shuffled = categories.sort(() => Math.random() - 0.5).slice(0, 1);
 
   for (const cat of shuffled) {
     try {
@@ -211,7 +211,7 @@ async function fetchAmazonTrending(geo: string): Promise<string[]> {
           "Accept-Language": geo === "FR" ? "fr-FR,fr;q=0.9" : "en-US,en;q=0.9",
           "Accept": "text/html,application/xhtml+xml",
         },
-        signal: AbortSignal.timeout(6000),
+        signal: AbortSignal.timeout(2500),
       });
       if (!res.ok) continue;
       const html = await res.text();
@@ -319,7 +319,7 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
   console.log(`[discovery] ${alreadySlugs.size} products already in DB`);
 
   // 4. Select products from catalog based on trend-matched categories
-  const toAdd = selectProductsFromCatalog(categoryOrder, locale, alreadySlugs, 3);
+  const toAdd = selectProductsFromCatalog(categoryOrder, locale, alreadySlugs, 1);
   console.log(`[discovery] ${toAdd.length} products selected from catalog: ${toAdd.map(p => locale === "fr" ? p.name_fr : p.name_en).join(", ")}`);
 
   if (toAdd.length === 0) {
