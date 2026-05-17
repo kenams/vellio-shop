@@ -4,6 +4,8 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import CookieConsent from "@/components/ui/CookieConsent";
 import StoreHydrator from "@/components/ui/StoreHydrator";
+import RecentPurchaseToast from "@/components/ui/RecentPurchaseToast";
+import ExitIntent from "@/components/ui/ExitIntent";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const cormorant = Cormorant_Garamond({
@@ -74,6 +76,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <StoreHydrator />
+        <RecentPurchaseToast />
+        <ExitIntent />
         {children}
         <Toaster
           position="bottom-right"

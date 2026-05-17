@@ -9,7 +9,7 @@ import { formatPrice } from "@/lib/utils";
 const FREE_SHIPPING_THRESHOLD = 50;
 
 export default function CartDrawer() {
-  const { items, isOpen, setOpen, removeItem, updateQuantity, total, count } = useCartStore();
+  const { items, isOpen, setOpen, removeItem, updateQuantity, total, count, addItem } = useCartStore();
 
   if (!isOpen) return null;
 
@@ -76,6 +76,32 @@ export default function CartDrawer() {
             ))
           )}
         </div>
+
+        {/* Upsell */}
+        {items.length > 0 && items.length < 4 && (
+          <div className="border-t border-black/10 bg-brand-ivory/60 px-4 py-4">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand/45">Souvent ajouté avec</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { name: "Bougie Rituel Ambre", price: 3400, img: "https://images.unsplash.com/photo-1608181831718-c9fbb1a01cca?w=200&h=200&fit=crop" },
+                { name: "Carnet Cuir Premium", price: 2800, img: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=200&h=200&fit=crop" },
+              ].map((u) => (
+                <div key={u.name} className="flex flex-col items-center gap-2 rounded-2xl border border-black/10 bg-white p-3 text-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={u.img} alt={u.name} className="h-14 w-14 rounded-xl object-cover" />
+                  <p className="line-clamp-2 text-[11px] font-semibold leading-tight text-brand">{u.name}</p>
+                  <p className="text-xs font-semibold text-brand-accent">{(u.price / 100).toFixed(2).replace(".", ",")} €</p>
+                  <button
+                    onClick={() => addItem({ id: u.name, name: u.name, price: u.price / 100, image: u.img, quantity: 1, slug: "#" })}
+                    className="w-full rounded-full border border-brand-accent/35 bg-white px-2 py-1.5 text-[10px] font-semibold text-brand transition-colors hover:bg-brand-accent hover:text-white"
+                  >
+                    + Ajouter
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {items.length > 0 && (
           <div className="border-t border-black/10 bg-white/60 p-5">

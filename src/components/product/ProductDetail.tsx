@@ -10,6 +10,8 @@ import { useLangStore } from "@/store/langStore";
 import { getPremiumProductPresentation } from "@/lib/premium-brand";
 import ProductGrid from "@/components/product/ProductGrid";
 import ScoreBadge from "@/components/ui/ScoreBadge";
+import UrgencyBar from "@/components/ui/UrgencyBar";
+import StickyBuy from "@/components/ui/StickyBuy";
 import toast from "react-hot-toast";
 import type { Product } from "@/types";
 
@@ -170,6 +172,15 @@ export default function ProductDetail({ product, related }: Props) {
                 Ajouter à la sélection
               </button>
             </div>
+
+            <UrgencyBar productId={product.id} />
+
+            <StickyBuy
+              name={presentation.name}
+              price={product.price}
+              image={product.images[0]?.url || "/placeholder.jpg"}
+              onAdd={handleAdd}
+            />
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               {[
