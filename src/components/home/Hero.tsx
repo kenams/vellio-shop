@@ -14,18 +14,21 @@ const floatingCards = [
   { emoji: "🎧", name: "Casque Signature", price: "189€", rating: 4.8, orders: 217 },
 ];
 
-function fade(delay = 0) {
-  return { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] as const } };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function fade(delay = 0): any {
+  return { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] } };
 }
-function slideX(delay = 0, x = 30) {
-  return { initial: { opacity: 0, x }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] as const } };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function slideX(delay = 0, x = 30): any {
+  return { initial: { opacity: 0, x }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] } };
 }
 
 export default function Hero() {
   const locale = useLangStore((s) => s.locale);
   const t = getT(locale);
   const reduceMotion = useReducedMotion();
-  const m = (props: ReturnType<typeof fade>) => (reduceMotion ? {} : props);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const m = (props: any): any => (reduceMotion ? {} : props);
 
   return (
     <section className="relative min-h-[calc(100vh-104px)] overflow-hidden bg-brand text-white">
