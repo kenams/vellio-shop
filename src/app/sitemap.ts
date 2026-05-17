@@ -9,6 +9,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: BASE, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     { url: `${BASE}/produits`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.5 },
+    { url: `${BASE}/cadeaux-premium`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE}/objets-design-maison`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.82 },
     { url: `${BASE}/blog/art-du-detail-maison-vellio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.55 },
     { url: `${BASE}/blog/tech-signature-sans-bruit-visuel`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.55 },
     { url: `${BASE}/blog/cadeaux-haut-de-gamme-utiles`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.55 },

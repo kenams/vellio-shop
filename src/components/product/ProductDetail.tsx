@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Check, ChevronDown, ChevronUp, LockKeyhole, Minus, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, ChevronUp, Copy, LockKeyhole, Minus, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store/cartStore";
 import { useLangStore } from "@/store/langStore";
@@ -35,6 +35,14 @@ export default function ProductDetail({ product, related }: Props) {
   const { addItem } = useCartStore();
   const hasComparePrice = Boolean(product.comparePrice && product.comparePrice > product.price);
   const reviewCount = getReviewCount(product.id);
+
+  function handleShare(platform: "whatsapp" | "twitter" | "copy") {
+    const url = `https://vellio.fr/produits/${product.slug}`;
+    const text = `${presentation.name} — ${formatPrice(product.price)} chez Vellio`;
+    if (platform === "whatsapp") window.open(`https://wa.me/?text=${encodeURIComponent(text + " " + url)}`, "_blank");
+    else if (platform === "twitter") window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, "_blank");
+    else { navigator.clipboard.writeText(url); toast.success("Lien copié !"); }
+  }
 
   function handleAdd() {
     addItem({
@@ -139,6 +147,19 @@ export default function ProductDetail({ product, related }: Props) {
               <span>{reviewCount} avis vérifiés</span>
               <span className="hidden h-1 w-1 rounded-full bg-brand/25 sm:inline-flex" />
               <span>{presentation.badge}</span>
+            </div>
+
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-xs text-brand/40 mr-1">Partager :</span>
+              <button onClick={() => handleShare("whatsapp")} className="rounded-full border border-black/10 bg-white/70 px-3 py-1.5 text-xs font-medium text-brand/60 hover:text-green-600 hover:border-green-400 transition-colors" aria-label="Partager WhatsApp">
+                WhatsApp
+              </button>
+              <button onClick={() => handleShare("twitter")} className="rounded-full border border-black/10 bg-white/70 px-3 py-1.5 text-xs font-medium text-brand/60 hover:text-sky-600 hover:border-sky-400 transition-colors" aria-label="Partager X">
+                X
+              </button>
+              <button onClick={() => handleShare("copy")} className="rounded-full border border-black/10 bg-white/70 p-1.5 text-brand/40 hover:text-brand-accent hover:border-brand-accent/50 transition-colors" aria-label="Copier le lien">
+                <Copy className="h-3.5 w-3.5" />
+              </button>
             </div>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-brand/62">{presentation.shortDescription}</p>
