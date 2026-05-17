@@ -45,7 +45,7 @@ function wrapEmail(content: string): string {
   <div class="gold-bar"></div>
   ${content}
   <div class="footer">
-    <p>Vellio — <a href="${APP_URL}">vellio.fr</a></p>
+    <p>Vellio — <a href="${APP_URL}">vellio-shop.vercel.app</a></p>
     <p><a href="${APP_URL}/remboursement">Retours</a> · <a href="${APP_URL}/confidentialite">Confidentialité</a> · <a href="${APP_URL}/contact">Contact</a></p>
     <p style="margin-top:12px;color:#bbb">© ${new Date().getFullYear()} Vellio</p>
   </div>
