@@ -10,14 +10,28 @@ interface Props { params: { slug: string } }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await prisma.product.findUnique({
     where: { slug: params.slug },
-    include: { category: true },
+    include: { category: true, images: { take: 1, orderBy: { position: "asc" } } },
   });
   if (!product) return {};
   const presentation = getPremiumProductPresentation(product as any);
+  const imageUrl = (product as any).images?.[0]?.url;
   return {
     title: product.metaTitle || presentation.name,
     description: product.metaDescription || presentation.shortDescription,
-    openGraph: { title: presentation.name, description: presentation.shortDescription },
+    alternates: { canonical: `/produits/${params.slug}` },
+    openGraph: {
+      type: "website",
+      title: presentation.name,
+      description: presentation.shortDescription,
+      url: `/produits/${params.slug}`,
+      ...(imageUrl && { images: [{ url: imageUrl, width: 900, height: 900, alt: presentation.name }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: presentation.name,
+      description: presentation.shortDescription,
+      ...(imageUrl && { images: [imageUrl] }),
+    },
   };
 }
 
@@ -40,10 +54,24 @@ export default async function ProductPage({ params }: Props) {
     orderBy: { trendScore: "desc" },
   });
 
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://vellio.fr" },
+      { "@type": "ListItem", position: 2, name: "Collection", item: "https://vellio.fr/produits" },
+      ...(product.category ? [{ "@type": "ListItem", position: 3, name: product.category.name, item: `https://vellio.fr/categorie/${product.category.slug}` }] : []),
+      { "@type": "ListItem", position: product.category ? 4 : 3, name: product.name, item: `https://vellio.fr/produits/${product.slug}` },
+    ],
+  };
+
   return (
-    <ProductDetail
-      product={toPublicProduct(product as any) as any}
-      related={related.map((item) => toPublicProduct(item as any)) as any}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <ProductDetail
+        product={toPublicProduct(product as any) as any}
+        related={related.map((item) => toPublicProduct(item as any)) as any}
+      />
+    </>
   );
 }

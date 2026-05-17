@@ -63,8 +63,24 @@ export default function ProductDetail({ product, related }: Props) {
             name: presentation.name,
             description: presentation.shortDescription,
             image: product.images.map((image) => image.url),
-            aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount },
-            offers: { "@type": "Offer", price: product.price, priceCurrency: "EUR", availability: "https://schema.org/InStock" },
+            sku: product.slug,
+            url: `https://vellio.fr/produits/${product.slug}`,
+            brand: { "@type": "Brand", name: "Vellio" },
+            aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount, bestRating: "5" },
+            offers: {
+              "@type": "Offer",
+              price: product.price.toFixed(2),
+              priceCurrency: "EUR",
+              availability: "https://schema.org/InStock",
+              url: `https://vellio.fr/produits/${product.slug}`,
+              seller: { "@type": "Organization", name: "Vellio" },
+              priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+              shippingDetails: {
+                "@type": "OfferShippingDetails",
+                shippingRate: { "@type": "MonetaryAmount", value: product.price >= 50 ? "0" : "4.99", currency: "EUR" },
+                deliveryTime: { "@type": "ShippingDeliveryTime", businessDays: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] } },
+              },
+            },
           }),
         }}
       />

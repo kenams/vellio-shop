@@ -1,14 +1,15 @@
 User-agent: *
 Allow: /
 
-# Bloquer les zones admin et API
+# Pages transactionnelles et personnelles (non indexables)
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
+Disallow: /panier
+Disallow: /commande
+Disallow: /suivi
 
-# Autoriser les assets statiques
+# Assets statiques
 Allow: /_next/static/
-Allow: /images/
 
-# Sitemap
 Sitemap: https://vellio.fr/sitemap.xml

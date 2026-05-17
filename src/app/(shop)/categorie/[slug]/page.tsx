@@ -23,6 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${premium.label} — Vellio`,
     description: premium.description,
+    alternates: { canonical: `/categorie/${params.slug}` },
+    openGraph: {
+      type: "website",
+      title: `${premium.label} — Vellio`,
+      description: premium.description,
+      url: `/categorie/${params.slug}`,
+    },
   };
 }
 
@@ -51,7 +58,19 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     { value: "prix-desc", label: "Prix décroissant" },
   ];
 
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://vellio.fr" },
+      { "@type": "ListItem", position: 2, name: "Collection", item: "https://vellio.fr/produits" },
+      { "@type": "ListItem", position: 3, name: premium.label, item: `https://vellio.fr/categorie/${params.slug}` },
+    ],
+  };
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
     <div className="bg-brand-ivory">
       <section className="border-b border-black/10 bg-brand text-white">
         <Container className="py-14 sm:py-20">
@@ -118,5 +137,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         </div>
       </Container>
     </div>
+    </>
   );
 }
