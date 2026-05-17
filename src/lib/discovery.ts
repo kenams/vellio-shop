@@ -116,10 +116,34 @@ async function fetchProductImages(keyword: string, slug: string, categorySlug: s
 
 // ─── Google Trends RSS (no AI) ────────────────────────────────────────────────
 const TREND_FALLBACKS: Record<string, string[]> = {
-  FR: ["gadgets maison connectée", "accessoires sport fitness", "beauté naturelle soin", "cuisine pratique rapide", "tech gadgets", "montre connectée", "aspirateur robot", "lampe LED", "massage bien-être", "organisateur bureau"],
-  US: ["home gadgets", "fitness gear", "smart home", "kitchen tools", "tech accessories", "wireless earbuds", "robot vacuum", "LED lamp", "massage gun", "desk organizer"],
-  GB: ["home gadgets", "fitness accessories", "smart home devices", "kitchen gadgets", "tech deals", "wireless earbuds", "robot hoover", "smart lighting", "massage gun", "desk organiser"],
-  AU: ["outdoor gear", "fitness gadgets", "smart home tech", "kitchen tools", "tech accessories", "wireless earbuds", "robot vacuum", "smart lights", "massage device", "home organisation"],
+  FR: [
+    "gadgets maison connectée", "accessoires sport fitness", "beauté naturelle soin", "cuisine pratique rapide",
+    "tech gadgets", "montre connectée", "aspirateur robot", "lampe LED", "massage bien-être", "organisateur bureau",
+    "bestseller amazon 2026", "tendance tiktok shop", "cadeau original homme", "gadget voiture 2026",
+    "soin visage naturel", "écouteurs sans fil", "chargeur magnétique", "productivité télétravail",
+    "fitness maison 2026", "objet design tendance",
+  ],
+  US: [
+    "home gadgets", "fitness gear", "smart home", "kitchen tools", "tech accessories", "wireless earbuds",
+    "robot vacuum", "LED lamp", "massage gun", "desk organizer",
+    "amazon bestsellers 2026", "tiktok viral products", "gift ideas men", "car gadgets 2026",
+    "skincare routine", "magnetic charger", "home office setup", "workout equipment",
+    "trending products 2026", "design objects",
+  ],
+  GB: [
+    "home gadgets", "fitness accessories", "smart home devices", "kitchen gadgets", "tech deals",
+    "wireless earbuds", "robot hoover", "smart lighting", "massage gun", "desk organiser",
+    "amazon bestsellers uk 2026", "trending uk 2026", "gift ideas men uk", "car accessories",
+    "skincare products", "wireless charger", "home office uk", "gym equipment",
+    "trending 2026", "design homeware",
+  ],
+  AU: [
+    "outdoor gear", "fitness gadgets", "smart home tech", "kitchen tools", "tech accessories",
+    "wireless earbuds", "robot vacuum", "smart lights", "massage device", "home organisation",
+    "amazon au bestsellers 2026", "trending au 2026", "gift ideas australia", "car gadgets au",
+    "natural skincare", "wireless charging", "home office au", "fitness equipment",
+    "trending products au", "design objects au",
+  ],
 };
 
 async function fetchGoogleTrends(geo: string): Promise<string[]> {
@@ -346,7 +370,7 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
   console.log(`[discovery] ${alreadySlugs.size} products already in DB`);
 
   // 4. Select products from catalog based on trend-matched categories
-  const toAdd = selectProductsFromCatalog(categoryOrder, locale, alreadySlugs, 1);
+  const toAdd = selectProductsFromCatalog(categoryOrder, locale, alreadySlugs, 10);
   console.log(`[discovery] ${toAdd.length} products selected from catalog: ${toAdd.map(p => locale === "fr" ? p.name_fr : p.name_en).join(", ")}`);
 
   if (toAdd.length === 0) {
@@ -408,7 +432,7 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
           stock: Math.floor(Math.random() * 60) + 20,
           trendScore: catalogProduct.trendScore + Math.floor(Math.random() * 5) - 2,
           featured: catalogProduct.trendScore >= 85,
-          published: true,
+          published: catalogProduct.trendScore >= 70,
           locale,
           categoryId: category.id,
           tags: catalogProduct.tags,

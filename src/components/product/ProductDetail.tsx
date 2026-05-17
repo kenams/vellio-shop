@@ -95,6 +95,33 @@ export default function ProductDetail({ product, related }: Props) {
         }}
       />
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Quels sont les délais de livraison ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Livraison suivie en 5-10 jours ouvrés. Un email de confirmation avec numéro de suivi est envoyé après expédition." }
+              },
+              {
+                "@type": "Question",
+                "name": "Comment retourner un produit ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Retours acceptés sous 30 jours sans justification. Contacter contact@vellio.fr pour initier le retour." }
+              },
+              {
+                "@type": "Question",
+                "name": "Le paiement est-il sécurisé ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Oui. Tous les paiements sont traités par Stripe, certifié PCI-DSS niveau 1. Aucune donnée bancaire n'est stockée sur nos serveurs." }
+              }
+            ]
+          }),
+        }}
+      />
+
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
         <Link href="/produits" className="mb-7 inline-flex items-center gap-2 text-sm font-medium text-brand/55 transition-colors hover:text-brand">
           <ArrowLeft className="h-4 w-4" />

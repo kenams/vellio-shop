@@ -206,6 +206,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function getRelatedArticles(currentSlug: string, currentCategory: string, count = 3) {
+  const related = Object.entries(articles)
+    .filter(([slug, art]) => slug !== currentSlug && art.category === currentCategory)
+    .slice(0, count);
+  if (related.length < count) {
+    const extra = Object.entries(articles)
+      .filter(([slug, art]) => slug !== currentSlug && art.category !== currentCategory)
+      .slice(0, count - related.length);
+    related.push(...extra);
+  }
+  return related.slice(0, count);
+}
+
 export default function ArticlePage({ params }: Props) {
   const article = articles[params.slug];
   if (!article) notFound();
@@ -226,6 +239,8 @@ export default function ArticlePage({ params }: Props) {
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `https://vellio.fr/blog/${params.slug}` },
   };
+
+  const relatedArticles = getRelatedArticles(params.slug, article.category);
 
   return (
     <>
@@ -264,6 +279,26 @@ export default function ArticlePage({ params }: Props) {
             </Link>
           </div>
         </Container>
+        {relatedArticles.length > 0 && (
+          <Container className="pb-10 sm:pb-16">
+            <div className="mx-auto max-w-3xl border-t border-black/10 pt-10">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-accent">Journal Vellio</p>
+              <h2 className="mt-3 font-serif text-3xl font-semibold text-brand">Articles liés</h2>
+              <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                {relatedArticles.map(([slug, art]) => (
+                  <Link key={slug} href={`/blog/${slug}`} className="group flex flex-col gap-3 rounded-[1.25rem] border border-black/10 bg-white/70 p-4 transition-all hover:-translate-y-1 hover:border-brand-accent/35 hover:shadow-card">
+                    <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-brand-ivory">
+                      <Image src={art.image} alt={art.title} fill className="object-cover" sizes="300px" />
+                    </div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-accent">{art.category}</p>
+                    <p className="line-clamp-2 text-sm font-semibold leading-5 text-brand">{art.title}</p>
+                    <p className="text-xs text-brand/45">{art.readTime}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </Container>
+        )}
         <Newsletter />
       </div>
     </>

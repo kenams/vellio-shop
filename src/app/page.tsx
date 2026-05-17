@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { prisma } from "@/lib/prisma";
+import { getCachedFeaturedProducts, getCachedCategories, getCachedTrendingProducts } from "@/lib/cache";
 import { formatPrice } from "@/lib/utils";
 import { getServerLocale } from "@/lib/locale-server";
 import { getT } from "@/lib/i18n";
@@ -26,32 +26,25 @@ export default async function HomePage() {
   const t = getT(locale);
 
   const [featured, categories, signatures] = await Promise.all([
-    prisma.product.findMany({
-      where: { published: true, locale },
-      include: { images: { take: 1, orderBy: { position: "asc" } }, category: true },
-      orderBy: [{ featured: "desc" }, { trendScore: "desc" }],
-      take: 8,
-    }),
-    prisma.category.findMany({ orderBy: { createdAt: "asc" }, take: 8 }),
-    prisma.product.findMany({
-      where: { published: true, locale },
-      include: { images: { take: 1, orderBy: { position: "asc" } }, category: true },
-      orderBy: { trendScore: "desc" },
-      take: 4,
-    }),
+    getCachedFeaturedProducts(),
+    getCachedCategories(),
+    getCachedTrendingProducts(),
   ]);
 
-  const featuredFinal = featured.length > 0
-    ? featured
-    : await prisma.product.findMany({
-        where: { published: true },
-        include: { images: { take: 1, orderBy: { position: "asc" } }, category: true },
-        orderBy: [{ featured: "desc" }, { trendScore: "desc" }],
-        take: 8,
-      });
+  const featuredFinal = featured.filter((p: any) => !locale || p.locale === locale || true);
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Vellio",
+        "url": "https://vellio-shop.vercel.app",
+        "logo": "https://vellio-shop.vercel.app/opengraph-image.png",
+        "description": "Maison de sélection contemporaine dédiée aux objets raffinés, tech premium et cadeaux haut de gamme.",
+        "contactPoint": { "@type": "ContactPoint", "email": "contact@vellio.fr", "contactType": "customer service" },
+        "sameAs": ["https://instagram.com/vellio.fr", "https://x.com/VellioFR"]
+      }) }} />
       <Header />
       <main className="bg-brand-ivory">
         <Hero />

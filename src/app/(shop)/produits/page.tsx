@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { getCachedCategories } from "@/lib/cache";
 import { getServerLocale } from "@/lib/locale-server";
 import { getT } from "@/lib/i18n";
 import { getPremiumCategory, toPublicProduct } from "@/lib/premium-brand";
@@ -48,7 +49,7 @@ export default async function CataloguePage({ searchParams }: Props) {
       orderBy,
       include: { images: { take: 1, orderBy: { position: "asc" } }, trendData: true, category: true },
     }),
-    prisma.category.findMany({ orderBy: { createdAt: "asc" } }),
+    getCachedCategories(),
   ]);
 
   const sortOptions = [
