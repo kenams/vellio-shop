@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import ProductGrid from "@/components/product/ProductGrid";
 import { Dumbbell, Heart, Trophy, ShoppingBag } from "lucide-react";
+import type { Product } from "@/types";
 
 export const metadata: Metadata = {
   title: "Accessoires Sport Maison 2026 — Home Gym Pas Cher | Vellio",
@@ -103,7 +104,7 @@ export default async function AccessoiresSportMaisonPage() {
 
           <div className="mb-10">
             <h2 className="font-serif text-3xl font-semibold text-brand mb-6">Notre Sélection</h2>
-            <ProductGrid products={products} />
+            <ProductGrid products={products as unknown as Product[]} />
           </div>
 
           <div className="rounded-[1.5rem] border border-brand-accent/20 bg-white/65 p-8 text-center">

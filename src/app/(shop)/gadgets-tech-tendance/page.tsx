@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import ProductGrid from "@/components/product/ProductGrid";
 import { Zap, TrendingUp, ShoppingBag, Star } from "lucide-react";
+import type { Product } from "@/types";
 
 export const metadata: Metadata = {
   title: "Gadgets Tech Tendance 2026 — Les Plus Viraux | Vellio",
@@ -93,7 +94,7 @@ export default async function GadgetsTechTendancePage() {
 
           <div className="mb-12">
             <h2 className="font-serif text-3xl font-semibold text-brand mb-6">Top Gadgets du Moment</h2>
-            <ProductGrid products={allProducts} />
+            <ProductGrid products={allProducts as unknown as Product[]} />
           </div>
 
           <div className="mb-12 rounded-[1.5rem] bg-white/70 border border-black/10 p-8">
