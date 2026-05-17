@@ -6,71 +6,72 @@ import { buildPremiumProductData } from "@/lib/premium-brand";
 
 export type Market = "fr" | "en-US" | "en-GB" | "en-AU";
 
-// ─── Photo Pool (fallback — used only if Pexels fails) ───────────────────────
+// ─── Photo Pool (fallback — used only if curated + Pexels fail) ──────────────
+// IMPORTANT: toutes ces URLs montrent des PRODUITS / APPAREILS, jamais de paysages
 const PHOTO_POOL: Record<string, string[]> = {
   "gadgets-voiture": [
-    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80",
-    "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&q=80",
-    "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=80",
-    "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=600&q=80",
-    "https://images.unsplash.com/photo-1580274455191-1c62238fa1c6?w=600&q=80",
-    "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&q=80",
+    "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&q=80", // accessoire voiture gadget
+    "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&q=80", // intérieur voiture dashboard
+    "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=600&q=80", // intérieur voiture tech
+    "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80", // car phone mount
+    "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80", // car charger gadget
+    "https://images.unsplash.com/photo-1526378800651-8438701bb3ff?w=600&q=80", // tech gadget compact
   ],
   "maison-intelligente": [
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-    "https://images.unsplash.com/photo-1527359443443-84a48aec73d2?w=600&q=80",
-    "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=600&q=80",
-    "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&q=80",
-    "https://images.unsplash.com/photo-1556912173-3bb406ef7e8a?w=600&q=80",
-    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&q=80",
+    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", // robot aspirateur rond
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=80", // smart home device
+    "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=600&q=80", // maison connectée appareil
+    "https://images.unsplash.com/photo-1527359443443-84a48aec73d2?w=600&q=80", // smart home gadget
+    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&q=80", // home automation device
+    "https://images.unsplash.com/photo-1600857062241-98e5dba7f5bf?w=600&q=80", // smart appliance
   ],
   "cuisine-pratique": [
-    "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80",
-    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
-    "https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&q=80",
-    "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80",
-    "https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=600&q=80",
-    "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80",
+    "https://images.unsplash.com/photo-1585515320310-259814833e62?w=600&q=80", // appareil cuisine électrique
+    "https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&q=80", // kitchen appliance
+    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80", // cuisine moderne gadget
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80", // kitchen device coffee
+    "https://images.unsplash.com/photo-1553484771-371a816b2772?w=600&q=80", // kitchen gadget prep
+    "https://images.unsplash.com/photo-1622597467836-f3e6dac3e61c?w=600&q=80", // blender portable
   ],
   "sport-fitness": [
-    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80",
-    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80",
-    "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80",
-    "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&q=80",
-    "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=600&q=80",
-    "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=80",
+    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80", // équipement fitness gym
+    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80", // sport fitness appareil
+    "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80", // musculation équipement
+    "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=600&q=80", // bandes résistance fitness
+    "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80", // tapis yoga mat
+    "https://images.unsplash.com/photo-1612444080611-5ed7532d4c2f?w=600&q=80", // massage gun fitness
   ],
   "beaute-soin": [
-    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80",
-    "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80",
-    "https://images.unsplash.com/photo-1617897903246-719242758050?w=600&q=80",
-    "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=600&q=80",
-    "https://images.unsplash.com/photo-1549045783-5f2d8e8dff74?w=600&q=80",
-    "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80",
+    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80", // produit beauté cosmétique
+    "https://images.unsplash.com/photo-1617897903246-719242758050?w=600&q=80", // routine beauté soin
+    "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=600&q=80", // skincare produit
+    "https://images.unsplash.com/photo-1614790133872-46bc31b89e3b?w=600&q=80", // sérum flacon beauté
+    "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80", // soin visage produit
+    "https://images.unsplash.com/photo-1549045783-5f2d8e8dff74?w=600&q=80", // spa beauté appareil
   ],
   "tech-gadgets": [
-    "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=600&q=80",
-    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80",
-    "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80",
-    "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&q=80",
-    "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80",
-    "https://images.unsplash.com/photo-1585515320310-259814833e62?w=600&q=80",
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80", // gadget tech écouteurs
+    "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80", // earbuds tech
+    "https://images.unsplash.com/photo-1590658165737-15a047b7c97e?w=600&q=80", // écouteurs TWS
+    "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80", // batterie externe tech
+    "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80", // tech accessories
+    "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80", // bluetooth speaker
   ],
   "bureau-productivite": [
-    "https://images.unsplash.com/photo-1593642632523-1d60af4b3029?w=600&q=80",
-    "https://images.unsplash.com/photo-1484981138541-3d074aa97716?w=600&q=80",
-    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80",
-    "https://images.unsplash.com/photo-1574515944794-d6dedc7150de?w=600&q=80",
-    "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80",
-    "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=600&q=80",
+    "https://images.unsplash.com/photo-1593642632523-1d60af4b3029?w=600&q=80", // bureau télétravail setup
+    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80", // desk home office
+    "https://images.unsplash.com/photo-1484981138541-3d074aa97716?w=600&q=80", // workspace organisé
+    "https://images.unsplash.com/photo-1526378800651-8438701bb3ff?w=600&q=80", // desk gadget tech
+    "https://images.unsplash.com/photo-1561154464-062d233de9f9?w=600&q=80", // tablet productivité
+    "https://images.unsplash.com/photo-1579389083046-e3df9c2b3325?w=600&q=80", // chaise bureau ergonomique
   ],
   "enfant-famille": [
-    "https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=600&q=80",
-    "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&q=80",
-    "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&q=80",
-    "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&q=80",
-    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
-    "https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=600&q=80",
+    "https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=600&q=80", // jouet enfant produit
+    "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&q=80", // kid toy famille
+    "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&q=80", // jouet construction enfant
+    "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&q=80", // bébé soin famille
+    "https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=600&q=80", // enfant activité produit
+    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80", // famille accessoire enfant
   ],
 };
 
@@ -85,9 +86,11 @@ function getFallbackPhotos(categorySlug: string, productSlug: string): string[] 
 async function fetchPexelsImages(keyword: string): Promise<string[]> {
   const key = process.env.PEXELS_API_KEY?.trim();
   if (!key) return [];
+  // Ajoute "product" au keyword pour éviter les paysages / photos nature
+  const safeKeyword = keyword.includes("product") ? keyword : `${keyword} product`;
   try {
     const res = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(keyword)}&per_page=4&orientation=square`,
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(safeKeyword)}&per_page=4&orientation=square`,
       { headers: { Authorization: key }, signal: AbortSignal.timeout(4000) }
     );
     if (!res.ok) return [];

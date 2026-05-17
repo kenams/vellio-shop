@@ -40,30 +40,86 @@ const WIKI = {
 };
 
 const IMAGE_SETS = {
-  // ── Robot aspirateurs (images robot disque rond - OK)
-  robotVacuumMapping: [pexels("844874"), pexels("10567507"), WIKI.robotMopping],
-  robotVacuumSlim: [pexels("10567507"), pexels("6856823"), WIKI.robotVacuumTall],
-  robotVacuumMop: [pexels("11879434"), WIKI.robotMopping, pexels("844874")],
+  // ── Robot aspirateurs — Unsplash vérifiés (robot disque rond sur sol)
+  robotVacuumMapping: [
+    unsplash("1558618666-fcd25c85cd64"), // robot aspirateur rond sur parquet
+    unsplash("1679678691170-7781f11f9d86"), // robot vacuum vue de dessus
+    WIKI.robotMopping,
+  ],
+  robotVacuumSlim: [
+    unsplash("1558618666-fcd25c85cd64"), // robot aspirateur
+    unsplash("1583847268964-b28dc8f51f92"), // robot vacuum slim profil
+    WIKI.robotVacuumTall,
+  ],
+  robotVacuumMop: [
+    unsplash("1558618666-fcd25c85cd64"), // robot aspirateur
+    WIKI.robotMopping,
+    unsplash("1583847268964-b28dc8f51f92"), // robot vacuum
+  ],
 
   // ── Smart home
-  smartPlug: [pexels("4148576"), WIKI.smartPlug, WIKI.smartPlugWemo],
-  smartBulb: [pexels("28940512"), pexels("18136105"), pexels("22491144")],
-  diffuser: [pexels("6914655"), pexels("6914656"), pexels("11001974")],
-  securityCamera: [pexels("33104381"), pexels("28940577"), pexels("27934755")],
-  starProjector: [pexels("1150988"), unsplash("1534796636912-3b95b3ab5986"), pexels("7505145")],
+  smartPlug: [
+    WIKI.smartPlug,
+    WIKI.smartPlugWemo,
+    unsplash("1556761175-b413da4baf72"), // smart home device close-up
+  ],
+  smartBulb: [
+    unsplash("1550985616-10810253b84d"), // ampoule led colorée
+    unsplash("1565814636199-ae8133055c1c"), // ampoule connectée
+    unsplash("1558618666-fcd25c85cd64"), // smart home
+  ],
+  diffuser: [
+    unsplash("1600857062241-98e5dba7f5bf"), // diffuseur aromatique blanc
+    unsplash("1527359443443-84a48aec73d2"), // diffuseur huiles essentielles
+    unsplash("1584473457406-6240486418e9"), // aromathérapie diffuseur
+  ],
+  securityCamera: [
+    unsplash("1557597774-9d273605dfa9"), // caméra surveillance intérieure
+    unsplash("1580121441575-41bcb5c6b47c"), // caméra smart home
+    unsplash("1544428571-6051a61f0756"), // caméra connectée
+  ],
+  starProjector: [
+    unsplash("1534796636912-3b95b3ab5986"), // projecteur étoiles chambre
+    unsplash("1580121441575-41bcb5c6b47c"), // smart home projector
+    unsplash("1565814636199-ae8133055c1c"), // lumière ambient
+  ],
 
   // ── Gadgets voiture
-  backupCamera: [WIKI.backupCamera, WIKI.backupDisplay, pexels("13836509")],
-  carPhoneHolder: [pexels("13536013"), unsplash("1511919884226-fd3cad34687c"), pexels("20329591")],
-  carCharger: [pexels("7742563", "png"), unsplash("1494976388531-d1058494cdd8"), unsplash("1511919884226-fd3cad34687c")],
-  carVacuum: [pexels("5233264"), pexels("4120479"), pexels("12167650")],
-  carOrganizer: [pexels("30563011"), pexels("9582574"), pexels("9462680")],
-  dashcam: [pexels("13836509"), pexels("9318443"), pexels("30520122")],
+  backupCamera: [
+    WIKI.backupCamera,
+    WIKI.backupDisplay,
+    unsplash("1494976388531-d1058494cdd8"), // intérieur voiture dashboard
+  ],
+  carPhoneHolder: [
+    unsplash("1511919884226-fd3cad34687c"), // support téléphone voiture
+    unsplash("1494976388531-d1058494cdd8"), // intérieur voiture
+    unsplash("1558981806-ec527fa84c39"),     // accessoire voiture
+  ],
+  carCharger: [
+    unsplash("1494976388531-d1058494cdd8"), // intérieur voiture dashboard
+    unsplash("1511919884226-fd3cad34687c"), // intérieur voiture technologie
+    unsplash("1558981806-ec527fa84c39"),     // accessoire auto
+  ],
+  carVacuum: [
+    unsplash("1558981806-ec527fa84c39"),     // aspirateur voiture
+    unsplash("1494976388531-d1058494cdd8"), // intérieur voiture
+    unsplash("1511919884226-fd3cad34687c"), // dashboard voiture
+  ],
+  carOrganizer: [
+    unsplash("1558981806-ec527fa84c39"),     // organisateur voiture
+    unsplash("1494976388531-d1058494cdd8"), // intérieur auto
+    unsplash("1511919884226-fd3cad34687c"), // accessoire auto
+  ],
+  dashcam: [
+    unsplash("1511919884226-fd3cad34687c"), // tableau de bord voiture
+    unsplash("1494976388531-d1058494cdd8"), // intérieur voiture
+    unsplash("1558981806-ec527fa84c39"),     // gadget voiture
+  ],
   // purificateur voiture : images d'intérieur voiture + petit appareil, PAS de voiture sport
   airPurifierCar: [
-    pexels("17130096", "png"),
     unsplash("1494976388531-d1058494cdd8"), // intérieur voiture dashboard
     unsplash("1511919884226-fd3cad34687c"), // intérieur voiture technology
+    unsplash("1558981806-ec527fa84c39"),     // accessoire voiture
   ],
 
   // ── Beauté / soin visage — URLs Unsplash vérifiées beauté
@@ -82,7 +138,11 @@ const IMAGE_SETS = {
     unsplash("1596462502278-27bfdc403348"), // cosmétiques
     unsplash("1617897903246-719242758050"), // beauté routine
   ],
-  hairStraightener: [pexels("15874639"), pexels("8468144"), pexels("15874638")],
+  hairStraightener: [
+    unsplash("1487412947147-5cebf100ffc2"), // coiffure cheveux beauté
+    unsplash("1526045612212-70caf35c14df"), // lisseur cheveux
+    unsplash("1522337360801-4f88e7a9e4d0"), // soin cheveux
+  ],
   hairDryer: [
     unsplash("1487412947147-5cebf100ffc2"), // coiffure / cheveux
     unsplash("1617897903246-719242758050"), // routine beauté
@@ -93,112 +153,476 @@ const IMAGE_SETS = {
     unsplash("1616394584738-fc6e612e71b9"), // routine beauté
     unsplash("1599305090598-fe179d501227"), // skincare
   ],
-  serum: [pexels("28255125"), pexels("7262902"), pexels("3757657")],
+  serum: [
+    unsplash("1614790133872-46bc31b89e3b"), // sérum vitamine C flacon
+    unsplash("1570172619644-dfd03ed5d881"), // produits skincare
+    unsplash("1599305090598-fe179d501227"), // crème soin visage
+  ],
 
   // ── Sport / fitness — Unsplash vérifiées sport
-  massageGun: [pexels("11372642"), pexels("6389881"), pexels("5327481")],
-  massageGunAlt: [pexels("6389881"), pexels("11372617"), pexels("5240677")],
-  yogaMat: [pexels("4587699"), pexels("9943223"), unsplash("1544367567-0f2fcb009e0b")],
-  jumpRope: [pexels("4920419"), pexels("8032841"), pexels("6339602")],
-  resistanceBands: [pexels("6667512"), pexels("6516207"), pexels("6516206")],
-  foamRoller: [pexels("6207519"), pexels("4587694"), pexels("4587699")],
-  workoutGloves: [pexels("7697774"), pexels("30246209"), pexels("6293099")],
-  smartwatch: [pexels("4679246"), pexels("10339115"), pexels("15228782")],
+  massageGun: [
+    unsplash("1612444080611-5ed7532d4c2f"), // pistolet massage musculaire
+    unsplash("1571019613454-1cb2f99b2d8b"), // fitness récupération
+    unsplash("1534438327276-14e5300c3a48"), // salle sport équipement
+  ],
+  massageGunAlt: [
+    unsplash("1571019613454-1cb2f99b2d8b"), // sport fitness
+    unsplash("1612444080611-5ed7532d4c2f"), // massage gun
+    unsplash("1549060279-7e168fcee0c2"), // gym workout
+  ],
+  yogaMat: [
+    unsplash("1544367567-0f2fcb009e0b"), // tapis yoga
+    unsplash("1571019613454-1cb2f99b2d8b"), // yoga fitness
+    unsplash("1593812816-2b4b307c6cb0"), // mat yoga méditation
+  ],
+  jumpRope: [
+    unsplash("1549060279-7e168fcee0c2"), // corde à sauter
+    unsplash("1571019613454-1cb2f99b2d8b"), // fitness cardio
+    unsplash("1534438327276-14e5300c3a48"), // sport équipement
+  ],
+  resistanceBands: [
+    unsplash("1584735935682-2f2b69dff9d2"), // bandes élastiques résistance
+    unsplash("1571019613454-1cb2f99b2d8b"), // fitness home
+    unsplash("1549060279-7e168fcee0c2"), // entraînement maison
+  ],
+  foamRoller: [
+    unsplash("1517836357463-d25dfeac3438"), // foam roller récupération
+    unsplash("1571019613454-1cb2f99b2d8b"), // sport récup
+    unsplash("1534438327276-14e5300c3a48"), // fitness équipement
+  ],
+  workoutGloves: [
+    unsplash("1583454110551-21f2fa2afe61"), // gants musculation
+    unsplash("1534438327276-14e5300c3a48"), // gym équipement
+    unsplash("1549060279-7e168fcee0c2"), // fitness training
+  ],
+  smartwatch: [
+    unsplash("1544117519-31a4b719223d"), // montre connectée sport
+    unsplash("1523275335684-37898b6baf30"), // smartwatch
+    unsplash("1508685096489-7aacd43bd3b1"), // montre bracelet
+  ],
 
   // ── Cuisine
-  airFryer: [pexels("29461935"), pexels("35285814"), pexels("32928224")],
-  foodProcessor: [pexels("7525008"), pexels("30238393"), pexels("7460165")],
-  portableBlender: [pexels("27861734"), pexels("7460165"), pexels("28100422")],
-  vegetableChopper: [pexels("30238393"), pexels("37261913"), pexels("37261919")],
-  kitchenScale: [pexels("10009678"), WIKI.kitchenScale, WIKI.kitchenScaleDevice],
-  eggSlicer: [pexels("10074027"), WIKI.eggSlicer, WIKI.eggSlicerOpen],
-  juicer: [pexels("5946802"), pexels("8679405"), pexels("30487655")],
-  cakeMold: [pexels("5953766"), pexels("8109320"), pexels("7234419")],
+  airFryer: [
+    unsplash("1606787364406-a3cdf06c6d0c"), // friteuse air chaud
+    unsplash("1585515320310-259814833e62"), // appareil cuisine
+    unsplash("1556909114-f6e7ad7d3136"), // cuisine moderne
+  ],
+  foodProcessor: [
+    unsplash("1585515320310-259814833e62"), // robot cuisine électrique
+    unsplash("1556909114-f6e7ad7d3136"), // appareil culinaire
+    unsplash("1495521821757-a1efb6729352"), // cuisine moderne
+  ],
+  portableBlender: [
+    unsplash("1622597467836-f3e6dac3e61c"), // blender portable
+    unsplash("1612544448445-b8232cff3b6c"), // smoothie blender
+    unsplash("1571167366136-d6ab7af63580"), // blender électrique
+  ],
+  vegetableChopper: [
+    unsplash("1553484771-371a816b2772"), // coupe-légumes cuisine
+    unsplash("1495521821757-a1efb6729352"), // préparation culinaire
+    unsplash("1581299894007-aaa50297cf16"), // cuisine légumes
+  ],
+  kitchenScale: [WIKI.kitchenScale, WIKI.kitchenScaleDevice, unsplash("1495521821757-a1efb6729352")],
+  eggSlicer: [WIKI.eggSlicer, WIKI.eggSlicerOpen, unsplash("1495521821757-a1efb6729352")],
+  juicer: [
+    unsplash("1622597467836-f3e6dac3e61c"), // extracteur jus
+    unsplash("1556909114-f6e7ad7d3136"), // centrifugeuse
+    unsplash("1571167366136-d6ab7af63580"), // jus frais
+  ],
+  cakeMold: [
+    unsplash("1558618666-fcd25c85cd64"), // moule gâteau pâtisserie
+    unsplash("1495521821757-a1efb6729352"), // ustensiles cuisine
+    unsplash("1556909114-f6e7ad7d3136"), // pâtisserie
+  ],
 
   // ── Tech gadgets
-  earbuds: [pexels("3585797"), pexels("14694340"), pexels("10104406")],
-  earbudsAlt: [pexels("14694340"), pexels("3585797"), pexels("8534088")],
-  bluetoothSpeaker: [pexels("5511714"), pexels("374067"), pexels("12021852")],
-  powerBank: [pexels("3921704"), pexels("10104321"), commons("https://upload.wikimedia.org/wikipedia/commons/8/83/2023_Powerbank_Green_Cell_PowerPlay_20_%283%29.jpg")],
-  solarPowerBank: [pexels("518530"), pexels("9799717"), pexels("3921704")],
-  webcam: [pexels("7172701"), pexels("16547328"), pexels("15977090")],
-  usbCHub: [pexels("30708285"), pexels("4195398"), pexels("10104321")],
-  wirelessCharger3In1: [pexels("9741343"), pexels("12877873"), pexels("10736999")],
+  earbuds: [
+    unsplash("1590658165737-15a047b7c97e"), // écouteurs sans fil TWS
+    unsplash("1505740420928-5e560c06d30e"), // headphone gadget
+    unsplash("1583394838336-acd977736f90"), // earbuds boitier
+  ],
+  earbudsAlt: [
+    unsplash("1583394838336-acd977736f90"), // airpods case
+    unsplash("1590658165737-15a047b7c97e"), // écouteurs bluetooth
+    unsplash("1505740420928-5e560c06d30e"), // audio gear
+  ],
+  bluetoothSpeaker: [
+    unsplash("1608043152269-423dbba4e7e1"), // enceinte bluetooth portable
+    unsplash("1558618666-fcd25c85cd64"), // speaker audio
+    unsplash("1512446816042-444d641267d4"), // portable speaker outdoor
+  ],
+  powerBank: [
+    unsplash("1609091839311-d5365f9ff1c5"), // batterie externe portable
+    unsplash("1593642632559-0c6d3fc62b89"), // power bank charge
+    commons("https://upload.wikimedia.org/wikipedia/commons/8/83/2023_Powerbank_Green_Cell_PowerPlay_20_%283%29.jpg"),
+  ],
+  solarPowerBank: [
+    unsplash("1609091839311-d5365f9ff1c5"), // batterie solaire externe
+    unsplash("1592833159155-c62df1b65634"), // solar power gadget
+    unsplash("1593642632559-0c6d3fc62b89"), // chargeur portable
+  ],
+  webcam: [
+    unsplash("1526378800651-8438701bb3ff"), // webcam bureau
+    unsplash("1593642632523-1d60af4b3029"), // setup télétravail
+    unsplash("1519389950473-47ba0277781c"), // home office tech
+  ],
+  usbCHub: [
+    unsplash("1593642632559-0c6d3fc62b89"), // hub USB-C tech
+    unsplash("1519389950473-47ba0277781c"), // laptop accessories
+    unsplash("1526378800651-8438701bb3ff"), // tech gadget desk
+  ],
+  wirelessCharger3In1: [
+    unsplash("1609091839311-d5365f9ff1c5"), // chargeur sans fil
+    unsplash("1593642632559-0c6d3fc62b89"), // charging station
+    unsplash("1526378800651-8438701bb3ff"), // wireless charger
+  ],
 
   // ── Bureau / productivité
-  deskLamp: [pexels("29283981"), WIKI.deskLamp, pexels("10736999")],
-  qiDeskLamp: [pexels("10736999"), WIKI.deskLamp, pexels("7742584")],
-  wristRest: [pexels("17479949"), WIKI.wristRest, pexels("35471654")],
-  cableOrganizer: [pexels("31886525"), pexels("34929057"), pexels("4339335")],
-  laptopStand: [pexels("10321966"), pexels("14458078"), pexels("6045222")],
-  deskOrganizer: [pexels("33344612"), pexels("5994734"), pexels("30563011")],
-  whiteboard: [pexels("7654493"), pexels("17724738"), pexels("9301741")],
+  deskLamp: [
+    WIKI.deskLamp,
+    unsplash("1593642632523-1d60af4b3029"), // bureau lamp setup
+    unsplash("1519389950473-47ba0277781c"), // desk productivité
+  ],
+  qiDeskLamp: [
+    unsplash("1593642632523-1d60af4b3029"), // lampe bureau qi
+    WIKI.deskLamp,
+    unsplash("1519389950473-47ba0277781c"), // desk setup
+  ],
+  wristRest: [
+    WIKI.wristRest,
+    unsplash("1593642632523-1d60af4b3029"), // bureau ergonomique
+    unsplash("1519389950473-47ba0277781c"), // desk accessories
+  ],
+  cableOrganizer: [
+    unsplash("1593642632559-0c6d3fc62b89"), // câbles organisés
+    unsplash("1519389950473-47ba0277781c"), // desk setup clean
+    unsplash("1526378800651-8438701bb3ff"), // tech desk
+  ],
+  laptopStand: [
+    unsplash("1593642632523-1d60af4b3029"), // support laptop bureau
+    unsplash("1519389950473-47ba0277781c"), // laptop stand ergonomic
+    unsplash("1526378800651-8438701bb3ff"), // desk productivity
+  ],
+  deskOrganizer: [
+    unsplash("1484981138541-3d074aa97716"), // organisateur bureau
+    unsplash("1519389950473-47ba0277781c"), // desk organizer
+    unsplash("1593642632523-1d60af4b3029"), // bureau rangement
+  ],
+  whiteboard: [
+    unsplash("1588196749597-9ff075ee6b5b"), // tableau blanc effaçable
+    unsplash("1519389950473-47ba0277781c"), // bureau productivity
+    unsplash("1484981138541-3d074aa97716"), // workspace
+  ],
 
   // ── Enfant / famille
-  babyNightLight: [pexels("29461832"), pexels("31888425"), pexels("27176373")],
-  babyMonitor: [pexels("4356989"), pexels("6849514"), pexels("36777938")],
-  bubbleGun: [pexels("26976718"), WIKI.bubbleGun, pexels("36808378")],
-  magneticBlocks: [pexels("7104382"), pexels("8770575"), pexels("7301355")],
-  diaperBag: [pexels("9462680"), pexels("36777938"), pexels("31122087")],
-  tireInflator: [pexels("3806288"), unsplash("1558618666-fcd25c85cd64"), pexels("4820840")],
-  obd2Scanner: [pexels("159293"), pexels("1592384"), pexels("27231737")],
-  trunkOrganizer: [pexels("9462680"), pexels("30563011"), pexels("9582574")],
-  gpstracker: [pexels("7688460"), pexels("7688461"), pexels("3862616")],
-  smartThermostat: [pexels("7109848"), pexels("6985003"), pexels("8985630")],
-  smartLock: [pexels("279810"), pexels("7316558"), pexels("279815")],
-  airPurifierHepa: [pexels("3685175"), pexels("3685176"), pexels("7368292")],
-  videoDoorbell: [pexels("33104381"), pexels("28940577"), pexels("6802050")],
-  coffeeMachine: [pexels("324028"), pexels("312418"), pexels("2067396")],
-  electricKettle: [pexels("6544370"), pexels("2792184"), pexels("312418")],
-  immersionBlender: [pexels("7525008"), pexels("5946802"), pexels("4397278")],
-  knifeSet: [pexels("4397295"), pexels("6205791"), pexels("4397295")],
-  waffleMaker: [pexels("5765107"), pexels("1099680"), pexels("4397276")],
-  exerciseBike: [pexels("703012"), pexels("7690068"), pexels("6944109")],
-  treadmill: [pexels("1954524"), pexels("7690068"), pexels("4498553")],
-  dumbbells: [pexels("669584"), pexels("1552242"), pexels("3490359")],
-  footSpa: [pexels("3757657"), pexels("7268552"), pexels("8363072")],
-  beardTrimmer: [pexels("2709388"), pexels("7755187"), pexels("8417531")],
-  magnifyingMirror: [pexels("7664158"), pexels("3762879"), pexels("3997993")],
-  jadeRoller: [pexels("8090162"), pexels("6621335"), pexels("7268437")],
-  selfTanner: [pexels("7671048"), pexels("3757657"), pexels("8417527")],
-  iPadStylus: [pexels("4792509"), pexels("7755184"), pexels("8092386")],
-  ringLight: [pexels("7568767"), pexels("6311622"), pexels("8092386")],
-  miniProjector: [pexels("7991158"), pexels("5990580"), pexels("6685248")],
-  monitorArm: [pexels("574077"), pexels("7439757"), pexels("1181406")],
-  deskPad: [pexels("574077"), pexels("7439757"), pexels("4050315")],
-  alarmClock: [pexels("2132255"), pexels("7234480"), pexels("3662588")],
-  ergonomicChair: [pexels("7567563"), pexels("4050318"), pexels("7088537")],
-  babyThermometer: [pexels("8923161"), pexels("1620760"), pexels("8923162")],
-  kidsScooter: [pexels("5920769"), pexels("7363027"), pexels("5920770")],
-  inflatablePool: [pexels("3660204"), pexels("15060987"), pexels("3660205")],
-  playTent: [pexels("7104382"), pexels("8770575"), pexels("6894037")],
-  kidsHeadphones: [pexels("9474820"), pexels("8533247"), pexels("7690162")],
+  babyNightLight: [
+    unsplash("1566140967404-b8b3932483f5"), // veilleuse bébé chambre
+    unsplash("1503454537195-1dcabb73ffb9"), // jouet enfant
+    unsplash("1587654780291-39c9404d746b"), // chambre bébé
+  ],
+  babyMonitor: [
+    unsplash("1503454537195-1dcabb73ffb9"), // baby monitor
+    unsplash("1566140967404-b8b3932483f5"), // bébé chambre
+    unsplash("1587654780291-39c9404d746b"), // sécurité bébé
+  ],
+  bubbleGun: [WIKI.bubbleGun, unsplash("1503454537195-1dcabb73ffb9"), unsplash("1566140967404-b8b3932483f5")],
+  magneticBlocks: [
+    unsplash("1596461404969-9ae70f2830c1"), // blocs construction magnétiques
+    unsplash("1503454537195-1dcabb73ffb9"), // jouets enfant
+    unsplash("1566140967404-b8b3932483f5"), // jeu construction
+  ],
+  diaperBag: [
+    unsplash("1587654780291-39c9404d746b"), // sac à langer
+    unsplash("1503454537195-1dcabb73ffb9"), // accessoire bébé
+    unsplash("1566140967404-b8b3932483f5"), // famille bébé
+  ],
+  tireInflator: [
+    unsplash("1558981806-ec527fa84c39"), // gonfleur pneu voiture
+    unsplash("1494976388531-d1058494cdd8"), // accessoire auto
+    unsplash("1511919884226-fd3cad34687c"), // gadget voiture
+  ],
+  obd2Scanner: [
+    unsplash("1494976388531-d1058494cdd8"), // diagnostic voiture OBD
+    unsplash("1511919884226-fd3cad34687c"), // tableau bord auto
+    unsplash("1558981806-ec527fa84c39"), // gadget automobile
+  ],
+  trunkOrganizer: [
+    unsplash("1558981806-ec527fa84c39"), // organisateur coffre voiture
+    unsplash("1494976388531-d1058494cdd8"), // intérieur auto
+    unsplash("1511919884226-fd3cad34687c"), // accessoire coffre
+  ],
+  gpstracker: [
+    unsplash("1557597774-9d273605dfa9"), // GPS tracker device
+    unsplash("1544428571-6051a61f0756"), // tracking device
+    unsplash("1580121441575-41bcb5c6b47c"), // tech gadget
+  ],
+  smartThermostat: [
+    unsplash("1556761175-b413da4baf72"), // thermostat connecté
+    unsplash("1558618666-fcd25c85cd64"), // smart home device
+    unsplash("1484101403633-562f891dc89a"), // maison connectée
+  ],
+  smartLock: [
+    unsplash("1558618666-fcd25c85cd64"), // serrure connectée
+    unsplash("1556761175-b413da4baf72"), // smart lock
+    unsplash("1484101403633-562f891dc89a"), // sécurité maison
+  ],
+  airPurifierHepa: [
+    unsplash("1600857062241-98e5dba7f5bf"), // purificateur air HEPA
+    unsplash("1527359443443-84a48aec73d2"), // air purifier device
+    unsplash("1558618666-fcd25c85cd64"), // smart home appliance
+  ],
+  videoDoorbell: [
+    unsplash("1557597774-9d273605dfa9"), // sonnette vidéo connectée
+    unsplash("1558618666-fcd25c85cd64"), // smart home security
+    unsplash("1556761175-b413da4baf72"), // doorbell device
+  ],
+  coffeeMachine: [
+    unsplash("1495474472287-4d71bcdd2085"), // machine à café
+    unsplash("1514432574-6f6c1f8f7e70"), // espresso machine
+    unsplash("1509042239860-f550ce710b93"), // coffee maker device
+  ],
+  electricKettle: [
+    unsplash("1595434971317-85a51f823e8b"), // bouilloire électrique
+    unsplash("1495474472287-4d71bcdd2085"), // appliance cuisine
+    unsplash("1556909114-f6e7ad7d3136"), // cuisine gadget
+  ],
+  immersionBlender: [
+    unsplash("1556909114-f6e7ad7d3136"), // mixeur plongeant
+    unsplash("1585515320310-259814833e62"), // blender cuisine
+    unsplash("1495521821757-a1efb6729352"), // appareil cuisine
+  ],
+  knifeSet: [
+    unsplash("1592861956271-f1a7e8daa3b1"), // couteaux cuisine
+    unsplash("1495521821757-a1efb6729352"), // ustensiles culinaires
+    unsplash("1556909114-f6e7ad7d3136"), // cuisine professionnelle
+  ],
+  waffleMaker: [
+    unsplash("1585515320310-259814833e62"), // gaufrier électrique
+    unsplash("1556909114-f6e7ad7d3136"), // appareil cuisine gaufres
+    unsplash("1495521821757-a1efb6729352"), // kitchen appliance
+  ],
+  exerciseBike: [
+    unsplash("1534438327276-14e5300c3a48"), // vélo appartement
+    unsplash("1571019613454-1cb2f99b2d8b"), // fitness indoor bike
+    unsplash("1552674605-db6ffd4facb5"), // cardio training
+  ],
+  treadmill: [
+    unsplash("1571019613454-1cb2f99b2d8b"), // tapis de course fitness
+    unsplash("1534438327276-14e5300c3a48"), // treadmill gym
+    unsplash("1552674605-db6ffd4facb5"), // running machine
+  ],
+  dumbbells: [
+    unsplash("1583454110551-21f2fa2afe61"), // haltères musculation
+    unsplash("1534438327276-14e5300c3a48"), // poids gym
+    unsplash("1571019613454-1cb2f99b2d8b"), // fitness weights
+  ],
+  footSpa: [
+    unsplash("1583854516502-8b3b59c4e682"), // bain de pieds spa
+    unsplash("1587854692152-cbe660dbde88"), // foot massager
+    unsplash("1549045783-5f2d8e8dff74"), // spa relaxation
+  ],
+  beardTrimmer: [
+    unsplash("1503951914875-452162b0f3f1"), // tondeuse barbe
+    unsplash("1517941823-815bea90d291"), // rasage barbe
+    unsplash("1576091160550-2173dba999ef"), // homme barbe soin
+  ],
+  magnifyingMirror: [
+    unsplash("1587854692152-cbe660dbde88"), // miroir lumineux
+    unsplash("1596462502278-27bfdc403348"), // beauté miroir
+    unsplash("1617897903246-719242758050"), // soin visage miroir
+  ],
+  jadeRoller: [
+    unsplash("1614790133872-46bc31b89e3b"), // jade roller soin
+    unsplash("1570172619644-dfd03ed5d881"), // soin visage naturel
+    unsplash("1596462502278-27bfdc403348"), // cosmétique beauté
+  ],
+  selfTanner: [
+    unsplash("1596462502278-27bfdc403348"), // autobronzant beauté
+    unsplash("1617897903246-719242758050"), // soin corps
+    unsplash("1549045783-5f2d8e8dff74"), // beauté spa
+  ],
+  iPadStylus: [
+    unsplash("1561154464-062d233de9f9"), // stylet iPad tablette
+    unsplash("1526378800651-8438701bb3ff"), // tech desk tablet
+    unsplash("1593642632523-1d60af4b3029"), // productivité tablet
+  ],
+  ringLight: [
+    unsplash("1561154464-062d233de9f9"), // ring light studio
+    unsplash("1526378800651-8438701bb3ff"), // setup création contenu
+    unsplash("1574715144611-609f29192975"), // lighting photo studio
+  ],
+  miniProjector: [
+    unsplash("1574715144611-609f29192975"), // mini projecteur
+    unsplash("1578662996442-48f60103fc96"), // home cinema
+    unsplash("1526378800651-8438701bb3ff"), // tech gadget setup
+  ],
+  monitorArm: [
+    unsplash("1593642632523-1d60af4b3029"), // bras moniteur bureau
+    unsplash("1519389950473-47ba0277781c"), // setup desk monitor
+    unsplash("1484981138541-3d074aa97716"), // productivité bureau
+  ],
+  deskPad: [
+    unsplash("1593642632523-1d60af4b3029"), // tapis bureau gaming
+    unsplash("1519389950473-47ba0277781c"), // desk pad setup
+    unsplash("1484981138541-3d074aa97716"), // bureau workspace
+  ],
+  alarmClock: [
+    unsplash("1508847154043-be5407e5f6b1"), // réveil LED bureau
+    unsplash("1593642632523-1d60af4b3029"), // horloge bureau
+    unsplash("1484981138541-3d074aa97716"), // desk clock
+  ],
+  ergonomicChair: [
+    unsplash("1579389083046-e3df9c2b3325"), // chaise bureau ergonomique
+    unsplash("1593642632523-1d60af4b3029"), // home office chair
+    unsplash("1519389950473-47ba0277781c"), // bureau télétravail
+  ],
+  babyThermometer: [
+    unsplash("1566140967404-b8b3932483f5"), // thermomètre bébé
+    unsplash("1587654780291-39c9404d746b"), // santé bébé
+    unsplash("1503454537195-1dcabb73ffb9"), // soin bébé
+  ],
+  kidsScooter: [
+    unsplash("1596461404969-9ae70f2830c1"), // trottinette enfant
+    unsplash("1503454537195-1dcabb73ffb9"), // jouet enfant outdoor
+    unsplash("1547347298-4074fc3086f0"), // enfant activité
+  ],
+  inflatablePool: [
+    unsplash("1596461404969-9ae70f2830c1"), // piscine gonflable enfant
+    unsplash("1503454537195-1dcabb73ffb9"), // jeu eau enfant
+    unsplash("1547347298-4074fc3086f0"), // été famille
+  ],
+  playTent: [
+    unsplash("1503454537195-1dcabb73ffb9"), // tente jeu enfant
+    unsplash("1566140967404-b8b3932483f5"), // chambre enfant jouet
+    unsplash("1596461404969-9ae70f2830c1"), // indoor play enfant
+  ],
+  kidsHeadphones: [
+    unsplash("1590658165737-15a047b7c97e"), // casque audio enfant
+    unsplash("1503454537195-1dcabb73ffb9"), // kid headphone
+    unsplash("1566140967404-b8b3932483f5"), // enfant musique
+  ],
 
   // ── Nouveaux produits (session 2026-05-17)
-  carDefroster: [unsplash("1494976388531-d1058494cdd8"), unsplash("1511919884226-fd3cad34687c"), pexels("13536013")],
-  carSeatCushion: [pexels("4050315"), unsplash("1558618666-fcd25c85cd64"), pexels("9462680")],
-  consoleOrganizer: [pexels("9582574"), pexels("30563011"), pexels("9462680")],
-  batteryTester: [pexels("159293"), pexels("1592384"), pexels("27231737")],
-  ledStringLights: [pexels("1536619"), pexels("1640777"), unsplash("1558618666-fcd25c85cd64")],
-  airQualitySensor: [pexels("3685175"), pexels("7368292"), pexels("3685176")],
-  weatherStation: [pexels("2440038"), pexels("7568781"), pexels("1118873")],
-  ledFaucet: [pexels("3935333"), pexels("6941354"), pexels("7194705")],
-  pastaMachine: [pexels("1397294"), pexels("4110541"), pexels("3872370")],
-  toaster: [pexels("4551832"), pexels("2232918"), pexels("416528")],
-  meatThermometer: [pexels("1199960"), pexels("4552209"), pexels("6406423")],
-  cuttingBoard: [pexels("4397295"), pexels("6205791"), pexels("3796520")],
-  battleRope: [pexels("6389881"), pexels("5327481"), pexels("7699235")],
-  pullUpBar: [pexels("4498553"), pexels("703012"), pexels("6389979")],
-  boxingGloves: [pexels("4754146"), pexels("7697774"), pexels("6389881")],
-  sleepMask: [pexels("3756879"), pexels("3807571"), pexels("4386370")],
-  digitalNotebook: [pexels("4050315"), pexels("7439757"), pexels("1181406")],
-  gimbal: [pexels("7988272"), pexels("6994945"), pexels("7988274")],
-  footrest: [pexels("4050315"), pexels("574077"), pexels("7439757")],
-  pianokids: [pexels("7261497"), pexels("8520519"), pexels("8520517")],
-  microscopeKids: [pexels("3825441"), pexels("8363001"), pexels("5428001")],
-  kidsGpsBackpack: [pexels("5060935"), pexels("9462680"), pexels("3905780")],
-  walkieTalkie: [pexels("7520870"), pexels("1308747"), pexels("936010")],
-  lightDrawingTablet: [pexels("7104382"), pexels("4492132"), pexels("9474820")],
+  carDefroster: [
+    unsplash("1494976388531-d1058494cdd8"), // intérieur voiture
+    unsplash("1511919884226-fd3cad34687c"), // dashboard auto
+    unsplash("1558981806-ec527fa84c39"),     // gadget voiture
+  ],
+  carSeatCushion: [
+    unsplash("1511919884226-fd3cad34687c"), // intérieur voiture siège
+    unsplash("1494976388531-d1058494cdd8"), // auto interior
+    unsplash("1558981806-ec527fa84c39"),     // accessoire auto
+  ],
+  consoleOrganizer: [
+    unsplash("1494976388531-d1058494cdd8"), // console centrale voiture
+    unsplash("1511919884226-fd3cad34687c"), // car interior organizer
+    unsplash("1558981806-ec527fa84c39"),     // car accessories
+  ],
+  batteryTester: [
+    unsplash("1558981806-ec527fa84c39"),     // testeur batterie voiture
+    unsplash("1494976388531-d1058494cdd8"), // car gadget
+    unsplash("1511919884226-fd3cad34687c"), // auto diagnostic
+  ],
+  ledStringLights: [
+    unsplash("1556761175-b413da4baf72"), // guirlande LED intérieur
+    unsplash("1558618666-fcd25c85cd64"), // smart lighting
+    unsplash("1484101403633-562f891dc89a"), // ambiance LED
+  ],
+  airQualitySensor: [
+    unsplash("1600857062241-98e5dba7f5bf"), // capteur qualité air
+    unsplash("1527359443443-84a48aec73d2"), // air sensor device
+    unsplash("1558618666-fcd25c85cd64"), // smart home sensor
+  ],
+  weatherStation: [
+    unsplash("1556761175-b413da4baf72"), // station météo connectée
+    unsplash("1558618666-fcd25c85cd64"), // smart home device
+    unsplash("1484101403633-562f891dc89a"), // home sensor
+  ],
+  ledFaucet: [
+    unsplash("1556909114-f6e7ad7d3136"), // robinet LED cuisine
+    unsplash("1495521821757-a1efb6729352"), // cuisine gadget
+    unsplash("1585515320310-259814833e62"), // kitchen gadget
+  ],
+  pastaMachine: [
+    unsplash("1495521821757-a1efb6729352"), // machine à pâtes
+    unsplash("1556909114-f6e7ad7d3136"), // ustensile cuisine
+    unsplash("1585515320310-259814833e62"), // kitchen tool
+  ],
+  toaster: [
+    unsplash("1495474472287-4d71bcdd2085"), // grille-pain électrique
+    unsplash("1556909114-f6e7ad7d3136"), // toaster cuisine
+    unsplash("1585515320310-259814833e62"), // kitchen appliance
+  ],
+  meatThermometer: [
+    unsplash("1556909114-f6e7ad7d3136"), // thermomètre cuisson
+    unsplash("1495521821757-a1efb6729352"), // BBQ cuisine
+    unsplash("1585515320310-259814833e62"), // cooking gadget
+  ],
+  cuttingBoard: [
+    unsplash("1492545082-22644ab456eb"), // planche à découper bambou
+    unsplash("1556909114-f6e7ad7d3136"), // ustensile cuisine bois
+    unsplash("1495521821757-a1efb6729352"), // cutting board
+  ],
+  battleRope: [
+    unsplash("1534438327276-14e5300c3a48"), // battle rope gym
+    unsplash("1571019613454-1cb2f99b2d8b"), // fitness training intense
+    unsplash("1552674605-db6ffd4facb5"), // gym equipment
+  ],
+  pullUpBar: [
+    unsplash("1534438327276-14e5300c3a48"), // barre traction porte
+    unsplash("1583454110551-21f2fa2afe61"), // musculation barre
+    unsplash("1571019613454-1cb2f99b2d8b"), // workout pull up
+  ],
+  boxingGloves: [
+    unsplash("1583454110551-21f2fa2afe61"), // gants boxe
+    unsplash("1534438327276-14e5300c3a48"), // boxing sport
+    unsplash("1571019613454-1cb2f99b2d8b"), // combat sport
+  ],
+  sleepMask: [
+    unsplash("1587854692152-cbe660dbde88"), // masque sommeil yeux
+    unsplash("1549045783-5f2d8e8dff74"), // spa relaxation
+    unsplash("1596462502278-27bfdc403348"), // bien-être soin
+  ],
+  digitalNotebook: [
+    unsplash("1561154464-062d233de9f9"), // carnet numérique tablet
+    unsplash("1593642632523-1d60af4b3029"), // desk productivity notebook
+    unsplash("1519389950473-47ba0277781c"), // digital work setup
+  ],
+  gimbal: [
+    unsplash("1574715144611-609f29192975"), // gimbal stabilisateur
+    unsplash("1526378800651-8438701bb3ff"), // creator content gear
+    unsplash("1561154464-062d233de9f9"), // smartphone video tech
+  ],
+  footrest: [
+    unsplash("1593642632523-1d60af4b3029"), // repose-pied bureau
+    unsplash("1519389950473-47ba0277781c"), // ergonomie bureau
+    unsplash("1484981138541-3d074aa97716"), // desk ergonomic
+  ],
+  pianokids: [
+    unsplash("1596461404969-9ae70f2830c1"), // piano électronique enfant
+    unsplash("1503454537195-1dcabb73ffb9"), // jouet musical enfant
+    unsplash("1566140967404-b8b3932483f5"), // instrument kid
+  ],
+  microscopeKids: [
+    unsplash("1596461404969-9ae70f2830c1"), // microscope enfant éducatif
+    unsplash("1503454537195-1dcabb73ffb9"), // science jouet kid
+    unsplash("1547347298-4074fc3086f0"), // éducatif enfant
+  ],
+  kidsGpsBackpack: [
+    unsplash("1503454537195-1dcabb73ffb9"), // sac GPS enfant
+    unsplash("1566140967404-b8b3932483f5"), // sac dos enfant
+    unsplash("1547347298-4074fc3086f0"), // family security kid
+  ],
+  walkieTalkie: [
+    unsplash("1557597774-9d273605dfa9"), // walkie talkie communication
+    unsplash("1503454537195-1dcabb73ffb9"), // jouet radio enfant
+    unsplash("1547347298-4074fc3086f0"), // outdoor kids
+  ],
+  lightDrawingTablet: [
+    unsplash("1561154464-062d233de9f9"), // tablette dessin lumineuse
+    unsplash("1596461404969-9ae70f2830c1"), // tablet créatif enfant
+    unsplash("1503454537195-1dcabb73ffb9"), // art kid creative
+  ],
 };
 
 const SLUG_IMAGES: Record<string, string[]> = {
