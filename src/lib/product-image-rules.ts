@@ -54,8 +54,8 @@ const IMAGE_SETS = {
 
   // ── Gadgets voiture
   backupCamera: [WIKI.backupCamera, WIKI.backupDisplay, pexels("13836509")],
-  carPhoneHolder: [pexels("13536013"), pexels("33488", "jpg", "navigation-car-drive-road"), pexels("20329591")],
-  carCharger: [pexels("7742563", "png"), pexels("33488", "jpg", "navigation-car-drive-road"), unsplash("1494976388531-d1058494cdd8")],
+  carPhoneHolder: [pexels("13536013"), unsplash("1511919884226-fd3cad34687c"), pexels("20329591")],
+  carCharger: [pexels("7742563", "png"), unsplash("1494976388531-d1058494cdd8"), unsplash("1511919884226-fd3cad34687c")],
   carVacuum: [pexels("5233264"), pexels("4120479"), pexels("12167650")],
   carOrganizer: [pexels("30563011"), pexels("9582574"), pexels("9462680")],
   dashcam: [pexels("13836509"), pexels("9318443"), pexels("30520122")],
