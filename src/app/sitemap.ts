@@ -19,6 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/blog/accessoires-bureau-design-premium-teletravail`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.65 },
     { url: `${BASE}/blog/objets-design-tendance-maison-2026`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.65 },
     { url: `${BASE}/blog/idee-cadeau-anniversaire-original-femme`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.65 },
+    { url: `${BASE}/blog/meilleurs-gadgets-tech-2026`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.65 },
+    { url: `${BASE}/blog/cadeau-noel-original-2026`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/suivi`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
     { url: `${BASE}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/cgv`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },

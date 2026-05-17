@@ -85,6 +85,24 @@ const articles = [
     readTime: "4 min",
     date: "10 mai 2026",
   },
+  {
+    slug: "meilleurs-gadgets-tech-2026",
+    title: "Meilleurs gadgets tech 2026 : 10 objets qui valent vraiment leur prix",
+    excerpt: "Quels gadgets tech acheter en 2026 ? Notre sélection des objets technologiques vraiment utiles, testés selon des critères exigeants.",
+    image: "https://images.pexels.com/photos/9741343/pexels-photo-9741343.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    category: "Tech",
+    readTime: "6 min",
+    date: "18 mai 2026",
+  },
+  {
+    slug: "cadeau-noel-original-2026",
+    title: "Cadeau Noël original 2026 : idées premium pour éviter le générique",
+    excerpt: "Préparez Noël 2026 avec une sélection de cadeaux originaux et haut de gamme. Des objets qui marquent, pour tous les profils.",
+    image: "https://images.pexels.com/photos/9775357/pexels-photo-9775357.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    category: "Cadeau",
+    readTime: "7 min",
+    date: "17 mai 2026",
+  },
 ];
 
 export default function BlogPage() {
