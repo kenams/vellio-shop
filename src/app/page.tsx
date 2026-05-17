@@ -1,247 +1,173 @@
 export const dynamic = "force-dynamic";
-import Link from "next/link";
+
 import Image from "next/image";
-import { Zap, TrendingUp, Shield, Truck, RotateCcw, Bot, CheckCircle, Star, Flame, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
-import ProductCard from "@/components/product/ProductCard";
-import Hero from "@/components/home/Hero";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { getServerLocale } from "@/lib/locale-server";
 import { getT } from "@/lib/i18n";
+import { getPremiumCategory, getPremiumProductPresentation, toPublicProduct } from "@/lib/premium-brand";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/home/Hero";
+import Container from "@/components/ui/Container";
+import SectionTitle from "@/components/ui/SectionTitle";
+import ProductGrid from "@/components/product/ProductGrid";
+import TrustBar from "@/components/ui/TrustBar";
+import Newsletter from "@/components/ui/Newsletter";
+import MotionWrapper from "@/components/ui/MotionWrapper";
 import type { Product } from "@/types";
 
-const CATEGORY_ICONS: Record<string, string> = {
-  "gadgets-voiture": "🚗", "maison-intelligente": "🏠", "cuisine-pratique": "🍳",
-  "sport-fitness": "💪", "beaute-soin": "✨", "tech-gadgets": "📱",
-  "bureau-productivite": "💼", "enfant-famille": "👨‍👩‍👧",
-};
-const CATEGORY_GRADIENTS: Record<string, string> = {
-  "gadgets-voiture": "from-blue-500/20 to-sky-300/10", "maison-intelligente": "from-emerald-500/20 to-teal-300/10",
-  "cuisine-pratique": "from-orange-500/20 to-amber-300/10", "sport-fitness": "from-red-500/20 to-pink-300/10",
-  "beaute-soin": "from-pink-500/20 to-rose-300/10", "tech-gadgets": "from-violet-500/20 to-purple-300/10",
-  "bureau-productivite": "from-slate-500/20 to-gray-300/10", "enfant-famille": "from-yellow-500/20 to-lime-300/10",
-};
-
-const FEATURES_FR = [
-  { icon: Bot, title: "Sélection IA quotidienne", desc: "Notre algorithme analyse TikTok, Google Trends et les données fournisseurs chaque nuit." },
-  { icon: Shield, title: "Paiement 100% sécurisé", desc: "Stripe PCI DSS niveau 1 — vos données bancaires ne transitent jamais par nos serveurs." },
-  { icon: Truck, title: "Livraison suivie 7-14j", desc: "Chaque commande est expédiée avec un numéro de suivi et assurée jusqu'à votre porte." },
-  { icon: RotateCcw, title: "Retours gratuits 30 jours", desc: "Pas satisfait ? On vous rembourse intégralement, sans poser de questions, en 5 jours ouvrés." },
-];
-const FEATURES_EN = [
-  { icon: Bot, title: "Daily AI selection", desc: "Our algorithm analyzes TikTok, Google Trends and supplier data every night to find hidden gems." },
-  { icon: Shield, title: "100% secure payment", desc: "Stripe PCI DSS level 1 — your payment data never passes through our servers." },
-  { icon: Truck, title: "Tracked delivery 7-14 days", desc: "Every order ships with a tracking number and is insured to your door." },
-  { icon: RotateCcw, title: "Free 30-day returns", desc: "Not happy? Full refund, no questions asked, within 5 business days." },
-];
-
-const REVIEWS_FR = [
-  { name: "Sophie L.", city: "Lyon", comment: "Reçu en 10 jours, emballage soigné et produit exactement comme sur les photos. Je recommande !", stars: 5 },
-  { name: "Karim B.", city: "Paris", comment: "Le score de tendance est vraiment fiable, j'ai commandé deux produits déjà vus sur TikTok !", stars: 5 },
-  { name: "Marie C.", city: "Bordeaux", comment: "Super service client, j'ai demandé un remboursement et c'était réglé en 3 jours. Chapeau !", stars: 5 },
-];
-const REVIEWS_EN = [
-  { name: "James T.", city: "London", comment: "Arrived in 10 days, great packaging and product exactly as shown. Highly recommend!", stars: 5 },
-  { name: "Emma R.", city: "Manchester", comment: "The trend score is really accurate — I'd seen these products on TikTok days before!", stars: 5 },
-  { name: "Oliver S.", city: "Birmingham", comment: "Great customer service. I requested a refund and it was sorted in 3 days. Top quality!", stars: 5 },
-];
+const editorialImage = "https://images.pexels.com/photos/10736999/pexels-photo-10736999.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop";
 
 export default async function HomePage() {
   const locale = getServerLocale();
   const t = getT(locale);
 
-  const [featured, categories, trending] = await Promise.all([
+  const [featured, categories, signatures] = await Promise.all([
     prisma.product.findMany({
       where: { published: true, locale },
       include: { images: { take: 1, orderBy: { position: "asc" } }, category: true },
-      orderBy: { trendScore: "desc" },
+      orderBy: [{ featured: "desc" }, { trendScore: "desc" }],
       take: 8,
     }),
     prisma.category.findMany({ orderBy: { createdAt: "asc" }, take: 8 }),
     prisma.product.findMany({
       where: { published: true, locale },
-      include: { images: { take: 1 } },
+      include: { images: { take: 1, orderBy: { position: "asc" } }, category: true },
       orderBy: { trendScore: "desc" },
       take: 4,
     }),
   ]);
 
-  // Fallback: show all products if no locale-specific ones found
-  const featuredFinal = featured.length > 0 ? featured : await prisma.product.findMany({
-    where: { published: true },
-    include: { images: { take: 1, orderBy: { position: "asc" } }, category: true },
-    orderBy: { trendScore: "desc" },
-    take: 8,
-  });
-
-  const features = locale === "en" ? FEATURES_EN : FEATURES_FR;
-  const reviews = locale === "en" ? REVIEWS_EN : REVIEWS_FR;
+  const featuredFinal = featured.length > 0
+    ? featured
+    : await prisma.product.findMany({
+        where: { published: true },
+        include: { images: { take: 1, orderBy: { position: "asc" } }, category: true },
+        orderBy: [{ featured: "desc" }, { trendScore: "desc" }],
+        take: 8,
+      });
 
   return (
     <>
       <Header />
-      <main>
+      <main className="bg-brand-ivory">
         <Hero />
 
-        {/* Catégories */}
+        <TrustBar />
+
         {categories.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <div className="section-tag"><Zap className="w-3 h-3" /> {t("categories.tag")}</div>
-                <h2 className="text-3xl md:text-4xl font-black text-brand">{t("categories.title")}</h2>
-              </div>
-              <Link href="/produits" className="btn-ghost text-sm hidden sm:flex">
-                {t("common.viewAll")} <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
-              {categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/categorie/${cat.slug}`}
-                  className={`group card-hover p-4 sm:p-5 bg-gradient-to-br ${CATEGORY_GRADIENTS[cat.slug] || "from-gray-100 to-gray-50"} border-0`}
-                >
-                  <div className="text-3xl sm:text-4xl mb-3 group-hover:scale-110 transition-transform duration-300 inline-block">
-                    {CATEGORY_ICONS[cat.slug] || "🛒"}
-                  </div>
-                  <p className="font-bold text-sm text-gray-800 group-hover:text-primary-700 transition-colors leading-tight">
-                    {cat.name}
-                  </p>
+          <section className="py-16 sm:py-24">
+            <Container>
+              <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                <SectionTitle
+                  eyebrow={t("categories.tag")}
+                  title={t("categories.title")}
+                  subtitle="Des univers pensés comme une garde-robe d'objets : maison, tech, beauté, mobilité et rituels du quotidien."
+                />
+                <Link href="/produits" className="btn-secondary w-fit">
+                  {t("common.viewAll")} <ArrowRight className="h-4 w-4" />
                 </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Produits vedette */}
-        {featuredFinal.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <div className="section-tag"><Bot className="w-3 h-3" /> {t("featured.tag")}</div>
-                <h2 className="text-3xl md:text-4xl font-black text-brand">{t("featured.title")}</h2>
-                <p className="text-gray-500 mt-1 text-sm sm:text-base">{t("featured.subtitle")}</p>
               </div>
-              <Link href="/produits" className="btn-secondary text-sm py-2 px-4 hidden sm:flex">{t("featured.viewAll")}</Link>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
-              {featuredFinal.map((product) => <ProductCard key={product.id} product={product as any} />)}
-            </div>
-            <div className="text-center mt-8 sm:hidden">
-              <Link href="/produits" className="btn-secondary text-sm">{t("featured.viewAll")}</Link>
-            </div>
-          </section>
-        )}
 
-        {/* Trending */}
-        {trending.length > 0 && (
-          <section className="bg-gradient-brand text-white py-14 px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-                <div className="max-w-md">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Flame className="w-5 h-5 text-brand-accent" />
-                    <span className="text-brand-accent font-bold text-sm uppercase tracking-widest">{t("trending.tag")}</span>
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-black mb-3">
-                    {t("trending.title")}<br />
-                    <span className="text-brand-accent">{t("trending.titleAccent")}</span>
-                  </h2>
-                  <p className="text-white/60 text-sm leading-relaxed mb-6">{t("trending.desc")}</p>
-                  <Link href="/produits?filter=top" className="btn-primary text-sm px-6 py-3">{t("trending.cta")}</Link>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full lg:max-w-xl">
-                  {trending.map((product, i) => {
-                    const img = product.images?.[0]?.url || "/placeholder.jpg";
-                    return (
-                      <Link key={product.id} href={`/produits/${product.slug}`}
-                        className="flex items-center gap-3 glass rounded-2xl p-3.5 hover:bg-white/20 transition-all group">
-                        <span className="text-2xl font-black text-white/20 w-7 text-center flex-shrink-0">#{i + 1}</span>
-                        <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-white/10">
-                          <Image src={img} alt={product.name} fill className="object-cover" />
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {categories.map((category, index) => {
+                  const premium = getPremiumCategory(category.slug, category.name, locale);
+                  return (
+                    <MotionWrapper key={category.id} delay={index * 0.04}>
+                      <Link href={`/categorie/${category.slug}`} className="group flex min-h-52 flex-col justify-between rounded-[1.5rem] border border-black/10 bg-white/70 p-6 shadow-card transition-all duration-500 hover:-translate-y-1 hover:border-brand-accent/35 hover:bg-white hover:shadow-card-hover">
+                        <div>
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-accent">{premium.accent}</p>
+                          <h3 className="mt-4 font-serif text-3xl font-semibold leading-none text-brand">{premium.label}</h3>
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-xs font-semibold leading-snug line-clamp-2">{product.name}</p>
-                          <p className="text-brand-accent text-sm font-black mt-0.5">{formatPrice(product.price)}</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-white flex-shrink-0 transition-colors" />
+                        <p className="mt-6 text-sm leading-6 text-brand/55">{premium.description}</p>
                       </Link>
-                    );
-                  })}
-                </div>
+                    </MotionWrapper>
+                  );
+                })}
               </div>
-            </div>
+            </Container>
           </section>
         )}
 
-        {/* Pourquoi */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-          <div className="text-center mb-12">
-            <div className="section-tag mx-auto"><CheckCircle className="w-3 h-3" /> {t("trust.tag")}</div>
-            <h2 className="text-3xl md:text-4xl font-black text-brand mb-3">{t("trust.title")}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto text-sm sm:text-base">{t("trust.subtitle")}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {features.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="card p-6 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-100 to-primary-50 flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-primary-600" />
-                </div>
-                <h3 className="font-bold text-brand mb-2 text-sm sm:text-base">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+        {featuredFinal.length > 0 && (
+          <section className="pb-16 sm:pb-24">
+            <Container>
+              <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                <SectionTitle eyebrow={t("featured.tag")} title={t("featured.title")} subtitle={t("featured.subtitle")} />
+                <Link href="/produits" className="btn-primary w-fit">
+                  {t("featured.viewAll")} <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
-            ))}
-          </div>
+              <ProductGrid products={featuredFinal.map((product) => toPublicProduct(product as any, locale)) as unknown as Product[]} />
+            </Container>
+          </section>
+        )}
+
+        <section className="overflow-hidden bg-white py-16 sm:py-24">
+          <Container className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <MotionWrapper>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-black/10 bg-brand-ivory shadow-card">
+                <Image src={editorialImage} alt="Lampe design dans un intérieur sobre" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 45vw" />
+              </div>
+            </MotionWrapper>
+            <MotionWrapper delay={0.08}>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-accent">Art du détail</p>
+              <h2 className="mt-5 max-w-2xl font-serif text-5xl font-semibold leading-[0.95] text-brand sm:text-6xl">
+                Le luxe moderne réside dans la simplicité.
+              </h2>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-brand/62">
+                Vellio ne cherche pas l'accumulation. La Maison sélectionne des pièces utiles, visuellement calmes et suffisamment distinctives pour transformer un geste ordinaire en rituel.
+              </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                {[
+                  ["01", "Usage clair"],
+                  ["02", "Ligne sobre"],
+                  ["03", "Désirabilité mesurée"],
+                ].map(([number, label]) => (
+                  <div key={number} className="border-t border-black/10 pt-4">
+                    <p className="font-serif text-3xl text-brand-accent">{number}</p>
+                    <p className="mt-1 text-sm font-medium text-brand/65">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </MotionWrapper>
+          </Container>
         </section>
 
-        {/* Avis */}
-        <section className="bg-gradient-to-b from-primary-50/50 to-white py-16 px-4">
-          <div className="max-w-5xl mx-auto text-center mb-10">
-            <div className="section-tag mx-auto"><Star className="w-3 h-3" /> {t("reviews.tag")}</div>
-            <h2 className="text-3xl md:text-4xl font-black text-brand mb-2">{t("reviews.title")}</h2>
-            <div className="flex items-center justify-center gap-1.5 text-yellow-400 text-xl">
-              {"★★★★★"}
-              <span className="text-gray-600 text-base ml-2 font-semibold">{t("reviews.rating")}</span>
-            </div>
-          </div>
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            {reviews.map((r) => (
-              <div key={r.name} className="card p-6 hover:shadow-card-hover transition-all duration-300">
-                <div className="flex items-center gap-1 text-yellow-400 mb-4 text-sm">{"★".repeat(r.stars)}</div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">"{r.comment}"</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                    {r.name[0]}
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm text-brand">{r.name}</p>
-                    <p className="text-xs text-gray-400">{r.city}</p>
-                  </div>
-                  <span className="ml-auto text-xs text-green-600 font-semibold flex items-center gap-1">
-                    <CheckCircle className="w-3 h-3" /> {t("reviews.verified")}
-                  </span>
-                </div>
+        {signatures.length > 0 && (
+          <section className="py-16 sm:py-24">
+            <Container>
+              <div className="mb-10">
+                <SectionTitle eyebrow={t("trending.tag")} title={`${t("trending.title")} ${t("trending.titleAccent")}`} subtitle={t("trending.desc")} />
               </div>
-            ))}
-          </div>
-        </section>
+              <div className="grid gap-3 lg:grid-cols-4">
+                {signatures.map((product, index) => {
+                  const presentation = getPremiumProductPresentation(product as any, locale);
+                  const image = product.images[0]?.url || "/placeholder.jpg";
+                  return (
+                    <MotionWrapper key={product.id} delay={index * 0.04}>
+                      <Link href={`/produits/${product.slug}`} className="group flex items-center gap-4 rounded-[1.25rem] border border-black/10 bg-white/70 p-4 transition-all duration-500 hover:-translate-y-1 hover:border-brand-accent/35 hover:bg-white hover:shadow-card-hover">
+                        <span className="font-serif text-3xl text-brand/25">0{index + 1}</span>
+                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-brand-ivory">
+                          <Image src={image} alt={presentation.name} fill className="object-cover" sizes="80px" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="line-clamp-1 text-sm font-semibold text-brand">{presentation.name}</p>
+                          <p className="mt-1 text-sm text-brand/55">{formatPrice(product.price)}</p>
+                        </div>
+                      </Link>
+                    </MotionWrapper>
+                  );
+                })}
+              </div>
+            </Container>
+          </section>
+        )}
 
-        {/* Newsletter */}
-        <section className="max-w-2xl mx-auto px-4 py-20 text-center">
-          <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-primary-600 to-brand-accent flex items-center justify-center mx-auto mb-5 shadow-btn-violet">
-            <TrendingUp className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="text-3xl md:text-4xl font-black text-brand mb-3">{t("newsletter.title")}</h2>
-          <p className="text-gray-500 mb-8 text-sm sm:text-base">{t("newsletter.subtitle")}</p>
-          <form action="/api/newsletter" method="POST" className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input type="email" name="email" required placeholder={t("newsletter.placeholder")} className="input-field flex-1" />
-            <button type="submit" className="btn-primary whitespace-nowrap">{t("newsletter.cta")}</button>
-          </form>
-          <p className="text-xs text-gray-400 mt-3">{t("newsletter.note")}</p>
-        </section>
+        <Newsletter />
       </main>
       <Footer />
     </>

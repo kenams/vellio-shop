@@ -14,7 +14,12 @@ export function formatDate(date: Date | string): string {
 }
 
 export function slugify(text: string): string {
-  return text.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
 export function generateOrderNumber(): string {
@@ -26,15 +31,15 @@ export function calculateMargin(cost: number, price: number): number {
 }
 
 export function getTrendColor(score: number): string {
-  if (score >= 80) return "text-green-500";
-  if (score >= 60) return "text-yellow-500";
-  if (score >= 40) return "text-orange-500";
-  return "text-red-500";
+  if (score >= 85) return "text-brand-accent";
+  if (score >= 70) return "text-emerald-600";
+  if (score >= 50) return "text-amber-600";
+  return "text-brand/50";
 }
 
 export function getTrendLabel(score: number): string {
-  if (score >= 80) return "🔥 Viral";
-  if (score >= 60) return "📈 Tendance";
-  if (score >= 40) return "⚡ Actif";
-  return "💤 Faible";
+  if (score >= 88) return "Signature";
+  if (score >= 76) return "Forte désirabilité";
+  if (score >= 60) return "Sélection montante";
+  return "Niche raffinée";
 }

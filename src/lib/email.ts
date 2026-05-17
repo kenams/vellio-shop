@@ -3,6 +3,10 @@ import { Resend } from "resend";
 const FROM = process.env.EMAIL_FROM || "Vellio <noreply@vellio.fr>";
 const getResend = () => new Resend(process.env.RESEND_API_KEY || "re_placeholder");
 
+function esc(s: string): string {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 export async function sendOrderConfirmation(order: {
   orderNumber: string;
   customerEmail: string;
@@ -11,7 +15,7 @@ export async function sendOrderConfirmation(order: {
   total: number;
 }) {
   const itemsHtml = order.items
-    .map((i) => `<tr><td>${i.name}</td><td>${i.quantity}</td><td>${i.price.toFixed(2)}€</td></tr>`)
+    .map((i) => `<tr><td>${esc(i.name)}</td><td>${i.quantity}</td><td>${i.price.toFixed(2)}€</td></tr>`)
     .join("");
 
   await getResend().emails.send({
@@ -21,8 +25,8 @@ export async function sendOrderConfirmation(order: {
     html: `
       <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
         <h1 style="color:#1a1a2e">Merci pour votre commande !</h1>
-        <p>Bonjour ${order.customerName},</p>
-        <p>Votre commande <strong>${order.orderNumber}</strong> a bien été confirmée.</p>
+        <p>Bonjour ${esc(order.customerName)},</p>
+        <p>Votre commande <strong>${esc(order.orderNumber)}</strong> a bien été confirmée.</p>
         <table style="width:100%;border-collapse:collapse">
           <tr style="background:#f5f5f5"><th>Produit</th><th>Qté</th><th>Prix</th></tr>
           ${itemsHtml}

@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
         tiktokHashtags: tiktokHashtags || [],
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
-        faqJson: faq ? (({ faq }) as object) : undefined,
+        faqJson: faq || undefined,
         published: published ?? false,
         featured: featured ?? false,
         trendScore: trendScore || 0,

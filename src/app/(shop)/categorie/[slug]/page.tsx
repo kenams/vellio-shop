@@ -1,44 +1,28 @@
 export const dynamic = "force-dynamic";
-import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
-import ProductCard from "@/components/product/ProductCard";
-import Link from "next/link";
+
 import type { Metadata } from "next";
-import { ArrowLeft, SlidersHorizontal, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import { prisma } from "@/lib/prisma";
+import { getPremiumCategory, toPublicProduct } from "@/lib/premium-brand";
+import Container from "@/components/ui/Container";
+import SectionTitle from "@/components/ui/SectionTitle";
+import ProductGrid from "@/components/product/ProductGrid";
+import type { Product } from "@/types";
 
 interface Props {
   params: { slug: string };
   searchParams: { tri?: string };
 }
 
-const CATEGORY_ICONS: Record<string, string> = {
-  "gadgets-voiture": "🚗",
-  "maison-intelligente": "🏠",
-  "cuisine-pratique": "🍳",
-  "sport-fitness": "💪",
-  "beaute-soin": "✨",
-  "tech-gadgets": "📱",
-  "bureau-productivite": "💼",
-  "enfant-famille": "👨‍👩‍👧",
-};
-
-const CATEGORY_COLORS: Record<string, string> = {
-  "gadgets-voiture": "from-blue-600 to-sky-500",
-  "maison-intelligente": "from-emerald-600 to-teal-500",
-  "cuisine-pratique": "from-orange-600 to-amber-500",
-  "sport-fitness": "from-red-600 to-pink-500",
-  "beaute-soin": "from-pink-600 to-rose-500",
-  "tech-gadgets": "from-violet-600 to-purple-500",
-  "bureau-productivite": "from-slate-600 to-gray-500",
-  "enfant-famille": "from-yellow-600 to-lime-500",
-};
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = await prisma.category.findUnique({ where: { slug: params.slug } });
-  if (!category) return { title: "Catégorie introuvable" };
+  if (!category) return { title: "Univers introuvable" };
+  const premium = getPremiumCategory(category.slug, category.name);
   return {
-    title: `${category.name} — Vellio`,
-    description: category.description || `Découvrez tous les produits tendance ${category.name} sélectionnés par IA.`,
+    title: `${premium.label} — Vellio`,
+    description: premium.description,
   };
 }
 
@@ -46,10 +30,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const category = await prisma.category.findUnique({ where: { slug: params.slug } });
   if (!category) notFound();
 
+  const premium = getPremiumCategory(category.slug, category.name);
   const orderBy: any =
     searchParams.tri === "prix-asc" ? { price: "asc" }
     : searchParams.tri === "prix-desc" ? { price: "desc" }
-    : { trendScore: "desc" };
+    : [{ featured: "desc" }, { trendScore: "desc" }];
 
   const [products, allCategories] = await Promise.all([
     prisma.product.findMany({
@@ -57,139 +42,81 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       orderBy,
       include: { images: { take: 1, orderBy: { position: "asc" } }, trendData: true, category: true },
     }),
-    prisma.category.findMany({ orderBy: { name: "asc" } }),
+    prisma.category.findMany({ orderBy: { createdAt: "asc" } }),
   ]);
 
-  const gradient = CATEGORY_COLORS[params.slug] || "from-primary-600 to-primary-500";
-  const icon = CATEGORY_ICONS[params.slug] || "🛒";
-
   const sortOptions = [
-    { value: "", label: "📈 Tendance" },
-    { value: "prix-asc", label: "💰 Prix croissant" },
-    { value: "prix-desc", label: "💎 Prix décroissant" },
+    { value: "", label: "Désirabilité" },
+    { value: "prix-asc", label: "Prix croissant" },
+    { value: "prix-desc", label: "Prix décroissant" },
   ];
 
   return (
-    <>
-      {/* Category hero */}
-      <div className={`bg-gradient-to-r ${gradient} text-white`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-white/60 mb-5">
-            <Link href="/" className="hover:text-white transition-colors">Accueil</Link>
-            <ChevronRight className="w-4 h-4" />
-            <Link href="/produits" className="hover:text-white transition-colors">Catalogue</Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-white font-medium">{category.name}</span>
-          </div>
+    <div className="bg-brand-ivory">
+      <section className="border-b border-black/10 bg-brand text-white">
+        <Container className="py-14 sm:py-20">
+          <Link href="/produits" className="mb-8 inline-flex items-center gap-2 text-sm text-white/55 transition-colors hover:text-white">
+            <ArrowLeft className="h-4 w-4" />
+            Collection
+          </Link>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-accent">{premium.accent}</p>
+          <h1 className="mt-4 max-w-3xl font-serif text-5xl font-semibold leading-[0.92] sm:text-7xl">{premium.label}</h1>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-white/62">{premium.description}</p>
+          <p className="mt-6 text-sm text-white/45">{products.length} pièce{products.length > 1 ? "s" : ""} disponible{products.length > 1 ? "s" : ""}</p>
+        </Container>
+      </section>
 
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl sm:text-4xl flex-shrink-0">
-              {icon}
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black">{category.name}</h1>
-              {category.description && (
-                <p className="text-white/70 mt-1 text-sm sm:text-base">{category.description}</p>
-              )}
-              <p className="text-white/60 text-sm mt-1">
-                <strong className="text-white">{products.length}</strong> produit{products.length > 1 ? "s" : ""} disponible{products.length > 1 ? "s" : ""}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        {/* Mobile sort */}
-        <div className="md:hidden mb-5">
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            {sortOptions.map((opt) => (
-              <Link
-                key={opt.value}
-                href={`/categorie/${params.slug}${opt.value ? `?tri=${opt.value}` : ""}`}
-                className={`flex-shrink-0 text-xs font-bold px-4 py-2.5 rounded-xl transition-all ${
-                  (searchParams.tri || "") === opt.value
-                    ? "bg-primary-600 text-white shadow-btn-violet"
-                    : "bg-white text-gray-600 border border-gray-200"
-                }`}
-              >
-                {opt.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex gap-8">
-          {/* Sidebar desktop */}
-          <aside className="hidden md:block w-56 flex-shrink-0">
-            <div className="card p-5 space-y-5 sticky top-28">
+      <Container className="py-10 sm:py-14">
+        <div className="flex flex-col gap-8 lg:flex-row">
+          <aside className="lg:w-72 lg:shrink-0">
+            <div className="sticky top-28 rounded-[1.5rem] border border-black/10 bg-white/70 p-5 shadow-card">
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-1.5">
-                  <SlidersHorizontal className="w-3.5 h-3.5" /> Trier par
-                </h3>
-                <div className="space-y-1">
-                  {sortOptions.map((opt) => (
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand/42">Tri</p>
+                <div className="grid gap-1">
+                  {sortOptions.map((option) => (
                     <Link
-                      key={opt.value}
-                      href={`/categorie/${params.slug}${opt.value ? `?tri=${opt.value}` : ""}`}
-                      className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm transition-all ${
-                        (searchParams.tri || "") === opt.value
-                          ? "bg-primary-50 text-primary-700 font-bold"
-                          : "hover:bg-gray-50 text-gray-600"
-                      }`}
+                      key={option.value}
+                      href={`/categorie/${params.slug}${option.value ? `?tri=${option.value}` : ""}`}
+                      className={`rounded-2xl px-3 py-2.5 text-sm transition-colors ${(searchParams.tri || "") === option.value ? "bg-brand text-white" : "text-brand/58 hover:bg-brand-ivory"}`}
                     >
-                      {opt.label}
+                      {option.label}
                     </Link>
                   ))}
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Autres catégories</h3>
-                <div className="space-y-1 max-h-72 overflow-y-auto">
-                  {allCategories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/categorie/${cat.slug}`}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all ${
-                        cat.slug === params.slug
-                          ? "bg-primary-50 text-primary-700 font-bold"
-                          : "hover:bg-gray-50 text-gray-600"
-                      }`}
-                    >
-                      <span>{CATEGORY_ICONS[cat.slug] || "🛒"}</span>
-                      <span className="truncate">{cat.name}</span>
-                    </Link>
-                  ))}
+              <div className="mt-7">
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand/42">Autres univers</p>
+                <div className="grid max-h-80 gap-1 overflow-y-auto pr-1">
+                  {allCategories.map((item) => {
+                    const itemPremium = getPremiumCategory(item.slug, item.name);
+                    return (
+                      <Link
+                        key={item.id}
+                        href={`/categorie/${item.slug}`}
+                        className={`rounded-2xl px-3 py-2.5 text-sm transition-colors ${item.slug === params.slug ? "bg-brand text-white" : "text-brand/58 hover:bg-brand-ivory"}`}
+                      >
+                        {itemPremium.label}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
-
-              <Link href="/produits" className="btn-secondary w-full text-sm py-2.5 flex items-center gap-2">
-                <ArrowLeft className="w-4 h-4" /> Tout le catalogue
-              </Link>
             </div>
           </aside>
 
-          {/* Grid */}
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 flex-1">
             {products.length === 0 ? (
-              <div className="text-center py-24">
-                <div className="text-5xl mb-4">{icon}</div>
-                <p className="text-lg font-bold text-gray-700 mb-2">Aucun produit pour l'instant</p>
-                <p className="text-gray-500 mb-6 text-sm">Notre IA ajoute de nouveaux produits chaque jour !</p>
-                <Link href="/produits" className="btn-primary">Voir tout le catalogue</Link>
+              <div className="rounded-[1.5rem] border border-black/10 bg-white/70 px-6 py-20 text-center shadow-card">
+                <SectionTitle align="center" title="Aucune pièce pour le moment" subtitle="La sélection de cet univers sera enrichie lors des prochaines prospections." />
+                <Link href="/produits" className="btn-primary mt-8">Voir toute la collection</Link>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-                {products.map((p) => (
-                  <ProductCard key={p.id} product={p as any} />
-                ))}
-              </div>
+              <ProductGrid products={products.map((product) => toPublicProduct(product as any)) as unknown as Product[]} />
             )}
           </div>
         </div>
-      </div>
-    </>
+      </Container>
+    </div>
   );
 }

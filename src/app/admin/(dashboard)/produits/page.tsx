@@ -24,8 +24,8 @@ export default async function AdminProduitsPage() {
           <h1 className="text-2xl font-black text-brand">Produits</h1>
           <p className="text-gray-500 text-sm mt-0.5">{products.length} produit{products.length > 1 ? "s" : ""} au total</p>
         </div>
-        <Link href="/admin/ia" className="btn-primary flex items-center gap-2 text-sm py-2">
-          <Plus className="w-4 h-4" /> Générer avec l'IA
+        <Link href="/admin/prospection" className="btn-primary flex items-center gap-2 text-sm py-2">
+          <Plus className="w-4 h-4" /> Prospection premium
         </Link>
       </div>
 
@@ -46,7 +46,7 @@ export default async function AdminProduitsPage() {
             {products.length === 0 && (
               <tr>
                 <td colSpan={7} className="text-center py-10 text-gray-400">
-                  Aucun produit. <Link href="/admin/ia" className="text-primary-600 underline">Créer avec l'IA →</Link>
+                  Aucun produit. <Link href="/admin/prospection" className="text-primary-600 underline">Préparer une opportunité →</Link>
                 </td>
               </tr>
             )}

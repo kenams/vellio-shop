@@ -1,95 +1,70 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCart, Flame, Star } from "lucide-react";
-import { formatPrice, getTrendLabel, cn } from "@/lib/utils";
+import { ShoppingBag, Star } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store/cartStore";
 import { useLangStore } from "@/store/langStore";
-import { getT } from "@/lib/i18n";
+import { getPremiumProductPresentation } from "@/lib/premium-brand";
+import ScoreBadge from "@/components/ui/ScoreBadge";
 import toast from "react-hot-toast";
 import type { Product } from "@/types";
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCartStore();
   const locale = useLangStore((s) => s.locale);
-  const t = getT(locale);
+  const presentation = getPremiumProductPresentation(product, locale);
   const mainImage = product.images?.[0]?.url || "/placeholder.jpg";
-  const hasDiscount = product.comparePrice && product.comparePrice > product.price;
-  const discountPct = hasDiscount ? Math.round(((product.comparePrice! - product.price) / product.comparePrice!) * 100) : 0;
-  const isTrending = product.trendScore >= 75;
-  const isHot = product.trendScore >= 90;
+  const hasComparePrice = Boolean(product.comparePrice && product.comparePrice > product.price);
 
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
-    addItem({ id: product.id, name: product.name, price: product.price, image: mainImage, quantity: 1, slug: product.slug });
-    toast.success(`${t("product.addToCart")} ✓`);
+    addItem({ id: product.id, name: presentation.name, price: product.price, image: mainImage, quantity: 1, slug: product.slug });
+    toast.success(`${presentation.name} ajouté à votre sélection`);
   }
 
   return (
-    <Link href={`/produits/${product.slug}`} className="group card-hover flex flex-col">
-      <div className="relative aspect-[4/3] sm:aspect-square bg-gray-50 overflow-hidden">
+    <Link href={`/produits/${product.slug}`} className="group block overflow-hidden rounded-[1.25rem] border border-black/10 bg-white shadow-card transition-all duration-500 hover:-translate-y-1 hover:border-brand-accent/35 hover:shadow-card-hover">
+      <div className="relative aspect-[4/5] overflow-hidden bg-brand-ivory">
         <Image
           src={mainImage}
-          alt={product.name}
+          alt={presentation.name}
           fill
-          className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
-          {hasDiscount && (
-            <span className="badge-trend bg-brand-accent text-white text-[11px]">-{discountPct}%</span>
-          )}
-          {isHot && (
-            <span className="badge-trend bg-red-100 text-red-600"><Flame className="w-3 h-3" /> HOT</span>
-          )}
-          {isTrending && !isHot && (
-            <span className="badge-trend bg-orange-100 text-orange-600"><Flame className="w-3 h-3" /> {getTrendLabel(product.trendScore)}</span>
-          )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute left-3 top-3">
+          <span className="rounded-full border border-white/35 bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-brand backdrop-blur">
+            {presentation.badge}
+          </span>
         </div>
-
-        {product.trendScore > 0 && (
-          <div className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-sm text-primary-700 text-[10px] font-black px-2 py-1 rounded-lg shadow-sm">
-            {product.trendScore}/100
-          </div>
-        )}
-
+        {product.trendScore > 0 && <ScoreBadge score={product.trendScore} className="absolute right-3 top-3 hidden sm:inline-flex" />}
         <button
           onClick={handleAddToCart}
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-brand-accent hover:bg-orange-600 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-btn flex items-center gap-1.5 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 whitespace-nowrap"
+          className="absolute bottom-3 left-3 right-3 inline-flex translate-y-3 items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-xs font-semibold text-brand opacity-0 shadow-card transition-all duration-300 hover:bg-brand-ivory group-hover:translate-y-0 group-hover:opacity-100"
         >
-          <ShoppingCart className="w-3.5 h-3.5" /> {t("product.addToCart")}
+          <ShoppingBag className="h-3.5 w-3.5" />
+          Ajouter
         </button>
       </div>
 
-      <div className="p-3 sm:p-4 flex flex-col flex-1">
-        {product.category && (
-          <p className="text-[10px] font-semibold text-primary-500 uppercase tracking-wider mb-1">{product.category.name}</p>
-        )}
-        <h3 className="font-semibold text-sm leading-snug line-clamp-2 mb-2 text-gray-800 group-hover:text-primary-700 transition-colors flex-1">
-          {product.name}
-        </h3>
-
-        <div className="flex items-center gap-1 mb-2.5">
-          <div className="flex">
-            {[1, 2, 3, 4, 5].map(i => (
-              <Star key={i} className={cn("w-3 h-3", i <= 4 ? "fill-yellow-400 text-yellow-400" : "fill-yellow-200 text-yellow-200")} />
-            ))}
+      <div className="p-4 sm:p-5">
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <p className="truncate text-[10px] font-semibold uppercase tracking-[0.22em] text-brand/45">{presentation.categoryShortLabel}</p>
+          <div className="flex items-center gap-1 text-brand-accent">
+            <Star className="h-3 w-3 fill-current" />
+            <span className="text-[11px] font-semibold text-brand/50">4.8</span>
           </div>
-          <span className="text-[10px] text-gray-400 font-medium">4.7</span>
         </div>
-
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-black text-base sm:text-lg text-brand-accent">{formatPrice(product.price)}</span>
-            {hasDiscount && <span className="text-xs text-gray-400 line-through">{formatPrice(product.comparePrice!)}</span>}
-          </div>
-          {product.stock !== undefined && product.stock <= 10 && product.stock > 0 && (
-            <span className="text-[10px] text-orange-600 font-bold bg-orange-50 px-1.5 py-0.5 rounded-md whitespace-nowrap">
-              {t("product.limitedStock")}
-            </span>
-          )}
+        <h3 className="line-clamp-2 min-h-[2.65rem] text-sm font-semibold leading-snug text-brand transition-colors group-hover:text-primary-700 sm:text-base">
+          {presentation.name}
+        </h3>
+        <p className="mt-2 line-clamp-2 min-h-[2.5rem] text-xs leading-5 text-brand/52">{presentation.shortDescription}</p>
+        <div className="mt-4 flex items-baseline gap-2">
+          <span className="text-base font-semibold text-brand sm:text-lg">{formatPrice(product.price)}</span>
+          {hasComparePrice && <span className="text-xs text-brand/35 line-through">{formatPrice(product.comparePrice!)}</span>}
         </div>
       </div>
     </Link>

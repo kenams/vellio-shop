@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://vellio.fr";
+const BASE = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://vellio-shop.vercel.app";
 
 export const dynamic = "force-dynamic";
 
@@ -8,6 +8,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     { url: `${BASE}/produits`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.5 },
+    { url: `${BASE}/blog/art-du-detail-maison-vellio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.45 },
+    { url: `${BASE}/blog/tech-signature-sans-bruit-visuel`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.45 },
+    { url: `${BASE}/blog/cadeaux-haut-de-gamme-utiles`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.45 },
+    { url: `${BASE}/blog/rituels-beaute-minimalistes`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.45 },
     { url: `${BASE}/suivi`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
     { url: `${BASE}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/cgv`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },

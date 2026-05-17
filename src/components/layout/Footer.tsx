@@ -1,136 +1,110 @@
 import Link from "next/link";
-import { Zap, Shield, Truck, RotateCcw, Star, Lock, Mail } from "lucide-react";
+import { LockKeyhole, Mail, PackageCheck, RotateCcw, ShieldCheck } from "lucide-react";
+import Container from "@/components/ui/Container";
 
 const reassurance = [
-  { icon: Shield, title: "Paiement sécurisé", sub: "SSL 256-bit · Stripe" },
-  { icon: Truck, title: "Livraison suivie", sub: "7-14 jours ouvrés" },
-  { icon: RotateCcw, title: "Retours 30 jours", sub: "Remboursement rapide" },
-  { icon: Star, title: "4.8/5 étoiles", sub: "2 400+ avis vérifiés" },
+  { icon: ShieldCheck, title: "Paiement sécurisé", sub: "Stripe · PCI-DSS" },
+  { icon: PackageCheck, title: "Livraison suivie", sub: "Traçabilité claire" },
+  { icon: RotateCcw, title: "Retours 30 jours", sub: "Process simple" },
+  { icon: LockKeyhole, title: "Données protégées", sub: "HTTPS · RGPD" },
 ];
 
-function PayIcon({ label, color, text }: { label: string; color: string; text: string }) {
-  return (
-    <div className={`flex items-center justify-center px-3 py-1.5 rounded-lg text-[11px] font-black text-white ${color} min-w-[44px]`}>
-      {text}
-    </div>
-  );
-}
+const shopLinks = [
+  { href: "/produits", label: "Collection" },
+  { href: "/categorie/maison-intelligente", label: "Maison Vellio" },
+  { href: "/categorie/tech-gadgets", label: "Tech signature" },
+  { href: "/categorie/beaute-soin", label: "Beauté architecturée" },
+  { href: "/suivi", label: "Suivi de commande" },
+];
+
+const infoLinks = [
+  { href: "/cgv", label: "Conditions générales" },
+  { href: "/remboursement", label: "Retours et remboursements" },
+  { href: "/confidentialite", label: "Confidentialité" },
+  { href: "/mentions-legales", label: "Mentions légales" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-brand text-white mt-20">
-      {/* Reassurance strip */}
-      <div className="border-b border-white/10 bg-brand-light/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+    <footer className="bg-brand text-white">
+      <div className="border-y border-white/10 bg-white/[0.03]">
+        <Container className="grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
           {reassurance.map(({ icon: Icon, title, sub }) => (
             <div key={title} className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-4.5 h-4.5 text-brand-accent" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
+                <Icon className="h-4 w-4 text-brand-accent" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-white">{title}</p>
-                <p className="text-xs text-white/50 mt-0.5">{sub}</p>
+                <p className="mt-1 text-xs text-white/45">{sub}</p>
               </div>
             </div>
           ))}
-        </div>
+        </Container>
       </div>
 
-      {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
-        {/* Brand */}
-        <div className="col-span-2 md:col-span-1">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary-600 to-brand-accent flex items-center justify-center">
-              <Zap className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-black text-xl tracking-tight">vellio</span>
-          </div>
-          <p className="text-white/50 text-sm leading-relaxed mb-4">
-            La boutique intelligente qui détecte les produits tendance avant tout le monde grâce à l'IA.
+      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.7fr_0.7fr_1fr]">
+        <div>
+          <Link href="/" className="inline-flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-accent/35 bg-white/5 font-serif text-brand-accent">
+              V
+            </span>
+            <span className="font-serif text-3xl font-semibold">Vellio</span>
+          </Link>
+          <p className="mt-5 max-w-sm text-sm leading-7 text-white/52">
+            Maison de sélection contemporaine dédiée aux objets raffinés, à la tech premium et aux cadeaux haut de gamme.
           </p>
-          <div className="flex items-center gap-2 text-xs text-white/40">
-            <Mail className="w-3.5 h-3.5" />
-            <a href="mailto:contact@vellio-shop.vercel.app" className="hover:text-white/70 transition-colors">
-              contact@vellio-shop.vercel.app
-            </a>
-          </div>
+          <a href="mailto:contact@vellio-shop.vercel.app" className="mt-5 inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white">
+            <Mail className="h-4 w-4" />
+            contact@vellio-shop.vercel.app
+          </a>
         </div>
 
-        {/* Boutique */}
         <div>
-          <h4 className="font-bold text-sm uppercase tracking-widest text-white/40 mb-4">Boutique</h4>
-          <ul className="space-y-2.5 text-sm">
-            {[
-              { href: "/produits", label: "Tous les produits" },
-              { href: "/categorie/tech-gadgets", label: "Tech & Gadgets" },
-              { href: "/categorie/maison-intelligente", label: "Maison Intelligente" },
-              { href: "/blog", label: "Blog tendances" },
-              { href: "/suivi", label: "Suivre ma commande" },
-            ].map(l => (
-              <li key={l.href}>
-                <Link href={l.href} className="text-white/60 hover:text-white transition-colors">{l.label}</Link>
+          <h4 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/35">Maison</h4>
+          <ul className="mt-5 space-y-3 text-sm">
+            {shopLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-white/58 transition-colors hover:text-white">{link.label}</Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Infos */}
         <div>
-          <h4 className="font-bold text-sm uppercase tracking-widest text-white/40 mb-4">Informations</h4>
-          <ul className="space-y-2.5 text-sm">
-            {[
-              { href: "/cgv", label: "CGV" },
-              { href: "/remboursement", label: "Remboursements" },
-              { href: "/confidentialite", label: "Confidentialité" },
-              { href: "/mentions-legales", label: "Mentions légales" },
-              { href: "/contact", label: "Contact" },
-            ].map(l => (
-              <li key={l.href}>
-                <Link href={l.href} className="text-white/60 hover:text-white transition-colors">{l.label}</Link>
+          <h4 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/35">Informations</h4>
+          <ul className="mt-5 space-y-3 text-sm">
+            {infoLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-white/58 transition-colors hover:text-white">{link.label}</Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Newsletter */}
         <div>
-          <h4 className="font-bold text-sm uppercase tracking-widest text-white/40 mb-4">Newsletter</h4>
-          <p className="text-white/50 text-sm mb-4 leading-relaxed">Recevez les produits tendance en avant-première chaque semaine.</p>
-          <form action="/api/newsletter" method="POST" className="flex gap-2">
+          <h4 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/35">Carnet privé</h4>
+          <p className="mt-5 text-sm leading-7 text-white/52">Recevez les nouvelles pièces et les notes de style Vellio.</p>
+          <form action="/api/newsletter" method="POST" className="mt-5 flex gap-2">
             <input
               type="email"
               name="email"
               placeholder="votre@email.fr"
-              className="flex-1 px-3 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder:text-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent/50 transition-all min-w-0"
+              className="min-w-0 flex-1 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/28 focus:border-brand-accent/60"
             />
-            <button type="submit" className="px-4 py-2.5 bg-brand-accent hover:bg-orange-600 rounded-xl text-sm font-bold transition-colors flex-shrink-0">
+            <button type="submit" className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-brand transition-colors hover:bg-brand-ivory">
               OK
             </button>
           </form>
-          <p className="text-xs text-white/30 mt-2">Pas de spam. Désabonnement en 1 clic.</p>
         </div>
-      </div>
+      </Container>
 
-      {/* Payment + legal */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-white/30 text-xs">
-            <Lock className="w-3.5 h-3.5" />
-            <span>Paiement sécurisé · Stripe PCI-DSS Niveau 1</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <PayIcon label="VISA" color="bg-[#1A1F71]" text="VISA" />
-            <PayIcon label="MC" color="bg-[#252525]" text="MC" />
-            <PayIcon label="CB" color="bg-[#005B99]" text="CB" />
-            <PayIcon label="PayPal" color="bg-[#003087]" text="PP" />
-            <PayIcon label="Apple Pay" color="bg-black" text="◆Pay" />
-          </div>
-        </div>
-      </div>
-
-      <div className="border-t border-white/5 text-center py-5 text-white/25 text-xs">
-        © {new Date().getFullYear()} Vellio — Tous droits réservés. Boutique en ligne France.
+        <Container className="flex flex-col gap-3 py-5 text-xs text-white/35 sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} Vellio — Tous droits réservés.</span>
+          <span>Paiement sécurisé · Stripe PCI-DSS Niveau 1</span>
+        </Container>
       </div>
     </footer>
   );

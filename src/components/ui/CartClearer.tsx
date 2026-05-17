@@ -4,6 +4,11 @@ import { useCartStore } from "@/store/cartStore";
 
 export default function CartClearer() {
   const clearCart = useCartStore((s) => s.clearCart);
-  useEffect(() => { clearCart(); }, [clearCart]);
+  const hasHydrated = useCartStore((s) => s.hasHydrated);
+
+  useEffect(() => {
+    if (hasHydrated) clearCart();
+  }, [clearCart, hasHydrated]);
+
   return null;
 }

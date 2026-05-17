@@ -1,81 +1,82 @@
 "use client";
+
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Shield, Truck, Star } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLangStore } from "@/store/langStore";
 import { getT } from "@/lib/i18n";
+
+const heroImage = "https://images.pexels.com/photos/28255125/pexels-photo-28255125.jpeg?auto=compress&cs=tinysrgb&w=1800&h=1200&fit=crop";
 
 export default function Hero() {
   const locale = useLangStore((s) => s.locale);
   const t = getT(locale);
+  const reduceMotion = useReducedMotion();
+
+  const motionProps = reduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
   return (
-    <section className="relative bg-gradient-brand text-white overflow-hidden">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-white/5 blur-3xl translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-brand-accent/10 blur-3xl -translate-x-1/2 translate-y-1/2 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(249,115,22,0.12),_transparent_60%)] pointer-events-none" />
+    <section className="relative min-h-[calc(100vh-104px)] overflow-hidden bg-brand text-white">
+      <Image
+        src={heroImage}
+        alt="Objet de soin premium dans une mise en scène Vellio"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover opacity-55"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/88 via-black/58 to-black/10" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-ivory to-transparent" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-28 lg:py-36">
-        <div className="max-w-3xl">
-          {/* Tag */}
-          <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-sm font-medium mb-6 animate-fade-in">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            {t("hero.badge")} — {new Date().toLocaleDateString(locale === "en" ? "en-GB" : "fr-FR", { weekday: "long", day: "numeric", month: "long" })}
+      <div className="relative mx-auto flex min-h-[calc(100vh-104px)] max-w-7xl flex-col justify-center px-4 py-20 sm:px-6 lg:px-8">
+        <motion.div {...motionProps} className="max-w-4xl">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/75 backdrop-blur">
+            <Sparkles className="h-3.5 w-3.5 text-brand-accent" />
+            {t("hero.badge")}
           </div>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-6 animate-slide-up">
+          <h1 className="text-balance font-serif text-5xl font-semibold leading-[0.88] tracking-normal sm:text-7xl lg:text-8xl">
             {t("hero.title1")}
-            <br />
-            <span className="gradient-text-white">{t("hero.title2")}</span>
-            <span className="text-brand-accent"> {locale === "en" ? "" : ""}</span>
-            <br />
-            {t("hero.title3")}
+            <span className="block text-brand-accent">{t("hero.title2")}</span>
+            <span className="block">{t("hero.title3")}</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 max-w-xl leading-relaxed">
-            {t("hero.subtitle")}
-          </p>
+          <p className="mt-7 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">{t("hero.subtitle")}</p>
 
-          {/* CTA */}
-          <div className="flex flex-col sm:flex-row gap-3 mb-12">
-            <Link href="/produits" className="btn-primary text-base px-8 py-4 rounded-2xl shadow-btn">
-              {t("hero.cta1")} <ArrowRight className="w-5 h-5" />
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link href="/produits" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-brand transition-all hover:-translate-y-0.5 hover:bg-brand-ivory">
+              {t("hero.cta1")} <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/produits?filter=top" className="glass rounded-2xl px-6 py-4 text-base font-semibold hover:bg-white/20 transition-all flex items-center gap-2 justify-center">
-              🔥 {t("hero.cta2")}
+            <Link href="/produits?filter=top" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/15">
+              {t("hero.cta2")}
             </Link>
           </div>
 
-          {/* Trust strip */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-white/60">
-            <div className="flex items-center gap-1.5">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span><strong className="text-white">{t("hero.stat2v")}</strong> — {t("hero.stat1l")}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Shield className="w-4 h-4 text-green-400" />
-              <span>{t("hero.trust1")}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Truck className="w-4 h-4 text-blue-300" />
-              <span>{t("hero.trust2")}</span>
-            </div>
+          <div className="mt-12 grid max-w-2xl grid-cols-3 gap-4 border-t border-white/15 pt-6">
+            {[
+              { value: t("hero.stat1v"), label: t("hero.stat1l") },
+              { value: t("hero.stat2v"), label: t("hero.stat2l") },
+              { value: t("hero.stat3v"), label: t("hero.stat3l") },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="font-serif text-3xl font-semibold text-white sm:text-4xl">{stat.value}</p>
+                <p className="mt-1 text-xs leading-5 text-white/55">{stat.label}</p>
+              </div>
+            ))}
           </div>
-        </div>
 
-        {/* Stats */}
-        <div className="mt-12 md:mt-20 grid grid-cols-3 gap-4 sm:gap-8 max-w-sm sm:max-w-lg">
-          {[
-            { v: t("hero.stat1v"), l: t("hero.stat1l") },
-            { v: t("hero.stat2v"), l: t("hero.stat2l") },
-            { v: t("hero.stat3v"), l: t("hero.stat3l") },
-          ].map((s) => (
-            <div key={s.l} className="glass rounded-2xl px-3 py-4 text-center">
-              <div className="text-2xl sm:text-3xl font-black text-brand-accent">{s.v}</div>
-              <div className="text-white/60 text-xs sm:text-sm mt-0.5">{s.l}</div>
-            </div>
-          ))}
-        </div>
+          <div className="mt-8 flex flex-wrap gap-4 text-xs text-white/60">
+            <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-brand-accent" /> {t("hero.trust1")}</span>
+            <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-brand-accent" /> {t("hero.trust2")}</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

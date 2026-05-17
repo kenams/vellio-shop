@@ -151,16 +151,16 @@ export default function AdminIAPage() {
     }
   }
 
-  const categories = ["Gadgets auto", "Maison intelligente", "Cuisine pratique", "Beauté & bien-être", "Sport & fitness", "Enfants & jouets", "Jardinage", "Bureautique"];
+  const categories = ["Voyage & Mobilité", "Maison Vellio", "Art de Recevoir", "Beauté Architecturée", "Corps & Rituel", "Maison de Famille", "Jardin design", "Bureau & Création"];
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-black text-brand flex items-center gap-2">
-          <Brain className="w-6 h-6 text-primary-600" /> Module IA — Produits & Prospection
+          <Brain className="w-6 h-6 text-primary-600" /> Studio éditorial — Produits & Prospection
         </h1>
         <p className="text-gray-500 text-sm mt-0.5">
-          Génération manuelle de fiches + prospection automatique 2x/jour via Google Trends.
+          Génération de fiches premium et prospection assistée par signaux publics.
         </p>
       </div>
 
@@ -172,7 +172,7 @@ export default function AdminIAPage() {
               <Bot className="w-5 h-5 text-primary-600" /> Prospection automatique
             </h2>
             <p className="text-sm text-gray-500 max-w-lg">
-              Le robot analyse Google Trends France, identifie 3 produits tendance et les ajoute automatiquement à la boutique avec descriptions, photos et scores IA.
+              Le studio analyse des signaux publics, identifie 3 opportunités premium et prépare des fiches avec descriptions, photos et scores de désirabilité.
             </p>
             <div className="flex items-center gap-4 mt-3 text-xs text-gray-400">
               <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> Automatique : 7h et 19h chaque jour</span>
@@ -282,7 +282,7 @@ export default function AdminIAPage() {
                 name="keywords"
                 value={form.keywords}
                 onChange={handleChange}
-                placeholder="TikTok viral, tendance 2024, idée cadeau..."
+                placeholder="design sobre, cadeau premium, maison contemporaine..."
                 className="input-field"
               />
             </div>
@@ -305,7 +305,7 @@ export default function AdminIAPage() {
               className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-60"
             >
               <Sparkles className="w-4 h-4" />
-              {loading ? "Génération en cours..." : "Générer la fiche IA"}
+              {loading ? "Génération en cours..." : "Générer la fiche premium"}
             </button>
           </form>
         </div>
@@ -317,7 +317,7 @@ export default function AdminIAPage() {
             <div className="card p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-black text-brand flex items-center gap-2">
-                  <Flame className="w-5 h-5 text-orange-500" /> Score de tendance
+                  <Flame className="w-5 h-5 text-orange-500" /> Score de désirabilité
                 </h2>
                 <span className={`text-3xl font-black ${result.trend.score >= 80 ? "text-green-500" : result.trend.score >= 60 ? "text-yellow-500" : result.trend.score >= 40 ? "text-orange-500" : "text-red-500"}`}>
                   {result.trend.score}/100
@@ -327,10 +327,10 @@ export default function AdminIAPage() {
               <div className="space-y-2">
                 {[
                   { key: "popularity", label: "Popularité" },
-                  { key: "tiktokTrend", label: "TikTok trend" },
+                  { key: "tiktokTrend", label: "Signal social" },
                   { key: "searchVolume", label: "Volume recherche" },
                   { key: "margin", label: "Marge" },
-                  { key: "viralPotential", label: "Potentiel viral" },
+                  { key: "viralPotential", label: "Potentiel désirabilité" },
                   { key: "seoPotential", label: "Potentiel SEO" },
                 ].map(({ key, label }) => {
                   const val = result.trend[key as keyof TrendData] as number;
@@ -419,7 +419,7 @@ export default function AdminIAPage() {
                 </div>
 
                 <div>
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Script TikTok</p>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Note créative</p>
                   <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 whitespace-pre-wrap font-mono text-xs leading-relaxed">
                     {result.sheet.tiktokScript}
                   </div>

@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { slugify } from "@/lib/utils";
 import { PRODUCT_CATALOG, matchTrendToCategories, type CatalogProduct } from "@/lib/product-catalog";
+import { getCuratedProductImages } from "@/lib/product-image-rules";
+import { buildPremiumProductData } from "@/lib/premium-brand";
 
 export type Market = "fr" | "en-US" | "en-GB" | "en-AU";
 
@@ -81,7 +83,7 @@ function getFallbackPhotos(categorySlug: string, productSlug: string): string[] 
 
 // ─── Pexels API ────────────────────────────────────────────────────────────────
 async function fetchPexelsImages(keyword: string): Promise<string[]> {
-  const key = process.env.PEXELS_API_KEY;
+  const key = process.env.PEXELS_API_KEY?.trim();
   if (!key) return [];
   try {
     const res = await fetch(
@@ -96,13 +98,19 @@ async function fetchPexelsImages(keyword: string): Promise<string[]> {
   }
 }
 
-async function fetchProductImages(keyword: string, slug: string, categorySlug: string): Promise<string[]> {
+async function fetchProductImages(keyword: string, slug: string, categorySlug: string, name: string): Promise<string[]> {
+  const curated = getCuratedProductImages({ slug, name, photoKeyword: keyword, categorySlug });
+  if (curated.length >= 2) {
+    console.log(`[discovery] Curated: ${curated.length} images for "${name}"`);
+    return curated;
+  }
+
   const pexels = await fetchPexelsImages(keyword);
   if (pexels.length >= 2) {
     console.log(`[discovery] Pexels: ${pexels.length} images for "${keyword}"`);
     return pexels;
   }
-  console.log(`[discovery] Pexels failed for "${keyword}", using curated pool`);
+  console.log(`[discovery] Pexels failed for "${keyword}", using category fallback`);
   return getFallbackPhotos(categorySlug, slug);
 }
 
@@ -342,7 +350,7 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
       }
 
       // Fetch images via Pexels (no AI)
-      const images = await fetchProductImages(catalogProduct.photoKeyword, slug, catalogProduct.categorySlug);
+      const images = await fetchProductImages(catalogProduct.photoKeyword, slug, catalogProduct.categorySlug, name);
 
       // Build product data from catalog (no AI)
       const comparePrice = Math.round(catalogProduct.price * 1.45 * 100) / 100;
@@ -350,13 +358,23 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
       const shortDescription = locale === "fr" ? catalogProduct.short_fr : catalogProduct.short_en;
       const benefits = locale === "fr" ? catalogProduct.benefits_fr : catalogProduct.benefits_en;
       const salesArguments = locale === "fr" ? catalogProduct.args_fr : catalogProduct.args_en;
+      const premiumData = buildPremiumProductData({
+        slug,
+        name,
+        shortDescription,
+        description,
+        benefits,
+        salesArguments,
+        trendScore: catalogProduct.trendScore,
+        category: { slug: catalogProduct.categorySlug },
+      }, locale);
 
       const product = await prisma.product.create({
         data: {
-          name,
+          name: premiumData.name,
           slug,
-          shortDescription,
-          description,
+          shortDescription: premiumData.shortDescription,
+          description: premiumData.description,
           price: catalogProduct.price,
           comparePrice,
           cost: catalogProduct.cost,
@@ -367,9 +385,9 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
           locale,
           categoryId: category.id,
           tags: catalogProduct.tags,
-          benefits,
-          salesArguments,
-          marketingAngle: shortDescription,
+          benefits: premiumData.benefits,
+          salesArguments: premiumData.salesArguments,
+          marketingAngle: premiumData.marketingAngle,
           tiktokHashtags: catalogProduct.tags.map(t => `#${t.replace(/\s+/g, "")}`),
           images: {
             create: images.map((url, i) => ({ url, position: i })),

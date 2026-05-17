@@ -3,32 +3,55 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createCheckoutSession } from "@/lib/stripe";
 import { generateOrderNumber } from "@/lib/utils";
+import { getPremiumProductPresentation } from "@/lib/premium-brand";
 import { z } from "zod";
 
-const FREE_SHIPPING_THRESHOLD = 50;
+const FREE_SHIPPING_THRESHOLD = 80;
 const SHIPPING_COST = 4.99;
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://vellio.fr";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://vellio-shop.vercel.app";
 
 const schema = z.object({
-  items: z.array(z.object({ productId: z.string(), quantity: z.number().min(1) })).min(1),
-  customerEmail: z.string().email(),
-  customerName: z.string().min(1),
+  items: z.array(z.object({
+    productId: z.string().trim().min(1),
+    quantity: z.coerce.number().int().min(1).max(20),
+  })).min(1),
+  customerEmail: z.string().trim().email(),
+  customerName: z.string().trim().min(1),
   shippingAddress: z.object({
-    line1: z.string().optional(),
-    city: z.string().optional(),
-    postalCode: z.string().optional(),
-    country: z.string().optional(),
+    line1: z.string().trim().optional(),
+    city: z.string().trim().optional(),
+    postalCode: z.string().trim().optional(),
+    country: z.string().trim().optional(),
   }).optional(),
 });
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { items, customerEmail, customerName, shippingAddress } = schema.parse(body);
+    let body: unknown;
+
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+    }
+
+    const parsed = schema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json({
+        error: "invalid_checkout_payload",
+        issues: parsed.error.issues.map((issue) => ({
+          path: issue.path.join("."),
+          message: issue.message,
+        })),
+      }, { status: 400 });
+    }
+
+    const { items, customerEmail, customerName, shippingAddress } = parsed.data;
 
     const products = await prisma.product.findMany({
       where: { id: { in: items.map((i) => i.productId) }, published: true },
-      include: { images: { take: 1 } },
+      include: { images: { take: 1 }, category: true },
     });
 
     if (products.length !== items.length) {
@@ -38,7 +61,8 @@ export async function POST(req: NextRequest) {
 
     const orderItems = items.map((item) => {
       const product = products.find((p) => p.id === item.productId)!;
-      return { productId: product.id, quantity: item.quantity, price: product.price, name: product.name };
+      const presentation = getPremiumProductPresentation(product as any);
+      return { productId: product.id, quantity: item.quantity, price: product.price, name: presentation.name };
     });
 
     const subtotal = orderItems.reduce((s, i) => s + i.price * i.quantity, 0);
@@ -86,9 +110,13 @@ export async function POST(req: NextRequest) {
 
     await prisma.order.update({ where: { id: order.id }, data: { stripeSessionId: session.id } });
 
+    if (!session.url) {
+      return NextResponse.json({ error: "checkout_session_unavailable" }, { status: 502 });
+    }
+
     return NextResponse.json({ url: session.url });
   } catch (err: any) {
     console.error("[checkout]", err);
-    return NextResponse.json({ error: err.message || "checkout_failed" }, { status: 500 });
+    return NextResponse.json({ error: "checkout_failed" }, { status: 500 });
   }
 }

@@ -1,15 +1,16 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, ShoppingBag, ShoppingCart, Zap, Brain, LogOut } from "lucide-react";
+import { BarChart3, Brain, LayoutDashboard, LogOut, Radar, ShoppingBag, ShoppingCart } from "lucide-react";
 
 const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
 
 const navItems = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/admin/prospection", icon: Radar, label: "Prospection" },
   { href: "/admin/produits", icon: ShoppingBag, label: "Produits" },
   { href: "/admin/commandes", icon: ShoppingCart, label: "Commandes" },
-  { href: "/admin/ia", icon: Brain, label: "Module IA" },
+  { href: "/admin/ia", icon: Brain, label: "Studio IA" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -21,56 +22,52 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <aside className="w-60 bg-brand text-white flex flex-col flex-shrink-0">
-        {/* Logo */}
-        <div className="flex items-center gap-2 px-6 py-5 border-b border-white/10">
-          <Zap className="w-6 h-6 text-brand-accent" />
-          <span className="font-black text-lg">vellio</span>
-          <span className="text-white/40 text-xs ml-1 mt-0.5">admin</span>
+    <div className="flex min-h-screen bg-brand-ivory">
+      <aside className="hidden w-64 shrink-0 flex-col bg-brand text-white md:flex">
+        <div className="border-b border-white/10 px-6 py-6">
+          <Link href="/admin" className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-accent/35 bg-white/5 font-serif text-brand-accent">V</span>
+            <div>
+              <p className="font-serif text-2xl font-semibold leading-none">Vellio</p>
+              <p className="mt-1 text-[10px] uppercase tracking-[0.24em] text-white/35">atelier admin</p>
+            </div>
+          </Link>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 py-4 px-3 space-y-1">
+        <nav className="flex-1 space-y-1 px-3 py-4">
           {navItems.map(({ href, icon: Icon, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all text-sm font-medium"
-            >
-              <Icon className="w-4 h-4" />
+            <Link key={href} href={href} className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-white/62 transition-all hover:bg-white/10 hover:text-white">
+              <Icon className="h-4 w-4" />
               {label}
             </Link>
           ))}
         </nav>
 
-        {/* Footer */}
-        <div className="px-3 pb-4 border-t border-white/10 pt-3">
-          <Link
-            href="/"
-            className="flex items-center gap-2 px-3 py-2 text-white/40 hover:text-white text-xs transition-colors"
-          >
-            <Zap className="w-3 h-3" /> Voir la boutique
+        <div className="border-t border-white/10 px-3 py-4">
+          <Link href="/" className="flex items-center gap-2 rounded-2xl px-3 py-2 text-xs text-white/42 transition-colors hover:bg-white/10 hover:text-white">
+            <BarChart3 className="h-3.5 w-3.5" />
+            Voir la boutique
           </Link>
           <form action="/api/admin/logout" method="POST">
-            <button
-              type="submit"
-              className="flex items-center gap-2 px-3 py-2 text-white/40 hover:text-white text-xs transition-colors w-full text-left"
-            >
-              <LogOut className="w-3 h-3" /> Déconnexion
+            <button type="submit" className="mt-1 flex w-full items-center gap-2 rounded-2xl px-3 py-2 text-left text-xs text-white/42 transition-colors hover:bg-white/10 hover:text-white">
+              <LogOut className="h-3.5 w-3.5" />
+              Déconnexion
             </button>
           </form>
         </div>
       </aside>
 
-      {/* Main */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-          <div className="text-sm text-gray-500">Administration Vellio</div>
-          <div className="text-xs text-gray-400">Connecté en tant qu'Admin</div>
+      <div className="min-w-0 flex-1">
+        <header className="sticky top-0 z-30 border-b border-black/10 bg-brand-ivory/90 px-4 py-4 backdrop-blur-xl sm:px-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand/40">Administration</p>
+              <p className="mt-1 text-sm font-medium text-brand">Maison Vellio</p>
+            </div>
+            <Link href="/admin/prospection" className="btn-secondary hidden sm:inline-flex">Prospection premium</Link>
+          </div>
         </header>
-        <main className="flex-1 p-6">{children}</main>
+        <main className="p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>
   );

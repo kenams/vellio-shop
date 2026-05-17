@@ -1,6 +1,20 @@
 import Stripe from "stripe";
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+function getStripeSecretKey() {
+  const key = process.env.STRIPE_SECRET_KEY?.trim().replace(/^["']|["']$/g, "").replace(/\s+/g, "") || "";
+
+  if (!key) {
+    throw new Error("STRIPE_SECRET_KEY is not configured");
+  }
+
+  if (!/^sk_(test|live)_/.test(key)) {
+    throw new Error("STRIPE_SECRET_KEY must start with sk_test_ or sk_live_");
+  }
+
+  return key;
+}
+
+export const stripe = new Stripe(getStripeSecretKey(), {
   apiVersion: "2024-06-20",
 });
 
