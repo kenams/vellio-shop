@@ -18,19 +18,19 @@ function unique(urls: string[]): string[] {
 }
 
 const WIKI = {
-  robotMopping: commons("https://upload.wikimedia.org/wikipedia/commons/2/21/Mopping_vacuum_cleaner_robotic.jpg"),
-  robotVacuumTall: commons("https://upload.wikimedia.org/wikipedia/commons/d/d4/Robot_Vacuum_2016_%2831606445890%29.jpg"),
-  smartPlug: commons("https://upload.wikimedia.org/wikipedia/commons/d/da/Smart-plug.jpg"),
-  smartPlugWemo: commons("https://upload.wikimedia.org/wikipedia/commons/1/10/Wemo_Mini_Smart_Plug_%283750%29.jpg"),
-  backupCamera: commons("https://upload.wikimedia.org/wikipedia/commons/4/4c/Lexus_backup_camera1.jpg"),
-  backupDisplay: commons("https://upload.wikimedia.org/wikipedia/commons/6/61/2017_Honda_Ridgeline_RTL-backup_camera_displayed_in_color_audio_system.jpg"),
-  kitchenScale: commons("https://upload.wikimedia.org/wikipedia/commons/4/4f/Escali_digital_kitchen_scale.jpg"),
-  kitchenScaleDevice: commons("https://upload.wikimedia.org/wikipedia/commons/b/b4/Digital_kitchen_scale_KE_901-0329.jpg"),
-  deskLamp: commons("https://upload.wikimedia.org/wikipedia/commons/0/06/Dekala_Arches%E2%84%A2_Smart_Lamp.jpg"),
-  wristRest: commons("https://upload.wikimedia.org/wikipedia/commons/3/31/Ergonomic_mouse_pad_wrist_pillow.jpg"),
-  bubbleGun: commons("https://upload.wikimedia.org/wikipedia/commons/b/b7/Soap_bubble_shoter._%284845777113%29.jpg"),
-  eggSlicer: commons("https://upload.wikimedia.org/wikipedia/commons/c/cd/Egg_Slicer.jpg"),
-  eggSlicerOpen: commons("https://upload.wikimedia.org/wikipedia/commons/c/c0/Cooked_Boiled_Egg_Slice_Cutter_%2814811024733%29.jpg"),
+  robotMopping: unsplash("1583847268964-b28dc8f51f92"),
+  robotVacuumTall: unsplash("1679678691170-7781f11f9d86"),
+  smartPlug: unsplash("1558618666-fcd25c85cd64"),
+  smartPlugWemo: unsplash("1484101403633-562f891dc89a"),
+  backupCamera: unsplash("1511919884226-fd3cad34687c"),
+  backupDisplay: unsplash("1558981806-ec527fa84c39"),
+  kitchenScale: unsplash("1495474472287-4d71bcdd2085"),
+  kitchenScaleDevice: unsplash("1585515320310-259814833e62"),
+  deskLamp: unsplash("1526378800651-8438701bb3ff"),
+  wristRest: unsplash("1484981138541-3d074aa97716"),
+  bubbleGun: unsplash("1596461404969-9ae70f2830c1"),
+  eggSlicer: unsplash("1495474472287-4d71bcdd2085"),
+  eggSlicerOpen: unsplash("1556909114-f6e7ad7d3136"),
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -50,7 +50,7 @@ const IMAGE_SETS = {
   ],
   robotVacuumMop: [
     unsplash("1558618666-fcd25c85cd64"),
-    WIKI.robotMopping,
+    unsplash("1679678691170-7781f11f9d86"),
     unsplash("1583847268964-b28dc8f51f92"),
   ],
 
@@ -250,7 +250,7 @@ const IMAGE_SETS = {
   powerBank: [
     unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1593642632559-0c6d3fc62b89"),
-    commons("https://upload.wikimedia.org/wikipedia/commons/8/83/2023_Powerbank_Green_Cell_PowerPlay_20_%283%29.jpg"),
+    unsplash("1526378800651-8438701bb3ff"),
   ],
   solarPowerBank: [
     unsplash("1609091839311-d5365f9ff1c5"),
@@ -975,7 +975,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "4g-gps-tracker-magnetic-car-alarm": IMAGE_SETS.gpstrackerV2,
   "alarme-voiture-gps-tracker-4g-magnetique": IMAGE_SETS.gpstracker,
   "aspirateur-voiture-portable-12v-6000pa": IMAGE_SETS.carVacuumV2,
-  "back-seat-car-organizer-multi-pocket": IMAGE_SETS.carOrganizer,
+  "back-seat-car-organizer-multi-pocket": [unsplash("1511919884226-fd3cad34687c"), unsplash("1494976388531-d1058494cdd8"), unsplash("1503376780353-7e6692767b70")],
   "camera-route-horizon-170": IMAGE_SETS.dashcam,
   "camera-de-recul-sans-fil-hd-150-etanche": IMAGE_SETS.backupCamera,
   "camera-de-recul-sans-fil-hd-1080p": IMAGE_SETS.backupCameraV2,
@@ -1014,14 +1014,14 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "robot-aspirateur-laveur-programmable": IMAGE_SETS.robotVacuumMop,
   "prise-connectee-wifi-consommation": IMAGE_SETS.smartPlug,
   "prise-connectee-wifi-compteur-d-energie": [
-    WIKI.smartPlugWemo,
-    WIKI.smartPlug,
+    unsplash("1484101403633-562f891dc89a"),
+    unsplash("1558618666-fcd25c85cd64"),
     unsplash("1556761175-b413da4baf72"),
   ],
   "wifi-smart-plug-with-energy-monitor": [
     unsplash("1556761175-b413da4baf72"),
-    WIKI.smartPlug,
-    WIKI.smartPlugWemo,
+    unsplash("1558618666-fcd25c85cd64"),
+    unsplash("1484101403633-562f891dc89a"),
   ],
   "camera-surveillance-interieure-wifi-360-2k": IMAGE_SETS.securityCamera,
   "indoor-wifi-security-camera-360-2k": [
@@ -1063,7 +1063,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "veilleuse-bebe-musicale-projecteur-etoiles": IMAGE_SETS.babyNightLight,
   "veilleuse-bebe-capteur-pleur-berceuse": IMAGE_SETS.babyNightLightV2,
   "veilleuse-bebe-tactile-rgb-minuterie": IMAGE_SETS.babyNightLightV3,
-  "babyphone-video-wifi-5-pouces-infrarouge": IMAGE_SETS.babyMonitor,
+  "babyphone-video-wifi-5-pouces-infrarouge": [unsplash("1566140967404-b8b3932483f5"), unsplash("1596461404969-9ae70f2830c1"), unsplash("1587654780291-39c9404d746b")],
   "babyphone-video-wifi-hd-panoramique": IMAGE_SETS.babyMonitorV2,
   "babyphone-camera-360-detection-mouvement": IMAGE_SETS.babyMonitorV3,
 
@@ -1136,7 +1136,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
     unsplash("1522337360801-4f88e7a9e4d0"),
   ],
   "epilateur-electrique-corps-visage-etanche-ipx6": IMAGE_SETS.epilator,
-  "serum-vitamine-c-20-acide-hyaluronique": IMAGE_SETS.serum,
+  "serum-vitamine-c-20-acide-hyaluronique": [unsplash("1599305090598-fe179d501227"), unsplash("1570172619644-dfd03ed5d881"), unsplash("1614790133872-46bc31b89e3b")],
   "jade-roller-gua-sha-set-quartz-rose": IMAGE_SETS.jadeRoller,
   "jade-roller-obsidienne-anti-cernes": IMAGE_SETS.jadeRollerV2,
   "masque-sommeil-3d-contour-yeux-memoire": IMAGE_SETS.sleepMask,
@@ -1160,14 +1160,14 @@ const SLUG_IMAGES: Record<string, string[]> = {
   // SPORT (24 produits)
   // ════════════════════════════════
   "pistolet-massage-musculaire-30-vitesses-3200rpm": IMAGE_SETS.massageGun,
-  "pistolet-massage-musculaire-percussif": IMAGE_SETS.massageGunAlt,
+  "pistolet-massage-musculaire-percussif": [unsplash("1612444080611-5ed7532d4c2f"), unsplash("1571019613454-1cb2f99b2d8b"), unsplash("1549060279-7e168fcee0c2")],
   "massage-gun-mini-pocket-6-vitesses-silencieux": IMAGE_SETS.massageGunV3,
   "tapis-yoga-antiderapant-premium-6mm": IMAGE_SETS.yogaMat,
   "corde-a-sauter-numerique-compteur-calories": IMAGE_SETS.jumpRope,
   "bandes-elastiques-resistance-set-5-niveaux": IMAGE_SETS.resistanceBands,
   "bandes-resistance-pro-set-6-niveaux-poignees": IMAGE_SETS.resistanceBandsV2,
   "foam-roller-massage-recuperation-33cm-vibrant": IMAGE_SETS.foamRoller,
-  "33cm-vibrating-foam-roller-massage-recovery": IMAGE_SETS.foamRollerV2,
+  "33cm-vibrating-foam-roller-massage-recovery": [unsplash("1517836357463-d25dfeac3438"), unsplash("1534438327276-14e5300c3a48"), unsplash("1549060279-7e168fcee0c2")],
   "gants-de-musculation-antiderapants-avec-poignets": IMAGE_SETS.workoutGloves,
   "montre-connectee-sport-gps": IMAGE_SETS.smartwatch,
   "montre-gps-sport-multisport-cardiaque": IMAGE_SETS.smartwatchV2,
@@ -1189,7 +1189,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   // ════════════════════════════════
   "blender-portable-usb-600ml": IMAGE_SETS.portableBlender,
   "robot-cuisine-multifonction-compact": IMAGE_SETS.foodProcessor,
-  "robot-cuisine-multifonction-1500w-8-en-1": IMAGE_SETS.foodProcessorV2,
+  "robot-cuisine-multifonction-1500w-8-en-1": [unsplash("1585515320310-259814833e62"), unsplash("1495474472287-4d71bcdd2085"), unsplash("1556909114-f6e7ad7d3136")],
   "robot-cuiseur-vapeur-10-en-1-6l-programmable": IMAGE_SETS.foodProcessorV3,
   "robot-patissier-stand-mixer-5l-1000w": IMAGE_SETS.foodProcessorV4,
   "robot-cuiseur-multifonction-chauffant-8l": IMAGE_SETS.foodProcessorV5,
@@ -1197,7 +1197,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "pese-aliments-digital-usb": IMAGE_SETS.kitchenScale,
   "trancheuse-oeufs-multifonction-inox": IMAGE_SETS.eggSlicer,
   "friteuse-a-air-chaud-5l-numerique-ecran-tactile": IMAGE_SETS.airFryer,
-  "compact-air-fryer-2-5l-digital": IMAGE_SETS.airFryerV2,
+  "compact-air-fryer-2-5l-digital": [unsplash("1606787364406-a3cdf06c6d0c"), unsplash("1495474472287-4d71bcdd2085"), unsplash("1556909114-f6e7ad7d3136")],
   "centrifugeuse-a-froid-150w-jus-frais": IMAGE_SETS.juicer,
   "extracteur-jus-centrifuge-1000w-anti-bouchage": IMAGE_SETS.juicerV2,
   "slow-juicer-vertical-200w-large-bouche": IMAGE_SETS.juicerV3,
@@ -1263,7 +1263,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   // ════════════════════════════════
   // BUREAU (20 produits)
   // ════════════════════════════════
-  "lampe-bureau-led-chargeur-qi": IMAGE_SETS.qiDeskLamp,
+  "lampe-bureau-led-chargeur-qi": [unsplash("1519389950473-47ba0277781c"), unsplash("1593642632523-1d60af4b3029"), unsplash("1526378800651-8438701bb3ff")],
   "lampe-de-bureau-led-sans-fil-rechargeable": IMAGE_SETS.deskLamp,
   "wireless-led-desk-lamp-usb-rechargeable": IMAGE_SETS.deskLampV1,
   "lampe-bureau-led-bras-articulee-clamp-usb": IMAGE_SETS.deskLampV2,
@@ -1283,6 +1283,24 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "organisateur-bureau-rotatif-360-bambou": IMAGE_SETS.deskOrganizer,
   "tableau-blanc-magnetique-effacable-60x90cm": IMAGE_SETS.whiteboard,
   "repose-pied-bureau-ergonomique-hauteur-reglable": IMAGE_SETS.footrest,
+  "spray-bronzant-autobronzant-corps-200ml-bio": [unsplash("1549045783-5f2d8e8dff74"), unsplash("1617897903246-719242758050"), unsplash("1596462502278-27bfdc403348")],
+  "ecouteurs-sans-fil-reduction-bruit-active-focus-travail": [unsplash("1583394838336-acd977736f90"), unsplash("1505740420928-5e560c06d30e"), unsplash("1590658165737-15a047b7c97e")],
+  "lampe-bureau-led-sans-fil-rechargeable-tactile": [unsplash("1519389950473-47ba0277781c"), unsplash("1593642632523-1d60af4b3029"), unsplash("1484981138541-3d074aa97716")],
+  "foldable-kids-play-tent-castle-indoor-outdoor": [unsplash("1596461404969-9ae70f2830c1"), unsplash("1566140967404-b8b3932483f5"), unsplash("1547347298-4074fc3086f0")],
+  "kids-headphones-volume-limited-85db-foldable": [unsplash("1566140967404-b8b3932483f5"), unsplash("1503454537195-1dcabb73ffb9"), unsplash("1587654780291-39c9404d746b")],
+  "trottinette-enfant-3-roues-reglable-2-6-ans-led": [unsplash("1547347298-4074fc3086f0"), unsplash("1503454537195-1dcabb73ffb9"), unsplash("1596461404969-9ae70f2830c1")],
+  "chargeur-voiture-gan-65w": [unsplash("1558981806-ec527fa84c39"), unsplash("1511919884226-fd3cad34687c"), unsplash("1494976388531-d1058494cdd8")],
+  "multiprise-connectee-wifi-4-prises-4-usb-surge": [unsplash("1556761175-b413da4baf72"), unsplash("1558618666-fcd25c85cd64"), unsplash("1484101403633-562f891dc89a")],
+  "wifi-smart-programmable-touchscreen-thermostat": [unsplash("1484101403633-562f891dc89a"), unsplash("1558618666-fcd25c85cd64"), unsplash("1556761175-b413da4baf72")],
+  "laser-mapping-robot-vacuum-2700pa": [unsplash("1558618666-fcd25c85cd64"), unsplash("1679678691170-7781f11f9d86"), unsplash("1583847268964-b28dc8f51f92")],
+  "memory-foam-keyboard-mouse-wrist-rest-set": [unsplash("1484981138541-3d074aa97716"), unsplash("1593642632523-1d60af4b3029"), unsplash("1519389950473-47ba0277781c")],
+  "repose-poignets-clavier-souris-memoire-forme": [unsplash("1484981138541-3d074aa97716"), unsplash("1593642632523-1d60af4b3029"), unsplash("1519389950473-47ba0277781c")],
+  "wifi-smart-power-strip-4-outlets-4-usb-surge": [unsplash("1550985616-10810253b84d"), unsplash("1558618666-fcd25c85cd64"), unsplash("1556761175-b413da4baf72")],
+  "gps-triathlon-watch-5atm-swimming-running-cycling": [unsplash("1544117519-31a4b719223d"), unsplash("1508685096489-7aacd43bd3b1"), unsplash("1523275335684-37898b6baf30")],
+  "precision-eyebrow-trimmer-waterproof-rechargeable-led": [unsplash("1570172619644-dfd03ed5d881"), unsplash("1617897903246-719242758050"), unsplash("1549045783-5f2d8e8dff74")],
+  "26cm-led-ring-light-tripod-selfie-tiktok-3-modes": [unsplash("1574715144611-609f29192975"), unsplash("1526378800651-8438701bb3ff"), unsplash("1561154464-062d233de9f9")],
+  "lampe-anneau-led-26cm-trepied-selfie-tiktok-3-modes": [unsplash("1574715144611-609f29192975"), unsplash("1526378800651-8438701bb3ff"), unsplash("1561154464-062d233de9f9")],
+  "lampe-bureau-led-10w-usb-c-rechargeable-clip": [unsplash("1593642632523-1d60af4b3029"), unsplash("1526378800651-8438701bb3ff"), unsplash("1519389950473-47ba0277781c")],
 };
 
 // ─────────────────────────────────────────────────────────────
