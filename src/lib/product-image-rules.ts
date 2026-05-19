@@ -19,14 +19,14 @@ function unique(urls: string[]): string[] {
 
 const WIKI = {
   robotMopping: unsplash("1583847268964-b28dc8f51f92"),
-  robotVacuumTall: unsplash("1679678691170-7781f11f9d86"),
+  robotVacuumTall: unsplash("1534796636912-3b95b3ab5986"),
   smartPlug: unsplash("1558618666-fcd25c85cd64"),
   smartPlugWemo: unsplash("1484101403633-562f891dc89a"),
   backupCamera: unsplash("1511919884226-fd3cad34687c"),
   backupDisplay: unsplash("1558981806-ec527fa84c39"),
   kitchenScale: unsplash("1495474472287-4d71bcdd2085"),
   kitchenScaleDevice: unsplash("1585515320310-259814833e62"),
-  deskLamp: unsplash("1526378800651-8438701bb3ff"),
+  deskLamp: unsplash("1518770660439-4636190af475"),
   wristRest: unsplash("1484981138541-3d074aa97716"),
   bubbleGun: unsplash("1596461404969-9ae70f2830c1"),
   eggSlicer: unsplash("1495474472287-4d71bcdd2085"),
@@ -40,7 +40,7 @@ const IMAGE_SETS = {
   // ── Robot aspirateurs
   robotVacuumMapping: [
     unsplash("1558618666-fcd25c85cd64"),
-    unsplash("1679678691170-7781f11f9d86"),
+    unsplash("1534796636912-3b95b3ab5986"),
     WIKI.robotMopping,
   ],
   robotVacuumSlim: [
@@ -50,7 +50,7 @@ const IMAGE_SETS = {
   ],
   robotVacuumMop: [
     unsplash("1558618666-fcd25c85cd64"),
-    unsplash("1679678691170-7781f11f9d86"),
+    unsplash("1534796636912-3b95b3ab5986"),
     unsplash("1583847268964-b28dc8f51f92"),
   ],
 
@@ -66,14 +66,14 @@ const IMAGE_SETS = {
     unsplash("1558618666-fcd25c85cd64"),
   ],
   diffuser: [
-    unsplash("1600857062241-98e5dba7f5bf"),
+    unsplash("1557597774-9d273605dfa9"),
     unsplash("1527359443443-84a48aec73d2"),
     unsplash("1584473457406-6240486418e9"),
   ],
   securityCamera: [
     unsplash("1557597774-9d273605dfa9"),
     unsplash("1580121441575-41bcb5c6b47c"),
-    unsplash("1544428571-6051a61f0756"),
+    unsplash("1583454110551-21f2fa2afe61"),
   ],
   starProjector: [
     unsplash("1534796636912-3b95b3ab5986"),
@@ -122,7 +122,7 @@ const IMAGE_SETS = {
   faceMassager: [
     unsplash("1596462502278-27bfdc403348"),
     unsplash("1617897903246-719242758050"),
-    unsplash("1549045783-5f2d8e8dff74"),
+    unsplash("1487412947147-5cebf100ffc2"),
   ],
   facialCleanser: [
     unsplash("1599305090598-fe179d501227"),
@@ -137,7 +137,7 @@ const IMAGE_SETS = {
   hairStraightener: [
     unsplash("1487412947147-5cebf100ffc2"),
     unsplash("1526045612212-70caf35c14df"),
-    unsplash("1522337360801-4f88e7a9e4d0"),
+    unsplash("1570172619644-dfd03ed5d881"),
   ],
   hairDryer: [
     unsplash("1487412947147-5cebf100ffc2"),
@@ -145,31 +145,31 @@ const IMAGE_SETS = {
     unsplash("1596462502278-27bfdc403348"),
   ],
   epilator: [
-    unsplash("1549045783-5f2d8e8dff74"),
+    unsplash("1487412947147-5cebf100ffc2"),
     unsplash("1616394584738-fc6e612e71b9"),
     unsplash("1599305090598-fe179d501227"),
   ],
   serum: [
-    unsplash("1614790133872-46bc31b89e3b"),
+    unsplash("1617897903246-719242758050"),
     unsplash("1570172619644-dfd03ed5d881"),
     unsplash("1599305090598-fe179d501227"),
   ],
 
   // ── Sport
   massageGun: [
-    unsplash("1612444080611-5ed7532d4c2f"),
+    unsplash("1583454110551-21f2fa2afe61"),
     unsplash("1571019613454-1cb2f99b2d8b"),
     unsplash("1534438327276-14e5300c3a48"),
   ],
   massageGunAlt: [
     unsplash("1571019613454-1cb2f99b2d8b"),
-    unsplash("1612444080611-5ed7532d4c2f"),
+    unsplash("1583454110551-21f2fa2afe61"),
     unsplash("1549060279-7e168fcee0c2"),
   ],
   yogaMat: [
     unsplash("1544367567-0f2fcb009e0b"),
     unsplash("1571019613454-1cb2f99b2d8b"),
-    unsplash("1593812816-2b4b307c6cb0"),
+    unsplash("1549060279-7e168fcee0c2"),
   ],
   jumpRope: [
     unsplash("1549060279-7e168fcee0c2"),
@@ -209,21 +209,21 @@ const IMAGE_SETS = {
     unsplash("1495521821757-a1efb6729352"),
   ],
   portableBlender: [
-    unsplash("1622597467836-f3e6dac3e61c"),
+    unsplash("1606787364406-a3cdf06c6d0c"),
     unsplash("1612544448445-b8232cff3b6c"),
-    unsplash("1571167366136-d6ab7af63580"),
+    unsplash("1585515320310-259814833e62"),
   ],
   vegetableChopper: [
-    unsplash("1553484771-371a816b2772"),
+    unsplash("1495474472287-4d71bcdd2085"),
     unsplash("1495521821757-a1efb6729352"),
     unsplash("1581299894007-aaa50297cf16"),
   ],
   kitchenScale: [WIKI.kitchenScale, WIKI.kitchenScaleDevice, unsplash("1495521821757-a1efb6729352")],
   eggSlicer: [WIKI.eggSlicer, WIKI.eggSlicerOpen, unsplash("1495521821757-a1efb6729352")],
   juicer: [
-    unsplash("1622597467836-f3e6dac3e61c"),
+    unsplash("1606787364406-a3cdf06c6d0c"),
     unsplash("1556909114-f6e7ad7d3136"),
-    unsplash("1571167366136-d6ab7af63580"),
+    unsplash("1585515320310-259814833e62"),
   ],
   cakeMold: [
     unsplash("1490645935967-10de6ba17061"),
@@ -233,13 +233,13 @@ const IMAGE_SETS = {
 
   // ── Tech gadgets
   earbuds: [
-    unsplash("1590658165737-15a047b7c97e"),
+    unsplash("1552674605-db6ffd4facb5"),
     unsplash("1505740420928-5e560c06d30e"),
     unsplash("1583394838336-acd977736f90"),
   ],
   earbudsAlt: [
     unsplash("1583394838336-acd977736f90"),
-    unsplash("1590658165737-15a047b7c97e"),
+    unsplash("1552674605-db6ffd4facb5"),
     unsplash("1505740420928-5e560c06d30e"),
   ],
   bluetoothSpeaker: [
@@ -250,7 +250,7 @@ const IMAGE_SETS = {
   powerBank: [
     unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1593642632559-0c6d3fc62b89"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1518770660439-4636190af475"),
   ],
   solarPowerBank: [
     unsplash("1609091839311-d5365f9ff1c5"),
@@ -258,51 +258,51 @@ const IMAGE_SETS = {
     unsplash("1593642632559-0c6d3fc62b89"),
   ],
   webcam: [
-    unsplash("1526378800651-8438701bb3ff"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1518770660439-4636190af475"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   usbCHub: [
     unsplash("1593642632559-0c6d3fc62b89"),
     unsplash("1519389950473-47ba0277781c"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1518770660439-4636190af475"),
   ],
   wirelessCharger3In1: [
     unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1593642632559-0c6d3fc62b89"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1518770660439-4636190af475"),
   ],
 
   // ── Bureau
   deskLamp: [
     WIKI.deskLamp,
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   qiDeskLamp: [
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     WIKI.deskLamp,
     unsplash("1519389950473-47ba0277781c"),
   ],
   wristRest: [
     WIKI.wristRest,
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   cableOrganizer: [
     unsplash("1593642632559-0c6d3fc62b89"),
     unsplash("1519389950473-47ba0277781c"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1518770660439-4636190af475"),
   ],
   laptopStand: [
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1518770660439-4636190af475"),
   ],
   deskOrganizer: [
     unsplash("1484981138541-3d074aa97716"),
     unsplash("1519389950473-47ba0277781c"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   whiteboard: [
     unsplash("1588196749597-9ff075ee6b5b"),
@@ -349,7 +349,7 @@ const IMAGE_SETS = {
   ],
   gpstracker: [
     unsplash("1557597774-9d273605dfa9"),
-    unsplash("1544428571-6051a61f0756"),
+    unsplash("1583454110551-21f2fa2afe61"),
     unsplash("1580121441575-41bcb5c6b47c"),
   ],
   smartThermostat: [
@@ -358,27 +358,27 @@ const IMAGE_SETS = {
     unsplash("1484101403633-562f891dc89a"),
   ],
   smartLock: [
-    unsplash("1558618147-6d2a5a96d6a1"),
+    unsplash("1550985616-10810253b84d"),
     unsplash("1556761175-b413da4baf72"),
     unsplash("1484101403633-562f891dc89a"),
   ],
   airPurifierHepa: [
-    unsplash("1600857062241-98e5dba7f5bf"),
+    unsplash("1557597774-9d273605dfa9"),
     unsplash("1527359443443-84a48aec73d2"),
     unsplash("1558618666-fcd25c85cd64"),
   ],
   videoDoorbell: [
-    unsplash("1484507523-c64b8f7be5a4"),
+    unsplash("1580121441575-41bcb5c6b47c"),
     unsplash("1557597774-9d273605dfa9"),
     unsplash("1556761175-b413da4baf72"),
   ],
   coffeeMachine: [
     unsplash("1495474472287-4d71bcdd2085"),
-    unsplash("1514432574-6f6c1f8f7e70"),
+    unsplash("1556909114-f6e7ad7d3136"),
     unsplash("1509042239860-f550ce710b93"),
   ],
   electricKettle: [
-    unsplash("1595434971317-85a51f823e8b"),
+    unsplash("1585515320310-259814833e62"),
     unsplash("1495474472287-4d71bcdd2085"),
     unsplash("1556909114-f6e7ad7d3136"),
   ],
@@ -388,7 +388,7 @@ const IMAGE_SETS = {
     unsplash("1495521821757-a1efb6729352"),
   ],
   knifeSet: [
-    unsplash("1592861956271-f1a7e8daa3b1"),
+    unsplash("1585515320310-259814833e62"),
     unsplash("1495521821757-a1efb6729352"),
     unsplash("1556909114-f6e7ad7d3136"),
   ],
@@ -413,9 +413,9 @@ const IMAGE_SETS = {
     unsplash("1571019613454-1cb2f99b2d8b"),
   ],
   footSpa: [
-    unsplash("1583854516502-8b3b59c4e682"),
+    unsplash("1596462502278-27bfdc403348"),
     unsplash("1587854692152-cbe660dbde88"),
-    unsplash("1549045783-5f2d8e8dff74"),
+    unsplash("1487412947147-5cebf100ffc2"),
   ],
   beardTrimmer: [
     unsplash("1503951914875-452162b0f3f1"),
@@ -428,48 +428,48 @@ const IMAGE_SETS = {
     unsplash("1617897903246-719242758050"),
   ],
   jadeRoller: [
-    unsplash("1614790133872-46bc31b89e3b"),
+    unsplash("1617897903246-719242758050"),
     unsplash("1570172619644-dfd03ed5d881"),
     unsplash("1596462502278-27bfdc403348"),
   ],
   selfTanner: [
     unsplash("1596462502278-27bfdc403348"),
     unsplash("1617897903246-719242758050"),
-    unsplash("1549045783-5f2d8e8dff74"),
+    unsplash("1487412947147-5cebf100ffc2"),
   ],
   iPadStylus: [
-    unsplash("1561154464-062d233de9f9"),
-    unsplash("1526378800651-8438701bb3ff"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1552674605-db6ffd4facb5"),
+    unsplash("1518770660439-4636190af475"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   ringLight: [
-    unsplash("1561154464-062d233de9f9"),
-    unsplash("1526378800651-8438701bb3ff"),
-    unsplash("1574715144611-609f29192975"),
+    unsplash("1552674605-db6ffd4facb5"),
+    unsplash("1518770660439-4636190af475"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   miniProjector: [
-    unsplash("1574715144611-609f29192975", "top"),
+    unsplash("1609091839311-d5365f9ff1c5", "top"),
     unsplash("1578662996442-48f60103fc96"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1518770660439-4636190af475"),
   ],
   monitorArm: [
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
     unsplash("1484981138541-3d074aa97716"),
   ],
   deskPad: [
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
     unsplash("1484981138541-3d074aa97716"),
   ],
   alarmClock: [
-    unsplash("1508847154043-be5407e5f6b1"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1519389950473-47ba0277781c"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1484981138541-3d074aa97716"),
   ],
   ergonomicChair: [
     unsplash("1579389083046-e3df9c2b3325"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   babyThermometer: [
@@ -493,37 +493,37 @@ const IMAGE_SETS = {
     unsplash("1596461404969-9ae70f2830c1"),
   ],
   kidsHeadphones: [
-    unsplash("1590658165737-15a047b7c97e"),
+    unsplash("1552674605-db6ffd4facb5"),
     unsplash("1503454537195-1dcabb73ffb9"),
     unsplash("1566140967404-b8b3932483f5"),
   ],
   carDefroster: [
-    unsplash("1520031338-f1bcb2c8fef2"),
+    unsplash("1511919884226-fd3cad34687c"),
     unsplash("1494976388531-d1058494cdd8"),
     unsplash("1558981806-ec527fa84c39"),
   ],
   carSeatCushion: [
-    unsplash("1541443131174-557a49d97df5"),
+    unsplash("1558981806-ec527fa84c39"),
     unsplash("1511919884226-fd3cad34687c"),
     unsplash("1494976388531-d1058494cdd8"),
   ],
   consoleOrganizer: [
-    unsplash("1549924231-8263a751ab4a"),
+    unsplash("1503376780353-7e6692767b70"),
     unsplash("1503376780353-7e6692767b70"),
     unsplash("1558981806-ec527fa84c39"),
   ],
   batteryTester: [
-    unsplash("1583254577374-c39b609e2e98"),
+    unsplash("1494976388531-d1058494cdd8"),
     unsplash("1558981806-ec527fa84c39"),
     unsplash("1511919884226-fd3cad34687c"),
   ],
   ledStringLights: [
     unsplash("1556761175-b413da4baf72"),
-    unsplash("1526170347566-59ef37c85c32"),
+    unsplash("1558618666-fcd25c85cd64"),
     unsplash("1484101403633-562f891dc89a"),
   ],
   airQualitySensor: [
-    unsplash("1600857062241-98e5dba7f5bf"),
+    unsplash("1557597774-9d273605dfa9"),
     unsplash("1527359443443-84a48aec73d2"),
     unsplash("1558618666-fcd25c85cd64"),
   ],
@@ -553,7 +553,7 @@ const IMAGE_SETS = {
     unsplash("1585515320310-259814833e62"),
   ],
   cuttingBoard: [
-    unsplash("1492545082-22644ab456eb"),
+    unsplash("1585515320310-259814833e62"),
     unsplash("1556909114-f6e7ad7d3136"),
     unsplash("1495521821757-a1efb6729352"),
   ],
@@ -574,21 +574,21 @@ const IMAGE_SETS = {
   ],
   sleepMask: [
     unsplash("1587854692152-cbe660dbde88"),
-    unsplash("1549045783-5f2d8e8dff74"),
+    unsplash("1487412947147-5cebf100ffc2"),
     unsplash("1596462502278-27bfdc403348"),
   ],
   digitalNotebook: [
-    unsplash("1561154464-062d233de9f9"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1552674605-db6ffd4facb5"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   gimbal: [
-    unsplash("1574715144611-609f29192975"),
-    unsplash("1526378800651-8438701bb3ff"),
-    unsplash("1561154464-062d233de9f9"),
+    unsplash("1609091839311-d5365f9ff1c5"),
+    unsplash("1518770660439-4636190af475"),
+    unsplash("1552674605-db6ffd4facb5"),
   ],
   footrest: [
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
     unsplash("1484981138541-3d074aa97716"),
   ],
@@ -613,12 +613,12 @@ const IMAGE_SETS = {
     unsplash("1547347298-4074fc3086f0"),
   ],
   lightDrawingTablet: [
-    unsplash("1561154464-062d233de9f9"),
+    unsplash("1552674605-db6ffd4facb5"),
     unsplash("1596461404969-9ae70f2830c1"),
     unsplash("1503454537195-1dcabb73ffb9"),
   ],
   elliptical: [
-    unsplash("1571019614099-8c8f44f90b3c"),
+    unsplash("1517836357463-d25dfeac3438"),
     unsplash("1534438327276-14e5300c3a48"),
     unsplash("1552674605-db6ffd4facb5"),
   ],
@@ -630,44 +630,44 @@ const IMAGE_SETS = {
   usbFlashDrive: [
     unsplash("1518770660439-4636190af475"),
     unsplash("1593642632559-0c6d3fc62b89"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   magneticCable: [
-    unsplash("1601972418-e44573d39aa5"),
+    unsplash("1518770660439-4636190af475"),
     unsplash("1593642632559-0c6d3fc62b89"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   // Lampes bureau variantes (7 variantes avec IDs différents)
   deskLampV1: [
     WIKI.deskLamp,
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1579389083046-e3df9c2b3325"),
   ],
   deskLampV2: [
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1484981138541-3d074aa97716"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   deskLampV3: [
     unsplash("1484981138541-3d074aa97716"),
     WIKI.deskLamp,
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   deskLampV4: [
     unsplash("1519389950473-47ba0277781c"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     WIKI.deskLamp,
   ],
   deskLampV5: [
     unsplash("1579389083046-e3df9c2b3325"),
     unsplash("1484981138541-3d074aa97716"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1518770660439-4636190af475"),
   ],
   // Chaises bureau variantes (3)
   ergonomicChairV2: [
     unsplash("1579389083046-e3df9c2b3325"),
     unsplash("1519389950473-47ba0277781c"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   ergonomicChairV3: [
     unsplash("1519389950473-47ba0277781c"),
@@ -677,7 +677,7 @@ const IMAGE_SETS = {
   // Bras moniteur variantes (2)
   monitorArmV2: [
     unsplash("1484981138541-3d074aa97716"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   // Gaming desk pad variantes (2)
@@ -705,7 +705,7 @@ const IMAGE_SETS = {
   // Massage gun variantes
   massageGunV3: [
     unsplash("1534438327276-14e5300c3a48"),
-    unsplash("1612444080611-5ed7532d4c2f"),
+    unsplash("1583454110551-21f2fa2afe61"),
     unsplash("1571019613454-1cb2f99b2d8b"),
   ],
   // Foam roller variantes
@@ -736,7 +736,7 @@ const IMAGE_SETS = {
   earbudsANC2: [
     unsplash("1505740420928-5e560c06d30e"),
     unsplash("1583394838336-acd977736f90"),
-    unsplash("1590658165737-15a047b7c97e"),
+    unsplash("1552674605-db6ffd4facb5"),
   ],
   // Enceinte bluetooth variante EN
   bluetoothSpeakerEN: [
@@ -747,8 +747,8 @@ const IMAGE_SETS = {
   // Webcam variante 2
   webcamV2: [
     unsplash("1519389950473-47ba0277781c"),
-    unsplash("1526378800651-8438701bb3ff"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1518770660439-4636190af475"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   // Hub USB-C variante 2
   usbCHubV2: [
@@ -758,26 +758,26 @@ const IMAGE_SETS = {
   ],
   // Stylus iPad variante 2
   iPadStylusV2: [
-    unsplash("1526378800651-8438701bb3ff"),
-    unsplash("1561154464-062d233de9f9"),
-    unsplash("1593642632523-1d60af4b3029"),
+    unsplash("1518770660439-4636190af475"),
+    unsplash("1552674605-db6ffd4facb5"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   // Jade roller variante 2
   jadeRollerV2: [
     unsplash("1570172619644-dfd03ed5d881"),
-    unsplash("1614790133872-46bc31b89e3b"),
+    unsplash("1617897903246-719242758050"),
     unsplash("1599305090598-fe179d501227"),
   ],
   // Face massager variantes
   faceMassagerV2: [
     unsplash("1617897903246-719242758050"),
-    unsplash("1549045783-5f2d8e8dff74"),
+    unsplash("1487412947147-5cebf100ffc2"),
     unsplash("1596462502278-27bfdc403348"),
   ],
   faceMassagerV3: [
-    unsplash("1549045783-5f2d8e8dff74"),
+    unsplash("1487412947147-5cebf100ffc2"),
     unsplash("1596462502278-27bfdc403348"),
-    unsplash("1614790133872-46bc31b89e3b"),
+    unsplash("1617897903246-719242758050"),
   ],
   // Facial cleanser variantes
   facialCleanserV2: [
@@ -793,19 +793,19 @@ const IMAGE_SETS = {
   // LED face mask variante 2
   ledFaceMaskV2: [
     unsplash("1596462502278-27bfdc403348"),
-    unsplash("1614790133872-46bc31b89e3b"),
+    unsplash("1617897903246-719242758050"),
     unsplash("1616394584738-fc6e612e71b9"),
   ],
   // Self tanner variante 2
   selfTannerV2: [
     unsplash("1617897903246-719242758050"),
     unsplash("1596462502278-27bfdc403348"),
-    unsplash("1522337360826-9d459de31f3b"),
+    unsplash("1570172619644-dfd03ed5d881"),
   ],
   // Hair dryer variante
   hairDryerV2: [
     unsplash("1596462502278-27bfdc403348"),
-    unsplash("1522337360826-9d459de31f3b"),
+    unsplash("1570172619644-dfd03ed5d881"),
     unsplash("1487412947147-5cebf100ffc2"),
   ],
   // Baby monitor variantes
@@ -849,7 +849,7 @@ const IMAGE_SETS = {
   ],
   // Serrure connectée variante 2
   smartLockV2: [
-    unsplash("1586375300773-8384279e4bcd"),
+    unsplash("1558618666-fcd25c85cd64"),
     unsplash("1484101403633-562f891dc89a"),
     unsplash("1556761175-b413da4baf72"),
   ],
@@ -862,7 +862,7 @@ const IMAGE_SETS = {
   foodProcessorV3: [
     unsplash("1495521821757-a1efb6729352"),
     unsplash("1585515320310-259814833e62"),
-    unsplash("1553484771-371a816b2772"),
+    unsplash("1495474472287-4d71bcdd2085"),
   ],
   foodProcessorV4: [
     unsplash("1464454709131-ffd692591ee5"),
@@ -882,42 +882,42 @@ const IMAGE_SETS = {
   ],
   // Juicer variantes
   juicerV2: [
-    unsplash("1571167366136-d6ab7af63580"),
-    unsplash("1622597467836-f3e6dac3e61c"),
+    unsplash("1585515320310-259814833e62"),
+    unsplash("1606787364406-a3cdf06c6d0c"),
     unsplash("1495521821757-a1efb6729352"),
   ],
   juicerV3: [
-    unsplash("1553484771-371a816b2772"),
-    unsplash("1622597467836-f3e6dac3e61c"),
+    unsplash("1495474472287-4d71bcdd2085"),
+    unsplash("1606787364406-a3cdf06c6d0c"),
     unsplash("1556909114-f6e7ad7d3136"),
   ],
   juicerV4: [
     unsplash("1464454709131-ffd692591ee5"),
-    unsplash("1571167366136-d6ab7af63580"),
+    unsplash("1585515320310-259814833e62"),
     unsplash("1495521821757-a1efb6729352"),
   ],
   // Couteaux variante 2
   knifeSetV2: [
-    unsplash("1557301747-31994abf4ee8"),
+    unsplash("1495521821757-a1efb6729352"),
     unsplash("1556909114-f6e7ad7d3136"),
     unsplash("1464454709131-ffd692591ee5"),
   ],
   // Mixeur plongeant variante 2
   immersionBlenderV2: [
     unsplash("1585515320310-259814833e62"),
-    unsplash("1622597467836-f3e6dac3e61c"),
+    unsplash("1606787364406-a3cdf06c6d0c"),
     unsplash("1556909114-f6e7ad7d3136"),
   ],
   // Machine à pâtes variante 2
   pastaMachineV2: [
     unsplash("1464454709131-ffd692591ee5"),
     unsplash("1495521821757-a1efb6729352"),
-    unsplash("1492545082-22644ab456eb"),
+    unsplash("1556909114-f6e7ad7d3136"),
   ],
   // Bouilloire variante 2
   electricKettleV2: [
     unsplash("1556909114-f6e7ad7d3136"),
-    unsplash("1595434971317-85a51f823e8b"),
+    unsplash("1585515320310-259814833e62"),
     unsplash("1495474472287-4d71bcdd2085"),
   ],
   // Camera recul variante 2
@@ -928,12 +928,12 @@ const IMAGE_SETS = {
   ],
   // Support téléphone magnétique variante
   carPhoneHolderV2: [
-    unsplash("1568605116-4e46de4e5fd7"),
+    unsplash("1558981806-ec527fa84c39"),
     unsplash("1511919884226-fd3cad34687c"),
     unsplash("1494976388531-d1058494cdd8"),
   ],
   carPhoneHolderV3: [
-    unsplash("1565849904461-e3eb83bfb4d0"),
+    unsplash("1511919884226-fd3cad34687c"),
     unsplash("1494976388531-d1058494cdd8"),
     unsplash("1558981806-ec527fa84c39"),
   ],
@@ -945,19 +945,19 @@ const IMAGE_SETS = {
   ],
   // GPS tracker voiture variantes
   gpstrackerV2: [
-    unsplash("1544620218-2b31e7c76c92"),
+    unsplash("1580121441575-41bcb5c6b47c"),
     unsplash("1557597774-9d273605dfa9"),
-    unsplash("1544428571-6051a61f0756"),
+    unsplash("1583454110551-21f2fa2afe61"),
   ],
   // Aspirateur voiture variante 2
   carVacuumV2: [
-    unsplash("1571939838871-f61e7b19aa93"),
+    unsplash("1511919884226-fd3cad34687c"),
     unsplash("1494976388531-d1058494cdd8"),
     unsplash("1558981806-ec527fa84c39"),
   ],
   // Compresseur air variante
   tireInflatorV2: [
-    unsplash("1544620218-2b31e7c76c92"),
+    unsplash("1580121441575-41bcb5c6b47c"),
     unsplash("1558981806-ec527fa84c39"),
     unsplash("1494976388531-d1058494cdd8"),
   ],
@@ -989,8 +989,8 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "foldable-waterproof-car-trunk-organizer": IMAGE_SETS.trunkOrganizer,
   "magnetic-car-phone-holder-360-rotation": IMAGE_SETS.carPhoneHolderV2,
   "memory-foam-car-seat-cushion-coccyx-orthopedic": [
-    unsplash("1541443131174-557a49d97df5"),
-    unsplash("1549924231-8263a751ab4a"),
+    unsplash("1558981806-ec527fa84c39"),
+    unsplash("1503376780353-7e6692767b70"),
     unsplash("1511919884226-fd3cad34687c"),
   ],
   "organisateur-coffre-voiture-pliable-impermeable": [
@@ -1027,13 +1027,13 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "indoor-wifi-security-camera-360-2k": [
     unsplash("1580121441575-41bcb5c6b47c"),
     unsplash("1557597774-9d273605dfa9"),
-    unsplash("1544428571-6051a61f0756"),
+    unsplash("1583454110551-21f2fa2afe61"),
   ],
   "projecteur-led-etoiles-aurores-boreales": IMAGE_SETS.starProjector,
   "diffuseur-huiles-essentielles-ultrason-500ml": IMAGE_SETS.diffuser,
   "500ml-ultrasonic-essential-oil-diffuser": [
     unsplash("1527359443443-84a48aec73d2"),
-    unsplash("1600857062241-98e5dba7f5bf"),
+    unsplash("1557597774-9d273605dfa9"),
     unsplash("1584473457406-6240486418e9"),
   ],
   "ampoule-led-connectee-wifi-rgb-e27-10w": IMAGE_SETS.smartBulb,
@@ -1044,7 +1044,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "purificateur-air-hepa-h13-wifi-silencieux": IMAGE_SETS.airPurifierHepa,
   "guirlande-led-intelligente-wifi-16m-multicolore": IMAGE_SETS.ledStringLights,
   "guirlande-led-connectee-twinkly-20m": [
-    unsplash("1526170347566-59ef37c85c32"),
+    unsplash("1558618666-fcd25c85cd64"),
     unsplash("1556761175-b413da4baf72"),
     unsplash("1484101403633-562f891dc89a"),
   ],
@@ -1092,12 +1092,12 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "flash-drive-512go-usb-c-dual-connector": [
     unsplash("1593642632559-0c6d3fc62b89"),
     unsplash("1518770660439-4636190af475"),
-    unsplash("1526378800651-8438701bb3ff"),
+    unsplash("1609091839311-d5365f9ff1c5"),
   ],
   "cable-magnetique-3-en-1-usb-c-lightning-micro": IMAGE_SETS.magneticCable,
   "cable-magnetique-charge-rapide-100w-usb-c": [
     unsplash("1593642632559-0c6d3fc62b89"),
-    unsplash("1601972418-e44573d39aa5"),
+    unsplash("1518770660439-4636190af475"),
     unsplash("1519389950473-47ba0277781c"),
   ],
   "chargeur-solaire-pliable-100w-panneau-usb-c": [
@@ -1107,12 +1107,12 @@ const SLUG_IMAGES: Record<string, string[]> = {
   ],
   "batterie-externe-magsafe-10000mah-charge-rapide": [
     unsplash("1609091839311-d5365f9ff1c5"),
-    unsplash("1601972418-e44573d39aa5"),
+    unsplash("1518770660439-4636190af475"),
     unsplash("1593642632559-0c6d3fc62b89"),
   ],
   "ecouteurs-gaming-rgb-surround-7-1": [
     unsplash("1505740420928-5e560c06d30e"),
-    unsplash("1590658165737-15a047b7c97e"),
+    unsplash("1552674605-db6ffd4facb5"),
     unsplash("1583394838336-acd977736f90"),
   ],
 
@@ -1133,10 +1133,10 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "lisseur-vapeur-titane-230c-plaques-larges": [
     unsplash("1526045612212-70caf35c14df"),
     unsplash("1487412947147-5cebf100ffc2"),
-    unsplash("1522337360801-4f88e7a9e4d0"),
+    unsplash("1570172619644-dfd03ed5d881"),
   ],
   "epilateur-electrique-corps-visage-etanche-ipx6": IMAGE_SETS.epilator,
-  "serum-vitamine-c-20-acide-hyaluronique": [unsplash("1599305090598-fe179d501227"), unsplash("1570172619644-dfd03ed5d881"), unsplash("1614790133872-46bc31b89e3b")],
+  "serum-vitamine-c-20-acide-hyaluronique": [unsplash("1599305090598-fe179d501227"), unsplash("1570172619644-dfd03ed5d881"), unsplash("1617897903246-719242758050")],
   "jade-roller-gua-sha-set-quartz-rose": IMAGE_SETS.jadeRoller,
   "jade-roller-obsidienne-anti-cernes": IMAGE_SETS.jadeRollerV2,
   "masque-sommeil-3d-contour-yeux-memoire": IMAGE_SETS.sleepMask,
@@ -1151,7 +1151,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "autobronzant-progressif-corps-visage-spf20": IMAGE_SETS.selfTannerV2,
   "bain-pieds-spa-bouillonnant-chaleur-massage": IMAGE_SETS.footSpa,
   "fond-de-teint-pinceau-kabuki-set-maquillage": [
-    unsplash("1522337360826-9d459de31f3b"),
+    unsplash("1570172619644-dfd03ed5d881"),
     unsplash("1503951914875-452162b0f3f1"),
     unsplash("1596462502278-27bfdc403348"),
   ],
@@ -1160,7 +1160,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   // SPORT (24 produits)
   // ════════════════════════════════
   "pistolet-massage-musculaire-30-vitesses-3200rpm": IMAGE_SETS.massageGun,
-  "pistolet-massage-musculaire-percussif": [unsplash("1612444080611-5ed7532d4c2f"), unsplash("1571019613454-1cb2f99b2d8b"), unsplash("1549060279-7e168fcee0c2")],
+  "pistolet-massage-musculaire-percussif": [unsplash("1583454110551-21f2fa2afe61"), unsplash("1571019613454-1cb2f99b2d8b"), unsplash("1549060279-7e168fcee0c2")],
   "massage-gun-mini-pocket-6-vitesses-silencieux": IMAGE_SETS.massageGunV3,
   "tapis-yoga-antiderapant-premium-6mm": IMAGE_SETS.yogaMat,
   "corde-a-sauter-numerique-compteur-calories": IMAGE_SETS.jumpRope,
@@ -1245,7 +1245,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
     unsplash("1503454537195-1dcabb73ffb9"),
   ],
   "tableau-dessin-magnetique-effacable-enfant": [
-    unsplash("1561154464-062d233de9f9"),
+    unsplash("1552674605-db6ffd4facb5"),
     unsplash("1596461404969-9ae70f2830c1"),
     unsplash("1566140967404-b8b3932483f5"),
   ],
@@ -1263,7 +1263,7 @@ const SLUG_IMAGES: Record<string, string[]> = {
   // ════════════════════════════════
   // BUREAU (20 produits)
   // ════════════════════════════════
-  "lampe-bureau-led-chargeur-qi": [unsplash("1519389950473-47ba0277781c"), unsplash("1593642632523-1d60af4b3029"), unsplash("1526378800651-8438701bb3ff")],
+  "lampe-bureau-led-chargeur-qi": [unsplash("1519389950473-47ba0277781c"), unsplash("1609091839311-d5365f9ff1c5"), unsplash("1518770660439-4636190af475")],
   "lampe-de-bureau-led-sans-fil-rechargeable": IMAGE_SETS.deskLamp,
   "wireless-led-desk-lamp-usb-rechargeable": IMAGE_SETS.deskLampV1,
   "lampe-bureau-led-bras-articulee-clamp-usb": IMAGE_SETS.deskLampV2,
@@ -1283,24 +1283,24 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "organisateur-bureau-rotatif-360-bambou": IMAGE_SETS.deskOrganizer,
   "tableau-blanc-magnetique-effacable-60x90cm": IMAGE_SETS.whiteboard,
   "repose-pied-bureau-ergonomique-hauteur-reglable": IMAGE_SETS.footrest,
-  "spray-bronzant-autobronzant-corps-200ml-bio": [unsplash("1549045783-5f2d8e8dff74"), unsplash("1617897903246-719242758050"), unsplash("1596462502278-27bfdc403348")],
-  "ecouteurs-sans-fil-reduction-bruit-active-focus-travail": [unsplash("1583394838336-acd977736f90"), unsplash("1505740420928-5e560c06d30e"), unsplash("1590658165737-15a047b7c97e")],
-  "lampe-bureau-led-sans-fil-rechargeable-tactile": [unsplash("1519389950473-47ba0277781c"), unsplash("1593642632523-1d60af4b3029"), unsplash("1484981138541-3d074aa97716")],
+  "spray-bronzant-autobronzant-corps-200ml-bio": [unsplash("1487412947147-5cebf100ffc2"), unsplash("1617897903246-719242758050"), unsplash("1596462502278-27bfdc403348")],
+  "ecouteurs-sans-fil-reduction-bruit-active-focus-travail": [unsplash("1583394838336-acd977736f90"), unsplash("1505740420928-5e560c06d30e"), unsplash("1552674605-db6ffd4facb5")],
+  "lampe-bureau-led-sans-fil-rechargeable-tactile": [unsplash("1519389950473-47ba0277781c"), unsplash("1609091839311-d5365f9ff1c5"), unsplash("1484981138541-3d074aa97716")],
   "foldable-kids-play-tent-castle-indoor-outdoor": [unsplash("1596461404969-9ae70f2830c1"), unsplash("1566140967404-b8b3932483f5"), unsplash("1547347298-4074fc3086f0")],
   "kids-headphones-volume-limited-85db-foldable": [unsplash("1566140967404-b8b3932483f5"), unsplash("1503454537195-1dcabb73ffb9"), unsplash("1587654780291-39c9404d746b")],
   "trottinette-enfant-3-roues-reglable-2-6-ans-led": [unsplash("1547347298-4074fc3086f0"), unsplash("1503454537195-1dcabb73ffb9"), unsplash("1596461404969-9ae70f2830c1")],
   "chargeur-voiture-gan-65w": [unsplash("1558981806-ec527fa84c39"), unsplash("1511919884226-fd3cad34687c"), unsplash("1494976388531-d1058494cdd8")],
   "multiprise-connectee-wifi-4-prises-4-usb-surge": [unsplash("1556761175-b413da4baf72"), unsplash("1558618666-fcd25c85cd64"), unsplash("1484101403633-562f891dc89a")],
   "wifi-smart-programmable-touchscreen-thermostat": [unsplash("1484101403633-562f891dc89a"), unsplash("1558618666-fcd25c85cd64"), unsplash("1556761175-b413da4baf72")],
-  "laser-mapping-robot-vacuum-2700pa": [unsplash("1558618666-fcd25c85cd64"), unsplash("1679678691170-7781f11f9d86"), unsplash("1583847268964-b28dc8f51f92")],
-  "memory-foam-keyboard-mouse-wrist-rest-set": [unsplash("1484981138541-3d074aa97716"), unsplash("1593642632523-1d60af4b3029"), unsplash("1519389950473-47ba0277781c")],
-  "repose-poignets-clavier-souris-memoire-forme": [unsplash("1484981138541-3d074aa97716"), unsplash("1593642632523-1d60af4b3029"), unsplash("1519389950473-47ba0277781c")],
+  "laser-mapping-robot-vacuum-2700pa": [unsplash("1558618666-fcd25c85cd64"), unsplash("1534796636912-3b95b3ab5986"), unsplash("1583847268964-b28dc8f51f92")],
+  "memory-foam-keyboard-mouse-wrist-rest-set": [unsplash("1484981138541-3d074aa97716"), unsplash("1609091839311-d5365f9ff1c5"), unsplash("1519389950473-47ba0277781c")],
+  "repose-poignets-clavier-souris-memoire-forme": [unsplash("1484981138541-3d074aa97716"), unsplash("1609091839311-d5365f9ff1c5"), unsplash("1519389950473-47ba0277781c")],
   "wifi-smart-power-strip-4-outlets-4-usb-surge": [unsplash("1550985616-10810253b84d"), unsplash("1558618666-fcd25c85cd64"), unsplash("1556761175-b413da4baf72")],
   "gps-triathlon-watch-5atm-swimming-running-cycling": [unsplash("1544117519-31a4b719223d"), unsplash("1508685096489-7aacd43bd3b1"), unsplash("1523275335684-37898b6baf30")],
-  "precision-eyebrow-trimmer-waterproof-rechargeable-led": [unsplash("1570172619644-dfd03ed5d881"), unsplash("1617897903246-719242758050"), unsplash("1549045783-5f2d8e8dff74")],
-  "26cm-led-ring-light-tripod-selfie-tiktok-3-modes": [unsplash("1574715144611-609f29192975"), unsplash("1526378800651-8438701bb3ff"), unsplash("1561154464-062d233de9f9")],
-  "lampe-anneau-led-26cm-trepied-selfie-tiktok-3-modes": [unsplash("1574715144611-609f29192975"), unsplash("1526378800651-8438701bb3ff"), unsplash("1561154464-062d233de9f9")],
-  "lampe-bureau-led-10w-usb-c-rechargeable-clip": [unsplash("1593642632523-1d60af4b3029"), unsplash("1526378800651-8438701bb3ff"), unsplash("1519389950473-47ba0277781c")],
+  "precision-eyebrow-trimmer-waterproof-rechargeable-led": [unsplash("1570172619644-dfd03ed5d881"), unsplash("1617897903246-719242758050"), unsplash("1487412947147-5cebf100ffc2")],
+  "26cm-led-ring-light-tripod-selfie-tiktok-3-modes": [unsplash("1609091839311-d5365f9ff1c5"), unsplash("1518770660439-4636190af475"), unsplash("1552674605-db6ffd4facb5")],
+  "lampe-anneau-led-26cm-trepied-selfie-tiktok-3-modes": [unsplash("1609091839311-d5365f9ff1c5"), unsplash("1518770660439-4636190af475"), unsplash("1552674605-db6ffd4facb5")],
+  "lampe-bureau-led-10w-usb-c-rechargeable-clip": [unsplash("1609091839311-d5365f9ff1c5"), unsplash("1518770660439-4636190af475"), unsplash("1519389950473-47ba0277781c")],
 };
 
 // ─────────────────────────────────────────────────────────────
