@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getCachedFeaturedProducts, getCachedCategories, getCachedTrendingProducts } from "@/lib/cache";
 import { formatPrice } from "@/lib/utils";
-import { getServerLocale } from "@/lib/locale-server";
 import { getT } from "@/lib/i18n";
 import { getPremiumCategory, getPremiumProductPresentation, toPublicProduct } from "@/lib/premium-brand";
 import Header from "@/components/layout/Header";
@@ -22,7 +21,7 @@ import type { Product } from "@/types";
 const editorialImage = "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80&crop=entropy";
 
 export default async function HomePage() {
-  const locale = getServerLocale();
+  const locale = "fr" as const; // hardcodé FR pour que la page soit cacheable (cookies() bloquerait l'ISR)
   const t = getT(locale);
 
   const [featured, categories, signatures] = await Promise.all([
