@@ -20,16 +20,18 @@ export function middleware(req: NextRequest) {
   }
 
   // Auto-detect from Accept-Language header (first visit)
+  // Ne poser le cookie que pour EN — les visiteurs FR (défaut) n'ont pas de Set-Cookie
+  // ce qui permet à Vercel CDN de mettre les pages ISR en cache pour eux.
   const acceptLang = req.headers.get("accept-language") || "";
   const isEnglish = acceptLang.toLowerCase().includes("en") && !acceptLang.toLowerCase().startsWith("fr");
 
-  const res = NextResponse.next();
   if (isEnglish) {
+    const res = NextResponse.next();
     res.cookies.set("lang", "en", { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
-  } else {
-    res.cookies.set("lang", "fr", { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
+    return res;
   }
-  return res;
+  // FR par défaut : pas de Set-Cookie → réponse cacheable par Vercel CDN
+  return NextResponse.next();
 }
 
 export const config = {
