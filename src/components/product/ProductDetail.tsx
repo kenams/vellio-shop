@@ -30,7 +30,17 @@ export default function ProductDetail({ product, related }: Props) {
   const locale = useLangStore((s) => s.locale);
   const presentation = getPremiumProductPresentation(product, locale);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [fadingOut, setFadingOut] = useState(false);
   const [qty, setQty] = useState(1);
+
+  function selectImage(index: number) {
+    if (index === selectedImage) return;
+    setFadingOut(true);
+    setTimeout(() => {
+      setSelectedImage(index);
+      setFadingOut(false);
+    }, 140);
+  }
   const [openPanel, setOpenPanel] = useState<"details" | "care" | "delivery" | null>("details");
   const { addItem } = useCartStore();
   const hasComparePrice = Boolean(product.comparePrice && product.comparePrice > product.price);
@@ -129,31 +139,56 @@ export default function ProductDetail({ product, related }: Props) {
         </Link>
 
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          {/* ── Gallery ──────────────────────────────────────────────── */}
           <div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-black/10 bg-white shadow-card">
+            {/* Image principale avec zoom hover */}
+            <div className="group relative aspect-[4/5] cursor-zoom-in overflow-hidden rounded-[1.75rem] border border-black/10 bg-white shadow-card">
               <Image
                 src={product.images[selectedImage]?.url || "/placeholder.jpg"}
                 alt={presentation.name}
                 fill
-                className="object-cover"
+                className={`object-cover transition-all duration-500 group-hover:scale-110 ${fadingOut ? "opacity-0" : "opacity-100"}`}
+                style={{ transitionProperty: "transform, opacity" }}
                 sizes="(max-width: 1024px) 100vw, 52vw"
                 priority
               />
               {product.trendScore > 0 && <ScoreBadge score={product.trendScore} className="absolute left-5 top-5" />}
+              {/* Indicateur image active */}
+              {product.images.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5">
+                  {product.images.slice(0, 5).map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={(e) => { e.stopPropagation(); selectImage(i); }}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${i === selectedImage ? "w-6 bg-white" : "w-1.5 bg-white/50"}`}
+                      aria-label={`Image ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
+            {/* Thumbnails */}
             {product.images.length > 1 && (
               <div className="mt-4 grid grid-cols-4 gap-3">
                 {product.images.slice(0, 4).map((image, index) => (
                   <button
                     key={image.id}
-                    onClick={() => setSelectedImage(index)}
-                    className={`relative aspect-square overflow-hidden rounded-2xl border transition-all ${
-                      index === selectedImage ? "border-brand-accent shadow-card" : "border-black/10 opacity-70 hover:opacity-100"
+                    onClick={() => selectImage(index)}
+                    className={`group/thumb relative aspect-square overflow-hidden rounded-2xl border transition-all duration-300 ${
+                      index === selectedImage
+                        ? "border-brand-accent ring-1 ring-brand-accent/30 shadow-card"
+                        : "border-black/10 opacity-60 hover:opacity-100 hover:border-black/25"
                     }`}
-                    aria-label={`Image ${index + 1}`}
+                    aria-label={`Voir image ${index + 1}`}
                   >
-                    <Image src={image.url} alt="" fill className="object-cover" sizes="160px" />
+                    <Image
+                      src={image.url}
+                      alt={`${presentation.name} — vue ${index + 1}`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover/thumb:scale-105"
+                      sizes="160px"
+                    />
                   </button>
                 ))}
               </div>

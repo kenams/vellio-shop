@@ -3,6 +3,7 @@ import { slugify } from "@/lib/utils";
 import { PRODUCT_CATALOG, matchTrendToCategories, type CatalogProduct } from "@/lib/product-catalog";
 import { getCuratedProductImages } from "@/lib/product-image-rules";
 import { buildPremiumProductData } from "@/lib/premium-brand";
+import { validateProductData } from "@/lib/product-validator";
 
 export type Market = "fr" | "en-US" | "en-GB" | "en-AU";
 
@@ -403,8 +404,21 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
         if (!category) { result.errors++; continue; }
       }
 
-      // Fetch images via Pexels (no AI)
+      // Fetch images via curated rules / Pexels / fallback
       const images = await fetchProductImages(catalogProduct.photoKeyword, slug, catalogProduct.categorySlug, name);
+
+      // ── Validation pipeline : UN PRODUIT = SES PROPRES IMAGES UNIQUEMENT ──
+      const validation = validateProductData({
+        name,
+        slug,
+        images,
+        categorySlug: catalogProduct.categorySlug,
+      });
+      if (!validation.valid) {
+        console.warn(`[discovery] ⚠️ Produit rejeté "${name}" — ${validation.reason}`);
+        result.errors++;
+        continue;
+      }
 
       // Build product data from catalog (no AI)
       const comparePrice = Math.round(catalogProduct.price * 1.45 * 100) / 100;
