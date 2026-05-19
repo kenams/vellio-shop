@@ -448,7 +448,7 @@ const IMAGE_SETS = {
     unsplash("1609091839311-d5365f9ff1c5"),
   ],
   miniProjector: [
-    unsplash("1609091839311-d5365f9ff1c5", "top"),
+    unsplash("1609091839311-d5365f9ff1c5"),
     unsplash("1578662996442-48f60103fc96"),
     unsplash("1518770660439-4636190af475"),
   ],
@@ -1301,6 +1301,9 @@ const SLUG_IMAGES: Record<string, string[]> = {
   "26cm-led-ring-light-tripod-selfie-tiktok-3-modes": [unsplash("1609091839311-d5365f9ff1c5"), unsplash("1518770660439-4636190af475"), unsplash("1552674605-db6ffd4facb5")],
   "lampe-anneau-led-26cm-trepied-selfie-tiktok-3-modes": [unsplash("1609091839311-d5365f9ff1c5"), unsplash("1518770660439-4636190af475"), unsplash("1552674605-db6ffd4facb5")],
   "lampe-bureau-led-10w-usb-c-rechargeable-clip": [unsplash("1609091839311-d5365f9ff1c5"), unsplash("1518770660439-4636190af475"), unsplash("1519389950473-47ba0277781c")],
+  "mini-portable-wifi-projector-1080p-bluetooth-200": [unsplash("1609091839311-d5365f9ff1c5"), unsplash("1578662996442-48f60103fc96"), unsplash("1518770660439-4636190af475")],
+  "universal-premium-wiper-blades-26-28-inch": [unsplash("1511919884226-fd3cad34687c"), unsplash("1503376780353-7e6692767b70"), unsplash("1558981806-ec527fa84c39")],
+  "wall-cork-board-magnetic-memo-organizer": [unsplash("1484981138541-3d074aa97716"), unsplash("1609091839311-d5365f9ff1c5"), unsplash("1519389950473-47ba0277781c")],
 };
 
 // ─────────────────────────────────────────────────────────────
