@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 600; // ISR 10min
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";

@@ -1,17 +1,37 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // ISR 1h
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ProductDetail from "@/components/product/ProductDetail";
 import { getPremiumProductPresentation, toPublicProduct } from "@/lib/premium-brand";
 
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({
+    where: { published: true },
+    select: { slug: true },
+  });
+  return products.map((p) => ({ slug: p.slug }));
+}
+
+const getProduct = unstable_cache(
+  async (slug: string) => prisma.product.findUnique({
+    where: { slug, published: true },
+    include: {
+      images: { orderBy: { position: "asc" } },
+      trendData: true,
+      reviews: { where: { approved: true }, orderBy: { createdAt: "desc" } },
+      category: true,
+    },
+  }),
+  ["product-detail"],
+  { revalidate: 3600, tags: ["products"] }
+);
+
 interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = await prisma.product.findUnique({
-    where: { slug: params.slug },
-    include: { category: true, images: { take: 1, orderBy: { position: "asc" } } },
-  });
+  const product = await getProduct(params.slug);
   if (!product) return {};
   const presentation = getPremiumProductPresentation(product as any);
   const imageUrl = (product as any).images?.[0]?.url;
@@ -36,15 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params }: Props) {
-  const product = await prisma.product.findUnique({
-    where: { slug: params.slug, published: true },
-    include: {
-      images: { orderBy: { position: "asc" } },
-      trendData: true,
-      reviews: { where: { approved: true }, orderBy: { createdAt: "desc" } },
-      category: true,
-    },
-  });
+  const product = await getProduct(params.slug);
   if (!product) notFound();
 
   const related = await prisma.product.findMany({

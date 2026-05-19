@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Search, SlidersHorizontal } from "lucide-react";
@@ -26,9 +24,7 @@ export default async function CataloguePage({ searchParams }: Props) {
   const locale = getServerLocale();
   const t = getT(locale);
   const where: any = { published: true };
-  const localeCount = await prisma.product.count({ where: { published: true, locale } });
 
-  if (localeCount > 0) where.locale = locale;
   if (searchParams.q) {
     where.OR = [
       { name: { contains: searchParams.q, mode: "insensitive" } },
@@ -47,6 +43,7 @@ export default async function CataloguePage({ searchParams }: Props) {
     prisma.product.findMany({
       where,
       orderBy,
+      take: 48,
       include: { images: { take: 1, orderBy: { position: "asc" } }, trendData: true, category: true },
     }),
     getCachedCategories(),

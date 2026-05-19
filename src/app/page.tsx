@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 300; // ISR 5 min
 
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +19,7 @@ import Newsletter from "@/components/ui/Newsletter";
 import MotionWrapper from "@/components/ui/MotionWrapper";
 import type { Product } from "@/types";
 
-const editorialImage = "https://images.pexels.com/photos/10736999/pexels-photo-10736999.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop";
+const editorialImage = "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80&crop=entropy";
 
 export default async function HomePage() {
   const locale = getServerLocale();
