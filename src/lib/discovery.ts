@@ -3,7 +3,8 @@ import { slugify } from "@/lib/utils";
 import { PRODUCT_CATALOG, matchTrendToCategories, type CatalogProduct } from "@/lib/product-catalog";
 import { getCuratedProductImages } from "@/lib/product-image-rules";
 import { buildPremiumProductData } from "@/lib/premium-brand";
-import { validateProductData } from "@/lib/product-validator";
+import { validateProductData, calculateProductQualityScore } from "@/lib/product-validator";
+import { uploadProductImages, isCloudinaryConfigured } from "@/lib/cloudinary";
 
 export type Market = "fr" | "en-US" | "en-GB" | "en-AU";
 
@@ -420,6 +421,34 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
         continue;
       }
 
+      // ── Quality score : ne publie que les produits score >= 80 ──────────────
+      const quality = calculateProductQualityScore({
+        name,
+        slug,
+        images,
+        categorySlug: catalogProduct.categorySlug,
+        price: catalogProduct.price,
+        description: locale === "fr" ? catalogProduct.desc_fr : catalogProduct.desc_en,
+        shortDescription: locale === "fr" ? catalogProduct.short_fr : catalogProduct.short_en,
+      });
+      if (!quality.publishable) {
+        console.warn(`[discovery] ⚠️ Score insuffisant pour "${name}" — ${quality.score}/100`);
+        result.skipped++;
+        continue;
+      }
+
+      // ── Cloudinary upload (si configuré) ────────────────────────────────────
+      let finalImages = images;
+      if (isCloudinaryConfigured()) {
+        try {
+          finalImages = await uploadProductImages(images, slug);
+          console.log(`[discovery] Cloudinary: ${finalImages.filter(u => u.includes("cloudinary.com")).length}/${images.length} images migrées pour "${name}"`);
+        } catch (e: any) {
+          console.warn(`[discovery] Cloudinary upload failed pour "${name}": ${e.message} — fallback Unsplash`);
+          finalImages = images;
+        }
+      }
+
       // Build product data from catalog (no AI)
       const comparePrice = Math.round(catalogProduct.price * 1.45 * 100) / 100;
       const description = locale === "fr" ? catalogProduct.desc_fr : catalogProduct.desc_en;
@@ -461,7 +490,7 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
           supplierName: catalogProduct.supplierUrl ? "AliExpress" : null,
           estimatedMargin: Math.round(((catalogProduct.price - catalogProduct.cost) / catalogProduct.price) * 100),
           images: {
-            create: images.map((url, i) => ({ url, position: i })),
+            create: finalImages.map((url, i) => ({ url, position: i })),
           },
         },
       });

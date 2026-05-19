@@ -65,10 +65,11 @@ export function isImageRelevantToProduct(
     return { valid: false, reason: 'SVG or icon' };
   }
 
-  // Doit être Unsplash ou Pexels (sources approuvées)
-  const isUnsplash = imageUrl.startsWith('https://images.unsplash.com/');
-  const isPexels   = imageUrl.startsWith('https://images.pexels.com/');
-  if (!isUnsplash && !isPexels) {
+  // Doit être Unsplash, Pexels ou Cloudinary (sources approuvées)
+  const isUnsplash    = imageUrl.startsWith('https://images.unsplash.com/');
+  const isPexels      = imageUrl.startsWith('https://images.pexels.com/');
+  const isCloudinary  = imageUrl.includes('res.cloudinary.com') || imageUrl.includes('cloudinary.com/');
+  if (!isUnsplash && !isPexels && !isCloudinary) {
     console.warn('IMAGE MISMATCH', imageUrl, `— source non approuvée pour "${productName}"`);
     return { valid: false, reason: 'non-approved source' };
   }
@@ -141,4 +142,65 @@ export function validateProductData(product: {
   }
 
   return { valid: true };
+}
+
+// ─── calculateProductQualityScore ──────────────────────────────────────────
+
+export interface QualityScore {
+  score: number;        // 0–100
+  breakdown: Record<string, number>;
+  publishable: boolean; // true if score >= 80
+}
+
+export function calculateProductQualityScore(product: {
+  name: string;
+  slug: string;
+  images: string[];
+  description?: string | null;
+  shortDescription?: string | null;
+  price?: number;
+  categorySlug?: string;
+}): QualityScore {
+  const b: Record<string, number> = {};
+  let score = 0;
+
+  // Title (max 20)
+  const tl = product.name?.trim().length ?? 0;
+  b.title = tl >= 15 ? 20 : tl >= 8 ? 12 : tl >= 4 ? 5 : 0;
+  score += b.title;
+
+  // Image count (max 30)
+  const imgs = (product.images ?? []).filter(u => u && !u.includes("placeholder"));
+  b.imageCount = imgs.length >= 3 ? 30 : imgs.length === 2 ? 20 : imgs.length === 1 ? 10 : 0;
+  score += b.imageCount;
+
+  // Image source quality (max 20)
+  const approved = imgs.filter(u =>
+    u.includes("unsplash.com") ||
+    u.includes("pexels.com") ||
+    u.includes("cloudinary.com") ||
+    u.includes("res.cloudinary.com")
+  );
+  b.imageQuality = approved.length === imgs.length && imgs.length > 0 ? 20 : approved.length > 0 ? 10 : 0;
+  score += b.imageQuality;
+
+  // Description (max 15)
+  const desc = ((product.description ?? "") + (product.shortDescription ?? ""))
+    .replace(/<[^>]+>/g, "").trim().length;
+  b.description = desc >= 120 ? 15 : desc >= 50 ? 10 : desc >= 10 ? 5 : 0;
+  score += b.description;
+
+  // Price (max 10)
+  b.price = product.price && product.price > 0 ? 10 : 0;
+  score += b.price;
+
+  // No intra-product duplicate images (max 5)
+  b.noDuplicates = new Set(imgs).size === imgs.length ? 5 : 0;
+  score += b.noDuplicates;
+
+  if (score < 80) {
+    console.warn("LOW PRODUCT SCORE", product.name, `— score ${score}/100`, b);
+  }
+
+  return { score, breakdown: b, publishable: score >= 80 };
 }
