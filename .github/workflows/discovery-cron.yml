@@ -1,10 +1,7 @@
 name: Vellio — Prospection produits 19h
 
 on:
-  schedule:
-    # 17:00 UTC = 19:00 Paris (heure d'été)
-    - cron: "0 17 * * *"
-  workflow_dispatch: # Déclenchement manuel possible
+  workflow_dispatch: # STANDBY — relancer manuellement quand Vellio sera prêt
 
 jobs:
   discover:

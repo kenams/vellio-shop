@@ -1,10 +1,7 @@
 name: Vellio — EN Market Prospecting 21h
 
 on:
-  schedule:
-    # 19:00 UTC = 21:00 Paris / 20:00 London / 15:00 New York
-    - cron: "0 19 * * *"
-  workflow_dispatch:
+  workflow_dispatch: # STANDBY — relancer manuellement quand Vellio sera prêt
 
 jobs:
   discover-en:
