@@ -9,6 +9,7 @@ on:
 jobs:
   discover:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Déclencher la prospection automatique
         run: |

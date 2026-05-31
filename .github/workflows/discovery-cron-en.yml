@@ -9,6 +9,7 @@ on:
 jobs:
   discover-en:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Trigger EN market discovery (US)
         run: |
