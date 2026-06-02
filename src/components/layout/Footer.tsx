@@ -11,9 +11,9 @@ const reassurance = [
 
 const shopLinks = [
   { href: "/produits", label: "Collection" },
-  { href: "/categorie/maison-intelligente", label: "Maison Vellio" },
+  { href: "/categorie/maison-intelligente", label: "Maison Intelligente" },
   { href: "/categorie/tech-gadgets", label: "Tech signature" },
-  { href: "/categorie/beaute-soin", label: "Beauté architecturée" },
+  { href: "/categorie/sport-fitness", label: "Sport & Fitness" },
   { href: "/suivi", label: "Suivi de commande" },
 ];
 

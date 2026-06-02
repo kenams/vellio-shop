@@ -10,9 +10,10 @@ import CartDrawer from "./CartDrawer";
 
 const navItems = [
   { href: "/produits", label: "Collection" },
+  { href: "/categorie/tech-gadgets", label: "Tech" },
   { href: "/categorie/maison-intelligente", label: "Maison" },
-  { href: "/categorie/tech-gadgets", label: "Tech signature" },
-  { href: "/categorie/beaute-soin", label: "Beauté" },
+  { href: "/categorie/sport-fitness", label: "Sport" },
+  { href: "/categorie/bureau-productivite", label: "Bureau" },
   { href: "/blog", label: "Journal" },
 ];
 
