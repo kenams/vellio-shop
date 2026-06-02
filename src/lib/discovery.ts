@@ -487,7 +487,7 @@ export async function runDiscovery(market: Market = "fr"): Promise<DiscoveryResu
           marketingAngle: premiumData.marketingAngle,
           tiktokHashtags: catalogProduct.tags.map(t => `#${t.replace(/\s+/g, "")}`),
           supplierUrl: catalogProduct.supplierUrl || null,
-          supplierName: catalogProduct.supplierUrl ? "AliExpress" : null,
+          supplierName: catalogProduct.supplierUrl ? "Amazon" : null,
           estimatedMargin: Math.round(((catalogProduct.price - catalogProduct.cost) / catalogProduct.price) * 100),
           images: {
             create: finalImages.map((url, i) => ({ url, position: i })),
