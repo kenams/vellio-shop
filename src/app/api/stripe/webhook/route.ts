@@ -41,14 +41,7 @@ export async function POST(req: NextRequest) {
         total: order.total,
       }).catch(console.error);
 
-      // Email upsell post-achat (décalé de 10 min)
-      setTimeout(() => {
-        sendPostPurchaseUpsell({
-          orderNumber: order.orderNumber,
-          customerEmail: order.customerEmail,
-          customerName: order.customerName,
-        }).catch(console.error);
-      }, 10 * 60 * 1000);
+      // Upsell géré par le cron /api/cron/upsell (setTimeout ne fonctionne pas en serverless)
     }
   }
 
