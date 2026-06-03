@@ -14,8 +14,14 @@ function getStripeSecretKey() {
   return key;
 }
 
-export const stripe = new Stripe(getStripeSecretKey(), {
-  apiVersion: "2024-06-20",
+function getStripe() {
+  return new Stripe(getStripeSecretKey(), { apiVersion: "2024-06-20" });
+}
+
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop) {
+    return (getStripe() as unknown as Record<string | symbol, unknown>)[prop];
+  },
 });
 
 export async function createCheckoutSession({

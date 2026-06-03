@@ -1,4 +1,4 @@
-export const revalidate = 3600; // ISR 1h
+export const dynamic = "force-dynamic";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -6,13 +6,6 @@ import type { Metadata } from "next";
 import ProductDetail from "@/components/product/ProductDetail";
 import { getPremiumProductPresentation, toPublicProduct } from "@/lib/premium-brand";
 
-export async function generateStaticParams() {
-  const products = await prisma.product.findMany({
-    where: { published: true },
-    select: { slug: true },
-  });
-  return products.map((p) => ({ slug: p.slug }));
-}
 
 const getProduct = unstable_cache(
   async (slug: string) => prisma.product.findUnique({

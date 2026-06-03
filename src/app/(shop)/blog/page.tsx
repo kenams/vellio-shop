@@ -1,4 +1,4 @@
-export const revalidate = 600; // ISR 10min
+export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 import Image from "next/image";

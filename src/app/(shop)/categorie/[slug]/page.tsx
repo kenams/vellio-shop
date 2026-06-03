@@ -1,4 +1,4 @@
-export const revalidate = 3600; // ISR 1h
+export const dynamic = "force-dynamic"; // ISR 1h
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -7,10 +7,6 @@ import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getPremiumCategory, toPublicProduct } from "@/lib/premium-brand";
 
-export async function generateStaticParams() {
-  const categories = await prisma.category.findMany({ select: { slug: true } });
-  return categories.map((c) => ({ slug: c.slug }));
-}
 import Container from "@/components/ui/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import ProductGrid from "@/components/product/ProductGrid";

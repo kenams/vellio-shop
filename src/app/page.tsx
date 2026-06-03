@@ -1,4 +1,4 @@
-export const revalidate = 300; // ISR 5 min
+export const dynamic = "force-dynamic";
 
 import Image from "next/image";
 import Link from "next/link";
