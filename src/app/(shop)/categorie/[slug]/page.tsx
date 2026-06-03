@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic"; // ISR 1h
+export const revalidate = 3600;
 
 import type { Metadata } from "next";
 import Link from "next/link";

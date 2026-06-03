@@ -1,3 +1,4 @@
+export const revalidate = 300;
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Search, SlidersHorizontal } from "lucide-react";
