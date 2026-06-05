@@ -191,3 +191,88 @@ export async function sendAbandonedCart(email: string, customerName: string, ite
     `),
   });
 }
+
+// ── J+7 RE-ENGAGEMENT ──────────────────────────────────────────────────────────
+export async function sendReEngagement(opts: { email: string; firstName: string; orderNumber: string }) {
+  await getResend().emails.send({
+    from: FROM,
+    to: opts.email,
+    subject: `Une nouvelle sélection Vellio vous attend, ${esc(opts.firstName)} ✦`,
+    html: wrapEmail(`
+      <div class="body">
+        <div class="tag">Sélection exclusive</div>
+        <h1>Vous nous avez manqué.</h1>
+        <p>Depuis votre commande <strong>${esc(opts.orderNumber)}</strong>, de nouvelles pièces ont rejoint la collection Vellio. Elles ont été sélectionnées selon les mêmes critères : usage quotidien, ligne sobre, qualité durable.</p>
+        <div style="background:#f7f3ea;border-radius:12px;padding:20px;margin:20px 0;text-align:center">
+          <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#c8a96e;margin:0 0 8px">Pour vous, -10% sur votre prochaine commande</p>
+          <p style="font-size:22px;font-weight:700;color:#0b0b0c;margin:0;letter-spacing:0.1em">RETOUR10</p>
+          <p style="font-size:12px;color:#999;margin:8px 0 0">Valable 7 jours · Sans minimum</p>
+        </div>
+        <div style="text-align:center;margin:24px 0">
+          <a href="${APP_URL}/produits?promo=RETOUR10" class="btn">Découvrir les nouvelles pièces →</a>
+        </div>
+        <div class="trust">
+          <div class="trust-item"><span class="trust-emoji">🔒</span>Paiement sécurisé</div>
+          <div class="trust-item"><span class="trust-emoji">📦</span>Livraison suivie</div>
+          <div class="trust-item"><span class="trust-emoji">↩️</span>Retours 30 jours</div>
+        </div>
+      </div>
+    `),
+  });
+}
+
+// ── DEMANDE D'AVIS J+14 ────────────────────────────────────────────────────────
+export async function sendReviewRequest(opts: { email: string; firstName: string; orderNumber: string; productName?: string }) {
+  await getResend().emails.send({
+    from: FROM,
+    to: opts.email,
+    subject: `Votre avis compte, ${esc(opts.firstName)} — 2 minutes suffisent`,
+    html: wrapEmail(`
+      <div class="body">
+        <div class="tag">Votre expérience</div>
+        <h1>Que pensez-vous de votre sélection ?</h1>
+        <p>Votre commande <strong>${esc(opts.orderNumber)}</strong>${opts.productName ? ` (${esc(opts.productName)})` : ""} est arrivée depuis quelques jours. Votre avis aide les autres membres du cercle Vellio à faire les bons choix.</p>
+        <div style="text-align:center;margin:28px 0">
+          <p style="font-size:13px;color:#888;margin-bottom:16px">Quelle note donnez-vous à votre expérience ?</p>
+          <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap">
+            ${[1,2,3,4,5].map(n => `<a href="${APP_URL}/avis?order=${esc(opts.orderNumber)}&note=${n}" style="display:inline-block;width:44px;height:44px;line-height:44px;border-radius:12px;background:#f7f3ea;text-decoration:none;font-size:20px;text-align:center">⭐</a>`).join("")}
+          </div>
+        </div>
+        <div style="text-align:center">
+          <a href="${APP_URL}/avis?order=${esc(opts.orderNumber)}" class="btn">Laisser mon avis →</a>
+        </div>
+        <p style="font-size:12px;color:#bbb;text-align:center;margin-top:20px">Chaque avis est lu par notre équipe. Merci pour votre confiance.</p>
+      </div>
+    `),
+  });
+}
+
+// ── BIENVENUE NEWSLETTER + CODE PROMO ─────────────────────────────────────────
+export async function sendNewsletterWelcomePromo(email: string) {
+  await getResend().emails.send({
+    from: FROM,
+    to: email,
+    subject: "Votre code -10% est ici ✦ Bienvenue dans le cercle Vellio",
+    html: wrapEmail(`
+      <div class="body">
+        <div class="tag">Cadeau de bienvenue</div>
+        <h1>Voici votre réduction.</h1>
+        <p>Merci de rejoindre le carnet Vellio. Comme promis, voici votre code exclusif :</p>
+        <div style="background:#0b0b0c;border-radius:16px;padding:28px;text-align:center;margin:24px 0">
+          <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#c8a96e;margin:0 0 12px">Votre code de bienvenue</p>
+          <p style="font-size:32px;font-weight:700;color:#fff;letter-spacing:0.12em;margin:0">BIENVENUE10</p>
+          <p style="font-size:12px;color:#ffffff60;margin:12px 0 0">-10% sur toute la collection · Valable 30 jours</p>
+        </div>
+        <div style="text-align:center;margin:24px 0">
+          <a href="${APP_URL}/produits?promo=BIENVENUE10" class="btn">Utiliser mon code →</a>
+        </div>
+        <div class="trust">
+          <div class="trust-item"><span class="trust-emoji">🔒</span>Paiement sécurisé</div>
+          <div class="trust-item"><span class="trust-emoji">📦</span>Livraison offerte dès 50€</div>
+          <div class="trust-item"><span class="trust-emoji">↩️</span>Retours 30 jours</div>
+        </div>
+        <p style="font-size:12px;color:#bbb;text-align:center">Un email par semaine maximum. Désabonnement en 1 clic.</p>
+      </div>
+    `),
+  });
+}

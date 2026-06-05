@@ -12,7 +12,8 @@
     { "path": "/api/cron/optimize-prices", "schedule": "0 3 * * *"   },
     { "path": "/api/cron/repair-images",   "schedule": "0 4 * * *"   },
     { "path": "/api/cron/newsletter",      "schedule": "0 8 * * 1"   },
-    { "path": "/api/cron/abandoned-cart", "schedule": "*/30 * * * *" },
-    { "path": "/api/cron/upsell",         "schedule": "*/15 * * * *" }
+    { "path": "/api/cron/abandoned-cart",  "schedule": "*/30 * * * *" },
+    { "path": "/api/cron/upsell",          "schedule": "*/15 * * * *" },
+    { "path": "/api/cron/reengagement",    "schedule": "0 9 * * *"   }
   ]
 }

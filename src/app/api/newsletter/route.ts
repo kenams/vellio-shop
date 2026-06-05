@@ -1,40 +1,37 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { sendWelcomeEmail } from "@/lib/email";
+import { sendWelcomeEmail, sendNewsletterWelcomePromo } from "@/lib/email";
 import { z } from "zod";
 
-const schema = z.object({ email: z.string().email() });
+const schema = z.object({ email: z.string().email(), source: z.string().optional() });
 
 export async function POST(req: NextRequest) {
   try {
-    let email: string;
-
     const contentType = req.headers.get("content-type") || "";
-    if (contentType.includes("application/json")) {
-      const body = await req.json();
-      email = schema.parse(body).email;
-    } else {
-      const formData = await req.formData();
-      email = schema.parse({ email: formData.get("email") }).email;
-    }
+    const rawBody = contentType.includes("application/json")
+      ? await req.json()
+      : Object.fromEntries(await req.formData());
+
+    const { email, source } = schema.parse(rawBody);
+    const isPromo = source === "popup_promo";
 
     const existing = await prisma.newsletterSubscriber.findUnique({ where: { email } });
     if (existing) {
       if (!existing.active) {
         await prisma.newsletterSubscriber.update({ where: { email }, data: { active: true } });
-        sendWelcomeEmail(email).catch(console.error);
+        (isPromo ? sendNewsletterWelcomePromo : sendWelcomeEmail)(email).catch(console.error);
         return NextResponse.json({ ok: true, message: "Réabonnement effectué." });
       }
       return NextResponse.json({ ok: true, message: "Vous êtes déjà inscrit." });
     }
 
     await prisma.newsletterSubscriber.create({ data: { email } });
-    sendWelcomeEmail(email).catch(console.error);
+    (isPromo ? sendNewsletterWelcomePromo : sendWelcomeEmail)(email).catch(console.error);
 
     return NextResponse.json({ ok: true, message: "Inscription réussie !" }, { status: 201 });
-  } catch (err: any) {
-    if (err.name === "ZodError") {
+  } catch (err: unknown) {
+    if (err && typeof err === "object" && "name" in err && err.name === "ZodError") {
       return NextResponse.json({ error: "Email invalide." }, { status: 400 });
     }
     console.error("[newsletter]", err);
