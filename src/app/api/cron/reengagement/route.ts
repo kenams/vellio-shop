@@ -8,6 +8,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
+  // Auto-migration: ajoute les colonnes si elles n'existent pas encore
+  await prisma.$executeRawUnsafe(`ALTER TABLE "Order" ADD COLUMN IF NOT EXISTS "reengagementSentAt" TIMESTAMP;`).catch(() => {});
+  await prisma.$executeRawUnsafe(`ALTER TABLE "Order" ADD COLUMN IF NOT EXISTS "reviewRequestSentAt" TIMESTAMP;`).catch(() => {});
+
   const now = new Date();
   // J+7 : re-engagement avec code promo
   const day7from = new Date(now.getTime() - 8 * 24 * 60 * 60 * 1000);
