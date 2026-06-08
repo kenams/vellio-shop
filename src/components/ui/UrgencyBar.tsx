@@ -24,7 +24,7 @@ function getShippingCountdown() {
 
 export default function UrgencyBar({ productId }: { productId: string }) {
   const viewers = getViewers(productId);
-  const [countdown, setCountdown] = useState(getShippingCountdown());
+  const [countdown, setCountdown] = useState("");
   const [viewerCount, setViewerCount] = useState(viewers);
 
   useEffect(() => {

@@ -151,6 +151,7 @@ export default function ProductDetail({ product, related }: Props) {
                 style={{ transitionProperty: "transform, opacity" }}
                 sizes="(max-width: 1024px) 100vw, 52vw"
                 priority
+                unoptimized={product.images[selectedImage]?.url?.includes("media-amazon.com")}
               />
               {product.trendScore > 0 && <ScoreBadge score={product.trendScore} className="absolute left-5 top-5" />}
               {/* Indicateur image active */}
@@ -188,6 +189,7 @@ export default function ProductDetail({ product, related }: Props) {
                       fill
                       className="object-cover transition-transform duration-300 group-hover/thumb:scale-105"
                       sizes="160px"
+                      unoptimized={image.url?.includes("media-amazon.com")}
                     />
                   </button>
                 ))}
