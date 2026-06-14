@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const BASE = "https://vellio.fr";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vellio-shop.vercel.app";
 
 export const dynamic = "force-dynamic";
 

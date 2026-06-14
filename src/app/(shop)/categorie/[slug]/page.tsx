@@ -18,18 +18,20 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vellio-shop.vercel.app";
   const category = await prisma.category.findUnique({ where: { slug: params.slug } });
   if (!category) return { title: "Univers introuvable" };
   const premium = getPremiumCategory(category.slug, category.name);
   return {
     title: `${premium.label} — Vellio`,
     description: premium.description,
-    alternates: { canonical: `/categorie/${params.slug}` },
+    alternates: { canonical: `${siteUrl}/categorie/${params.slug}` },
     openGraph: {
       type: "website",
+      siteName: "Vellio",
       title: `${premium.label} — Vellio`,
       description: premium.description,
-      url: `/categorie/${params.slug}`,
+      url: `${siteUrl}/categorie/${params.slug}`,
     },
   };
 }
@@ -59,13 +61,15 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     { value: "prix-desc", label: "Prix décroissant" },
   ];
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vellio-shop.vercel.app";
+
   const breadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://vellio.fr" },
-      { "@type": "ListItem", position: 2, name: "Collection", item: "https://vellio.fr/produits" },
-      { "@type": "ListItem", position: 3, name: premium.label, item: `https://vellio.fr/categorie/${params.slug}` },
+      { "@type": "ListItem", position: 1, name: "Accueil", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Collection", item: `${siteUrl}/produits` },
+      { "@type": "ListItem", position: 3, name: premium.label, item: `${siteUrl}/categorie/${params.slug}` },
     ],
   };
 

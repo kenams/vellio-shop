@@ -15,7 +15,7 @@ const cormorant = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 });
 
-const SITE_URL = "https://vellio.fr";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vellio-shop.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -45,12 +45,13 @@ const orgJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "Store"],
       "@id": `${SITE_URL}/#organization`,
       name: "Vellio",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/opengraph-image.png` },
-      description: "Maison de sélection contemporaine — objets design, tech premium et accessoires lifestyle.",
+      description: "Boutique en ligne — objets design, tech premium et accessoires lifestyle sélectionnés avec précision.",
+      creator: { "@type": "Organization", name: "KAH Digital", url: "https://kah-digital.ch" },
     },
     {
       "@type": "WebSite",
