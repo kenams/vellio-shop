@@ -14,6 +14,7 @@ export interface Product {
   featured: boolean;
   trendScore: number;
   supplierUrl?: string;
+  affiliateUrl?: string;
   supplierName?: string;
   metaTitle?: string;
   metaDescription?: string;

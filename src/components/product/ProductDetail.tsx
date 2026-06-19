@@ -3,15 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Check, ChevronDown, ChevronUp, Copy, LockKeyhole, Minus, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, ChevronUp, Copy, ExternalLink, ShieldCheck, Star, Truck } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
-import { useCartStore } from "@/store/cartStore";
 import { useLangStore } from "@/store/langStore";
 import { getPremiumProductPresentation } from "@/lib/premium-brand";
 import ProductGrid from "@/components/product/ProductGrid";
 import ScoreBadge from "@/components/ui/ScoreBadge";
 import UrgencyBar from "@/components/ui/UrgencyBar";
-import StickyBuy from "@/components/ui/StickyBuy";
+import StickyAffiliate from "@/components/ui/StickyAffiliate";
 import toast from "react-hot-toast";
 import type { Product } from "@/types";
 
@@ -31,7 +30,6 @@ export default function ProductDetail({ product, related }: Props) {
   const presentation = getPremiumProductPresentation(product, locale);
   const [selectedImage, setSelectedImage] = useState(0);
   const [fadingOut, setFadingOut] = useState(false);
-  const [qty, setQty] = useState(1);
 
   function selectImage(index: number) {
     if (index === selectedImage) return;
@@ -42,7 +40,6 @@ export default function ProductDetail({ product, related }: Props) {
     }, 140);
   }
   const [openPanel, setOpenPanel] = useState<"details" | "care" | "delivery" | null>("details");
-  const { addItem } = useCartStore();
   const hasComparePrice = Boolean(product.comparePrice && product.comparePrice > product.price);
   const reviewCount = getReviewCount(product.id);
 
@@ -52,18 +49,6 @@ export default function ProductDetail({ product, related }: Props) {
     if (platform === "whatsapp") window.open(`https://wa.me/?text=${encodeURIComponent(text + " " + url)}`, "_blank");
     else if (platform === "twitter") window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, "_blank");
     else { navigator.clipboard.writeText(url); toast.success("Lien copié !"); }
-  }
-
-  function handleAdd() {
-    addItem({
-      id: product.id,
-      name: presentation.name,
-      price: product.price,
-      image: product.images[0]?.url || "/placeholder.jpg",
-      quantity: qty,
-      slug: product.slug,
-    });
-    toast.success(`${presentation.name} ajouté à votre sélection`);
   }
 
   const panels = [
@@ -242,35 +227,34 @@ export default function ProductDetail({ product, related }: Props) {
               ))}
             </div>
 
-            <div className="mt-8 flex gap-3">
-              <div className="flex items-center rounded-full border border-black/10 bg-white">
-                <button onClick={() => setQty(Math.max(1, qty - 1))} className="p-3 text-brand/50 transition-colors hover:text-brand" aria-label="Réduire">
-                  <Minus className="h-4 w-4" />
-                </button>
-                <span className="min-w-8 text-center text-sm font-semibold text-brand">{qty}</span>
-                <button onClick={() => setQty(qty + 1)} className="p-3 text-brand/50 transition-colors hover:text-brand" aria-label="Augmenter">
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-              <button onClick={handleAdd} className="btn-primary flex-1 py-3.5">
-                <ShoppingBag className="h-4 w-4" />
-                Ajouter à la sélection
-              </button>
+            <div className="mt-8 flex flex-col gap-3">
+              <a
+                href={product.affiliateUrl || `https://www.amazon.fr/s?k=${encodeURIComponent(product.name)}&tag=vellio42-21`}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="btn-primary flex w-full items-center justify-center gap-2 py-4 text-base"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Voir sur Amazon
+              </a>
+              <p className="text-center text-xs text-brand/40">
+                Livraison Amazon Prime · Retours faciles · Prix garanti
+              </p>
             </div>
 
             <UrgencyBar productId={product.id} />
 
-            <StickyBuy
+            <StickyAffiliate
               name={presentation.name}
               price={product.price}
               image={product.images[0]?.url || "/placeholder.jpg"}
-              onAdd={handleAdd}
+              affiliateUrl={product.affiliateUrl || `https://www.amazon.fr/s?k=${encodeURIComponent(product.name)}&tag=vellio42-21`}
             />
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               {[
-                { icon: LockKeyhole, label: "Paiement sécurisé" },
-                { icon: Truck, label: "Livraison suivie" },
+                { icon: ExternalLink, label: "Via Amazon" },
+                { icon: Truck, label: "Livraison Prime" },
                 { icon: ShieldCheck, label: "Retours 30 jours" },
               ].map(({ icon: Icon, label }) => (
                 <div key={label} className="rounded-2xl border border-black/10 bg-white/55 p-3 text-center text-xs font-medium text-brand/58">

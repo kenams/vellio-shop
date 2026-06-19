@@ -260,6 +260,7 @@ export function toPublicProduct<T extends ProductLike & Record<string, any>>(pro
     published: product.published,
     featured: product.featured,
     trendScore: product.trendScore,
+    affiliateUrl: product.affiliateUrl,
     benefits: presentation.highlights,
     salesArguments: [
       locale === "en" ? "Premium editorial selection" : "Sélection éditoriale premium",

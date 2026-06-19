@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { useState } from "react";
-import { useCartStore } from "@/store/cartStore";
 import { useLangStore } from "@/store/langStore";
 import { getT } from "@/lib/i18n";
-import CartDrawer from "./CartDrawer";
 
 const navItems = [
   { href: "/produits", label: "Collection" },
@@ -18,11 +16,9 @@ const navItems = [
 ];
 
 export default function Header() {
-  const { count, setOpen } = useCartStore();
   const { locale, setLocale } = useLangStore();
   const t = getT(locale);
   const [menuOpen, setMenuOpen] = useState(false);
-  const cartCount = count();
 
   function toggleLang() {
     setLocale(locale === "fr" ? "en" : "fr");
@@ -33,7 +29,7 @@ export default function Header() {
     <>
       <div className="border-b border-white/10 bg-brand px-4 py-2 text-center text-[11px] font-medium tracking-[0.18em] text-white/80">
         <span className="mr-2 text-brand-accent">⚡</span>
-        VENTE FLASH · Livraison offerte dès 50€ · Retours 30 jours garantis
+        SÉLECTION PREMIUM · Meilleurs prix Amazon · Livraison Prime incluse
         <span className="ml-2 text-brand-accent">⚡</span>
       </div>
 
@@ -67,18 +63,12 @@ export default function Header() {
               {locale === "fr" ? "EN" : "FR"}
             </button>
 
-            <button
-              onClick={() => setOpen(true)}
-              className="relative rounded-full border border-black/10 bg-white/65 p-2.5 text-brand transition-all hover:border-brand-accent/45 hover:bg-white"
-              aria-label={t("nav.cart")}
+            <Link
+              href="/produits"
+              className="btn-primary px-4 py-2 text-sm"
             >
-              <ShoppingBag className="h-4 w-4" />
-              {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-accent text-[10px] font-bold text-white">
-                  {cartCount}
-                </span>
-              )}
-            </button>
+              {t("nav.cta")}
+            </Link>
 
             <button
               className="rounded-full p-2.5 text-brand md:hidden"
@@ -115,7 +105,6 @@ export default function Header() {
           </div>
         )}
       </header>
-      <CartDrawer />
     </>
   );
 }

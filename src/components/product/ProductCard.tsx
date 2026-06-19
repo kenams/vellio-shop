@@ -2,14 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ShoppingBag, Star, Zap } from "lucide-react";
+import { ExternalLink, Star, Zap } from "lucide-react";
 import { useState } from "react";
 import { formatPrice } from "@/lib/utils";
-import { useCartStore } from "@/store/cartStore";
 import { useLangStore } from "@/store/langStore";
 import { getPremiumProductPresentation } from "@/lib/premium-brand";
 import ScoreBadge from "@/components/ui/ScoreBadge";
-import toast from "react-hot-toast";
 import type { Product } from "@/types";
 
 function getStockSeed(id: string): number {
@@ -25,32 +23,16 @@ function getReviewCount(id: string): number {
 }
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { addItem } = useCartStore();
   const locale = useLangStore((s) => s.locale);
   const presentation = getPremiumProductPresentation(product, locale);
   const mainImage = product.images?.[0]?.url || "/placeholder.jpg";
   const secondImage = product.images?.[1]?.url || null;
   const [hovered, setHovered] = useState(false);
-  const [wishlisted, setWishlisted] = useState(false);
   const hasComparePrice = Boolean(product.comparePrice && product.comparePrice > product.price);
   const discountPct = hasComparePrice ? Math.round(100 - (product.price / product.comparePrice!) * 100) : 0;
   const stockCount = getStockSeed(product.id);
   const lowStock = stockCount <= 4;
   const reviewCount = getReviewCount(product.id);
-
-  function handleAddToCart(e: React.MouseEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-    addItem({ id: product.id, name: presentation.name, price: product.price, image: mainImage, quantity: 1, slug: product.slug });
-    toast.success(`${presentation.name} ajouté à votre sélection`);
-  }
-
-  function handleWishlist(e: React.MouseEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-    setWishlisted((w) => !w);
-    toast.success(wishlisted ? "Retiré des favoris" : "Ajouté aux favoris");
-  }
 
   return (
     <Link
@@ -103,23 +85,17 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
 
-        {/* Wishlist */}
-        <button
-          onClick={handleWishlist}
-          className="absolute right-3 bottom-[54px] rounded-full border border-black/10 bg-white p-2 text-brand/40 opacity-0 shadow-card transition-all duration-300 hover:text-red-500 group-hover:opacity-100"
-          aria-label="Ajouter aux favoris"
-        >
-          <Heart className={`h-3.5 w-3.5 ${wishlisted ? "fill-red-500 text-red-500" : ""}`} />
-        </button>
-
-        {/* Add to cart */}
-        <button
-          onClick={handleAddToCart}
+        {/* Affiliate CTA */}
+        <a
+          href={product.affiliateUrl || `https://www.amazon.fr/s?k=${encodeURIComponent(product.name)}&tag=vellio42-21`}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          onClick={(e) => e.stopPropagation()}
           className="absolute bottom-3 left-3 right-3 inline-flex translate-y-3 items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-xs font-semibold text-brand opacity-0 shadow-card transition-all duration-300 hover:bg-brand-ivory group-hover:translate-y-0 group-hover:opacity-100"
         >
-          <ShoppingBag className="h-3.5 w-3.5" />
-          Ajouter
-        </button>
+          <ExternalLink className="h-3.5 w-3.5" />
+          Voir sur Amazon
+        </a>
       </div>
 
       <div className="p-4 sm:p-5">
