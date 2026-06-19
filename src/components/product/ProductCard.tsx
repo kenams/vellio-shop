@@ -65,6 +65,7 @@ export default function ProductCard({ product }: { product: Product }) {
           src={mainImage}
           alt={presentation.name}
           fill
+          unoptimized={mainImage.includes("media-amazon.com")}
           className={`object-cover transition-all duration-700 ease-out ${secondImage ? (hovered ? "opacity-0 scale-[1.045]" : "opacity-100 scale-100") : "group-hover:scale-[1.045]"}`}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
@@ -74,6 +75,7 @@ export default function ProductCard({ product }: { product: Product }) {
             src={secondImage}
             alt=""
             fill
+            unoptimized={secondImage.includes("media-amazon.com")}
             className={`object-cover transition-all duration-700 ease-out ${hovered ? "opacity-100 scale-[1.045]" : "opacity-0 scale-100"}`}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
