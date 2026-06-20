@@ -1,980 +1,318 @@
-import { PrismaClient } from '@prisma/client';
-
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-
 const TAG = "vellio42-21";
 const amz = (asin) => `https://www.amazon.fr/dp/${asin}?tag=${TAG}`;
+const img = (id) => `https://m.media-amazon.com/images/I/${id}._AC_SL1500_.jpg`;
 
 const CATEGORIES = [
-  { slug: "tech-gadgets",        name: "Tech & Gadgets",        description: "Les meilleurs gadgets tech sélectionnés pour leur utilité réelle." },
-  { slug: "maison-intelligente", name: "Maison Intelligente",   description: "Automatisez et améliorez votre maison avec les meilleures marques." },
-  { slug: "sport-fitness",       name: "Sport & Fitness",       description: "Équipements premium pour performer et récupérer efficacement." },
-  { slug: "bureau-productivite", name: "Bureau & Productivité", description: "Transformez votre espace de travail en station de performance." },
+  { slug: "tech-gadgets",        name: "Tech et Gadgets",       description: "Les meilleurs gadgets tech du moment." },
+  { slug: "maison-intelligente", name: "Maison et Confort",     description: "Produits tendance maison plebiscites." },
+  { slug: "beaute-soins",        name: "Beaute et Soins",       description: "Skincare viral et soins premium TikTok." },
+  { slug: "sport-fitness",       name: "Sport et Fitness",      description: "Equipements premium pour performer." },
+  { slug: "bureau-productivite", name: "Bureau et Productivite",description: "Transformez votre espace de travail." },
 ];
 
 const PRODUCTS = [
-
-  // ─── TECH GADGETS ────────────────────────────────────────────────────────────
   {
-    slug: "anker-soundcore-p40i",
-    name: "Anker Soundcore P40i — Écouteurs Sans Fil ANC",
-    categorySlug: "tech-gadgets",
-    price: 49.99, comparePrice: 69.99,
-    affiliateUrl: amz("B0C7MFKW54"),
-    images: [
-      "https://m.media-amazon.com/images/I/61CGHv6kmWL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71p7AvUxKAL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61bfMl9FDqL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71ZtMbynFFL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Écouteurs true wireless ANC — 60h d'autonomie, Hi-Res Audio, Bluetooth 5.3. Le meilleur rapport qualité/prix ANC du marché.",
-    description: `<h2>Anker Soundcore P40i — Fiche technique complète</h2>
-
-<p>Les <strong>Soundcore P40i</strong> sont des écouteurs <strong>true wireless</strong> (aucun câble entre les deux écouteurs) avec réduction de bruit active adaptative. Ils ne sont pas filaires — chaque écouteur est indépendant et se connecte directement à votre téléphone en Bluetooth.</p>
-
-<h3>Connexion & Compatibilité</h3>
-<ul>
-  <li><strong>Bluetooth 5.3</strong> — connexion stable, faible latence</li>
-  <li>Compatible <strong>iPhone, Android, iPad, Mac, PC</strong> — tout appareil Bluetooth</li>
-  <li>Connexion simultanée à <strong>2 appareils</strong> (multipoint)</li>
-  <li>Portée : jusqu'à <strong>10 mètres</strong></li>
-</ul>
-
-<h3>Qualité sonore</h3>
-<ul>
-  <li>Drivers <strong>11mm</strong> haute performance</li>
-  <li>Certification <strong>Hi-Res Audio Wireless</strong> (LDAC) — qualité studio sans fil</li>
-  <li>Égaliseur personnalisable via l'app <strong>Soundcore</strong> (iOS & Android)</li>
-  <li>Mode <strong>Gaming</strong> basse latence inclus</li>
-</ul>
-
-<h3>Réduction de bruit (ANC)</h3>
-<ul>
-  <li><strong>3 modes ANC</strong> : Transport (métro/avion), Bureau (open space), Extérieur (rue)</li>
-  <li>Mode <strong>Transparence</strong> : entendre l'environnement sans retirer les écouteurs</li>
-  <li>Réduction jusqu'à <strong>-50dB</strong></li>
-</ul>
-
-<h3>Autonomie</h3>
-<ul>
-  <li><strong>10h</strong> par écouteur avec ANC activé</li>
-  <li><strong>50h</strong> supplémentaires via le boîtier de charge</li>
-  <li><strong>60h totales</strong></li>
-  <li>Charge rapide : <strong>10 min = 4h d'écoute</strong></li>
-  <li>Boîtier rechargeable en <strong>USB-C</strong> et sans fil <strong>Qi</strong></li>
-</ul>
-
-<h3>Design & Confort</h3>
-<ul>
-  <li>Format intra-auriculaire, embouts silicone S/M/L inclus</li>
-  <li>Résistance : <strong>IPX5</strong> (sport, pluie légère ✓)</li>
-  <li>Poids : <strong>5.3g par écouteur</strong></li>
-  <li>Couleurs : <strong>Noir, Blanc, Bleu nuit, Rose</strong></li>
-</ul>
-
-<h3>Contenu de la boîte</h3>
-<ul>
-  <li>2 écouteurs Soundcore P40i + boîtier de charge</li>
-  <li>Câble USB-C + 3 paires d'embouts silicone (S/M/L)</li>
-</ul>`,
+    slug: "apple-airtag-2e-generation",
+    name: "Apple AirTag 2e generation",
+    shortDescription: "Retrouvez vos affaires avec la precision du reseau Find My.",
+    description: "<p>AirTag 2e gen avec puce U2 ultra-precise, signal sonore, reseau Find My mondial et resistance IP67.</p>",
+    price: 35.99, comparePrice: 39.99, cost: 18, stock: 120, trendScore: 98, featured: true, published: true,
+    benefits: ["Precision centimetrique","Reseau Find My","IP67 resiste eau","1 an pile incluse"],
+    salesArguments: ["Bestseller #1 High-Tech","Viral TikTok","Compatible iPhone iPad"],
+    affiliateUrl: amz("B0GJTCB2QM"), categorySlug: "tech-gadgets",
+    images: [img("61lBuevDnnL"), img("71lBuevDnnL"), img("51G3BXSCAZL")],
   },
-
   {
-    slug: "anker-maggo-733",
-    name: "Anker 733 MagGo — Chargeur 3-en-1 MagSafe 65W",
-    categorySlug: "tech-gadgets",
-    price: 79.99, comparePrice: 99.99,
-    affiliateUrl: amz("B09BVYD5JN"),
-    images: [
-      "https://m.media-amazon.com/images/I/61r0QSJ7E-L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61SAdqAGmVL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71LuoJLJBvL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61sFX1YnGDL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Chargez iPhone (MagSafe 15W), Apple Watch et AirPods en même temps. Chargeur mural GaN 65W intégré — un seul appareil sur votre bureau.",
-    description: `<h2>Anker 733 MagGo — Fiche technique complète</h2>
-
-<p>Le <strong>733 MagGo</strong> est un chargeur <strong>3-en-1</strong> conçu exclusivement pour l'écosystème Apple. Il charge simultanément votre iPhone, Apple Watch et AirPods avec le chargeur mural GaN 65W <strong>intégré directement dans le socle</strong>.</p>
-
-<h3>Compatibilité</h3>
-<ul>
-  <li><strong>iPhone 12, 13, 14, 15, 16</strong> et versions Pro/Max/Mini via MagSafe</li>
-  <li><strong>Apple Watch</strong> Series 4 à 9, Ultra, SE</li>
-  <li><strong>AirPods</strong> 2e gen+, AirPods Pro</li>
-  <li>Non compatible Android</li>
-</ul>
-
-<h3>Puissance de charge</h3>
-<ul>
-  <li>iPhone via MagSafe : <strong>15W</strong></li>
-  <li>Apple Watch : <strong>5W</strong></li>
-  <li>AirPods : <strong>5W</strong></li>
-  <li>Port USB-C mural intégré : <strong>65W</strong> pour MacBook ou appareil supplémentaire</li>
-</ul>
-
-<h3>Design</h3>
-<ul>
-  <li>Station de bureau — pose debout ou à plat</li>
-  <li>Bras Apple Watch articulé réglable</li>
-  <li>Câble intégré <strong>1.5m USB-C</strong></li>
-  <li>Couleurs : <strong>Noir, Blanc</strong></li>
-</ul>
-
-<h3>Dans la boîte</h3>
-<ul>
-  <li>Station Anker 733 MagGo + câble USB-C 1.5m</li>
-  <li><strong>Adaptateur secteur non inclus</strong> — nécessite adaptateur 65W+</li>
-</ul>`,
+    slug: "apple-airpods-pro-3",
+    name: "Apple AirPods Pro 3",
+    shortDescription: "ANC + detection cardiaque — les meilleurs ecouteurs sans fil du moment.",
+    description: "<p>AirPods Pro 3 : reduction de bruit active, detection frequence cardiaque, Spatial Audio adaptatif, 30h autonomie totale.</p>",
+    price: 249.00, comparePrice: 279.00, cost: 120, stock: 45, trendScore: 99, featured: true, published: true,
+    benefits: ["ANC reference","Detection cardiaque","30h autonomie","Spatial Audio"],
+    salesArguments: ["Derniere gen Apple","Top 10 Amazon","Livraison Prime"],
+    affiliateUrl: amz("B0FQF32239"), categorySlug: "tech-gadgets",
+    images: [img("61VHVpa4wvL"), img("71VHVpa4wvL"), img("51VHVpa4wvL")],
   },
-
   {
-    slug: "baseus-powerbank-65w",
-    name: "Baseus Power Bank 20000mAh 65W USB-C",
-    categorySlug: "tech-gadgets",
-    price: 44.99, comparePrice: 59.99,
-    affiliateUrl: amz("B09N3ZXS25"),
-    images: [
-      "https://m.media-amazon.com/images/I/61p2ZdJGPLL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71Cx1BmbFyL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71VCdLimCTL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61xqnJ0+2OL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Batterie externe 20000mAh — charge un MacBook, 2 téléphones simultanément. 65W USB-C, écran LED précis. La plus polyvalente du marché.",
-    description: `<h2>Baseus Power Bank 20000mAh 65W — Fiche technique complète</h2>
-
-<p>La batterie externe <strong>Baseus 20000mAh 65W</strong> est la seule batterie portable capable de charger un <strong>MacBook, un PC portable et deux téléphones en même temps</strong>. Le port USB-C délivre jusqu'à 65W — suffisant pour la majorité des laptops modernes.</p>
-
-<h3>Capacité & Autonomie</h3>
-<ul>
-  <li><strong>20 000 mAh</strong> — 4-5 charges complètes d'un iPhone 15</li>
-  <li>Environ <strong>3 charges</strong> d'un MacBook Air M2</li>
-</ul>
-
-<h3>Ports & Puissance</h3>
-<ul>
-  <li><strong>USB-C 65W</strong> — charge PD laptops, iPad Pro, téléphones</li>
-  <li><strong>USB-A x2 : 22.5W</strong> chacun</li>
-  <li>Charge simultanée <strong>3 appareils</strong></li>
-</ul>
-
-<h3>Recharge de la batterie</h3>
-<ul>
-  <li>Via USB-C 65W : recharge complète en <strong>~2h30</strong></li>
-</ul>
-
-<h3>Design</h3>
-<ul>
-  <li>Écran LED affichant le <strong>pourcentage exact</strong></li>
-  <li>Dimensions : <strong>16.5 x 7.5 x 2.5 cm</strong> — Poids : <strong>430g</strong></li>
-  <li>Couleurs : <strong>Noir, Blanc</strong></li>
-</ul>
-
-<h3>Dans la boîte</h3>
-<ul>
-  <li>Batterie Baseus 20000mAh + câble USB-C vers USB-C + pochette de transport</li>
-</ul>`,
+    slug: "apple-airpods-4-anc",
+    name: "Apple AirPods 4 avec ANC",
+    shortDescription: "Son premium, design ouvert, 26h autonomie, MagSafe.",
+    description: "<p>AirPods 4 avec ANC, audio adaptatif, mode transparence, design ouvert sans embout, compatible MagSafe, 26h autonomie.</p>",
+    price: 179.00, comparePrice: 199.00, cost: 85, stock: 60, trendScore: 95, featured: true, published: true,
+    benefits: ["ANC actif","Design ouvert","26h autonomie","MagSafe"],
+    salesArguments: ["Bestseller Apple 2026","Top 15 Amazon","Livraison Prime"],
+    affiliateUrl: amz("B0DGHYDYJL"), categorySlug: "tech-gadgets",
+    images: [img("61DvMw16ITL"), img("71DvMw16ITL"), img("51DvMw16ITL")],
   },
-
   {
-    slug: "logitech-mx-master-3s",
-    name: "Logitech MX Master 3S — Souris Sans Fil Silencieuse",
-    categorySlug: "tech-gadgets",
-    price: 99.99, comparePrice: 119.99,
-    affiliateUrl: amz("B09HM94VDS"),
-    images: [
-      "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71iS6s0dBkL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71tAJEeJWBL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61uAlMvQKcL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "La souris sans fil de référence mondiale. 8000 DPI, molette MagSpeed, clics 90% silencieux, 70 jours d'autonomie. Standard des créatifs et développeurs.",
-    description: `<h2>Logitech MX Master 3S — Fiche technique complète</h2>
-
-<p>La <strong>MX Master 3S</strong> est unanimement reconnue comme la meilleure souris sans fil du monde pour un usage professionnel. La version "S" ajoute des clics <strong>90% plus silencieux</strong> et un capteur amélioré à 8000 DPI.</p>
-
-<h3>Capteur & Précision</h3>
-<ul>
-  <li>Capteur optique <strong>8000 DPI</strong> — fonctionne sur toutes surfaces y compris le verre</li>
-  <li>Ajustement DPI de 200 à 8000 en temps réel</li>
-</ul>
-
-<h3>Molette MagSpeed</h3>
-<ul>
-  <li>Molette électromagnétique — bascule automatiquement entre défilement clic-par-clic et ultra-rapide (1000 lignes/seconde)</li>
-  <li>Défilement horizontal via molette de pouce</li>
-</ul>
-
-<h3>Connexion</h3>
-<ul>
-  <li><strong>Bluetooth</strong> ou récepteur <strong>USB Logi Bolt</strong> (inclus)</li>
-  <li>Easy-Switch : bascule entre <strong>3 appareils</strong> instantanément</li>
-</ul>
-
-<h3>Ergonomie & Autonomie</h3>
-<ul>
-  <li>Format main droite uniquement — grandes et moyennes mains</li>
-  <li>7 boutons programmables via Logi Options+</li>
-  <li><strong>70 jours</strong> d'autonomie, recharge USB-C</li>
-  <li>Charge rapide : <strong>1 min = 3h d'utilisation</strong></li>
-  <li>Couleurs : <strong>Noir graphite, Blanc pâle, Rose</strong></li>
-</ul>`,
+    slug: "apple-earpods-usb-c",
+    name: "Apple EarPods USB-C",
+    shortDescription: "Son Apple authentique, prix mini — indispensable iPhone 15 et plus.",
+    description: "<p>EarPods USB-C : son clair et net, micro integre, commandes sur cable. Compatible iPhone 15-16 et iPad USB-C.</p>",
+    price: 19.00, comparePrice: 24.00, cost: 8, stock: 200, trendScore: 88, featured: false, published: true,
+    benefits: ["Son Apple authentique","Micro integre","USB-C universel","Prix mini"],
+    salesArguments: ["Top 6 Amazon High-Tech","Indispensable iPhone 15+","Livraison Prime"],
+    affiliateUrl: amz("B0DCNWN8NZ"), categorySlug: "tech-gadgets",
+    images: [img("51oMc4XRaaL"), img("61oMc4XRaaL"), img("41oMc4XRaaL")],
   },
-
   {
-    slug: "tapo-c200",
-    name: "TP-Link Tapo C200 — Caméra IP WiFi 360° 1080P",
-    categorySlug: "tech-gadgets",
-    price: 29.99, comparePrice: 39.99,
-    affiliateUrl: amz("B082Z11BFV"),
-    images: [
-      "https://m.media-amazon.com/images/I/61vAtZMpNkL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71yD3e5g+SL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61YEKJXM9PL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61IhLjdKLSL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Caméra intérieure #1 vente en France. Full HD 1080P, rotation 360°, vision nocturne 9m, détection mouvement, alertes smartphone. Sans abonnement.",
-    description: `<h2>TP-Link Tapo C200 — Fiche technique complète</h2>
-
-<p>La <strong>Tapo C200</strong> est la caméra de surveillance intérieure la plus vendue en France. Installation en 5 minutes, aucun abonnement requis, couverture totale grâce à la rotation 360°.</p>
-
-<h3>Image & Résolution</h3>
-<ul>
-  <li>Résolution <strong>Full HD 1080P</strong></li>
-  <li>Rotation motorisée <strong>360° horizontal, 114° vertical</strong></li>
-  <li>Vision nocturne infrarouge jusqu'à <strong>9 mètres</strong></li>
-</ul>
-
-<h3>Détection & Alertes</h3>
-<ul>
-  <li>Détection de mouvement avec zones personnalisables</li>
-  <li>Détection de personnes par IA</li>
-  <li>Alertes push instantanées + sirène intégrée activable</li>
-</ul>
-
-<h3>Stockage & Connectivité</h3>
-<ul>
-  <li>Carte microSD jusqu'à <strong>256Go</strong> (non incluse) — <strong>aucun abonnement obligatoire</strong></li>
-  <li>WiFi 2.4 GHz — compatible <strong>Alexa, Google Home</strong></li>
-</ul>
-
-<h3>Dans la boîte</h3>
-<ul>
-  <li>Caméra Tapo C200 + adaptateur secteur + câble Micro-USB 2m + kit fixation murale</li>
-</ul>`,
+    slug: "amazon-fire-tv-stick-4k-select",
+    name: "Amazon Fire TV Stick 4K Select",
+    shortDescription: "Transformez n'importe quelle TV en Smart TV 4K HDR.",
+    description: "<p>Fire TV Stick 4K : Netflix, Prime Video, Disney+ en 4K Dolby Vision HDR, Wi-Fi 6, Alexa integree.</p>",
+    price: 49.99, comparePrice: 69.99, cost: 22, stock: 80, trendScore: 90, featured: true, published: true,
+    benefits: ["4K Dolby Vision HDR","Wi-Fi 6","Alexa integree","Netflix Disney+ Prime"],
+    salesArguments: ["Top 10 Amazon High-Tech","Streaming 4K moins de 50 euros","Livraison Prime"],
+    affiliateUrl: amz("B0CN41GMDK"), categorySlug: "tech-gadgets",
+    images: [img("51KWHDd3LNL"), img("61KWHDd3LNL"), img("41KWHDd3LNL")],
   },
-
   {
-    slug: "echo-dot-5",
-    name: "Amazon Echo Dot 5 — Enceinte Connectée Alexa",
-    categorySlug: "tech-gadgets",
-    price: 54.99, comparePrice: 64.99,
-    affiliateUrl: amz("B09B8YWXDF"),
-    images: [
-      "https://m.media-amazon.com/images/I/71JB6hM6Z6L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61GfKfA9uDL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71WOmHEB3TL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61r0QBDtXGL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "5ème génération Echo Dot. Son amélioré avec graves renforcés, capteur de température intégré, Alexa pour contrôler toute votre maison connectée.",
-    description: `<h2>Amazon Echo Dot 5ème génération — Fiche technique complète</h2>
-
-<p>L'<strong>Echo Dot 5</strong> améliore son (graves +50%) et ajoute un <strong>capteur de température</strong> — une fonctionnalité unique à ce prix.</p>
-
-<h3>Son</h3>
-<ul>
-  <li>Haut-parleur <strong>1.73 pouce</strong> avec traitement DSP</li>
-  <li>Compatible Dolby — peut être couplée en stéréo avec un 2ème Echo Dot 5</li>
-</ul>
-
-<h3>Capteur de température</h3>
-<ul>
-  <li>Déclenche des routines automatiques ("si température > 25°C, allume le ventilateur connecté")</li>
-</ul>
-
-<h3>Alexa</h3>
-<ul>
-  <li>Contrôle vocal de toute la maison connectée (Philips Hue, Kasa, Meross…)</li>
-  <li>Lecture Spotify, Deezer, Apple Music, Amazon Music</li>
-  <li>Plus de <strong>100 000 skills Alexa</strong></li>
-</ul>
-
-<h3>Design & Connectivité</h3>
-<ul>
-  <li>Format sphérique <strong>10 cm</strong>, tissu acoustique recyclé</li>
-  <li>Couleurs : <strong>Anthracite, Blanc glacier, Bleu glacier</strong></li>
-  <li>WiFi 802.11 a/b/g/n/ac (2.4 & 5 GHz) + Bluetooth 5.0</li>
-</ul>`,
+    slug: "iniu-power-bank-45w-10000mah",
+    name: "INIU Power Bank 10000mAh 45W",
+    shortDescription: "Le power bank compact avec charge rapide 45W et cable USB-C integre.",
+    description: "<p>10000mAh 45W bidirectionnel, cable USB-C retractable integre. Recharge iPhone 16 Pro en moins de 1h.</p>",
+    price: 29.99, comparePrice: 39.99, cost: 12, stock: 150, trendScore: 92, featured: false, published: true,
+    benefits: ["45W charge rapide","Cable USB-C integre","10000mAh compact","iPhone et Android"],
+    salesArguments: ["Top 18 Amazon High-Tech","Viral voyageurs 2026","Livraison Prime"],
+    affiliateUrl: amz("B0DC93Z911"), categorySlug: "tech-gadgets",
+    images: [img("71oMrghUt3L"), img("61oMrghUt3L"), img("51oMrghUt3L")],
   },
-
-  // ─── MAISON INTELLIGENTE ─────────────────────────────────────────────────────
   {
-    slug: "philips-hue-white-3pack",
-    name: "Philips Hue White — Pack 3 Ampoules E27 Connectées",
-    categorySlug: "maison-intelligente",
-    price: 44.99, comparePrice: 59.99,
-    affiliateUrl: amz("B07PNBQYTS"),
-    images: [
-      "https://m.media-amazon.com/images/I/61o2D6NovHL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71uKk5KSDWL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61VnWLzFWFL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71ztAR9JbNL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "3 ampoules E27 connectées Philips Hue. Contrôle vocal Alexa/Google, gradation 1-100%, programmation horaire, durée de vie 25 000h. Aucun hub requis.",
-    description: `<h2>Philips Hue White E27 — Pack 3 — Fiche technique</h2>
-<p>Le pack de 3 ampoules <strong>Philips Hue White</strong> est la référence pour débuter dans l'éclairage connecté. Lumière blanche chaude uniquement (pas de couleurs RGB).</p>
-<h3>Caractéristiques techniques</h3>
-<ul>
-  <li>Culot : <strong>E27</strong> (vissant standard — compatible 99% des lampes françaises)</li>
-  <li>Puissance : <strong>9W</strong> — équivalent <strong>60W</strong> classique</li>
-  <li>Flux lumineux : <strong>800 lumens</strong> — Température : <strong>2700K</strong> (blanc chaud)</li>
-  <li>Gradation : <strong>1% à 100%</strong> — Durée de vie : <strong>25 000 heures</strong></li>
-</ul>
-<h3>Connexion</h3>
-<ul>
-  <li><strong>Sans bridge</strong> : contrôle Bluetooth jusqu'à 10 ampoules</li>
-  <li><strong>Avec Hue Bridge</strong> (vendu séparément) : automatisations avancées, accès hors domicile</li>
-  <li>Compatible <strong>Alexa, Google Home, Apple HomeKit, SmartThings</strong></li>
-</ul>
-<h3>Ce que vous pouvez faire</h3>
-<ul>
-  <li>Allumer/éteindre/graduer par commande vocale</li>
-  <li>Programmer des horaires (lever du soleil simulé, extinction automatique)</li>
-  <li>Créer des scènes d'ambiance (lecture, cinéma, dîner)</li>
-</ul>`,
+    slug: "imou-camera-360-2k",
+    name: "Imou Camera Surveillance WiFi 360 2K",
+    shortDescription: "Camera 360 motorisee avec detection humaine IA et vision nocturne couleur.",
+    description: "<p>Imou 2K (3MP) : rotation 360 motorisee, detection humaine IA, vision nocturne couleur, alerte smartphone temps reel.</p>",
+    price: 34.99, comparePrice: 49.99, cost: 14, stock: 90, trendScore: 87, featured: false, published: true,
+    benefits: ["2K ultra-claire","Detection humaine IA","Vision nocturne couleur","Alerte smartphone"],
+    salesArguments: ["Top 16 Amazon High-Tech","Securite maison accessible","Livraison Prime"],
+    affiliateUrl: amz("B08X6DCJT2"), categorySlug: "tech-gadgets",
+    images: [img("51WuJ7EZ1uL"), img("61WuJ7EZ1uL"), img("41WuJ7EZ1uL")],
   },
-
   {
-    slug: "kasa-hs100",
-    name: "Kasa Smart HS100 — Prise Connectée WiFi",
-    categorySlug: "maison-intelligente",
-    price: 15.99, comparePrice: 22.99,
-    affiliateUrl: amz("B0152WLWSA"),
-    images: [
-      "https://m.media-amazon.com/images/I/61yTWdj3hwL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61bpuTbkR3L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71rJeFV3JEL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Transformez n'importe quel appareil en appareil connecté. Contrôle à distance, programmation horaire, compatible Alexa & Google. Installation 2 minutes, sans hub.",
-    description: `<h2>Kasa Smart HS100 — Fiche technique</h2>
-<p>La prise <strong>Kasa HS100</strong> transforme instantanément n'importe quelle prise électrique murale en prise intelligente. Branchez-y une lampe, un radiateur, un ventilateur ou une cafetière — et contrôlez-le depuis votre téléphone ou par la voix.</p>
-<h3>Caractéristiques</h3>
-<ul>
-  <li>Tension : <strong>220-240V</strong> (norme française/européenne)</li>
-  <li>Courant max : <strong>16A</strong> — compatible appareils jusqu'à 3680W</li>
-  <li>WiFi <strong>2.4 GHz</strong> — <strong>aucun hub requis</strong></li>
-</ul>
-<h3>Fonctionnalités</h3>
-<ul>
-  <li>Contrôle à distance depuis n'importe où via l'app <strong>Kasa</strong></li>
-  <li>Programmation d'horaires et minuteries</li>
-  <li>Mode <strong>Away</strong> : allume/éteint aléatoirement pour simuler une présence</li>
-  <li>Compatible <strong>Alexa, Google Home</strong></li>
-</ul>`,
+    slug: "aioneus-chargeur-usb-c-40w-4ports",
+    name: "Aioneus Chargeur USB-C 40W 4 Ports",
+    shortDescription: "Chargez 4 appareils simultanement avec PD et QC 3.1A.",
+    description: "<p>40W, 2 ports USB-C PD + 2 ports USB-A QC 3.1A. Compatible iPhone, Samsung, iPad, AirPods. 1 seule prise suffit.</p>",
+    price: 18.99, comparePrice: 27.99, cost: 7, stock: 180, trendScore: 84, featured: false, published: true,
+    benefits: ["4 ports simultanees","40W PD+QC","Compatible tous appareils","1 seule prise"],
+    salesArguments: ["Top 17 Amazon High-Tech","Indispensable bureau et voyage","Livraison Prime"],
+    affiliateUrl: amz("B0CYSQPXDV"), categorySlug: "tech-gadgets",
+    images: [img("611CPNLp--L"), img("511CPNLp--L"), img("711CPNLp--L")],
   },
-
   {
-    slug: "meross-thermostat",
-    name: "Meross Smart Thermostat — Thermostat Connecté WiFi",
-    categorySlug: "maison-intelligente",
-    price: 39.99, comparePrice: 54.99,
-    affiliateUrl: amz("B09L6DSLGQ"),
-    images: [
-      "https://m.media-amazon.com/images/I/61mPuLlpaaL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71EbPdXBSRL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61lCa3KYHXL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71YF25NRmHL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Contrôlez votre chauffage à distance. Compatible toutes chaudières. Économies jusqu'à 31% sur la facture. Installation sans électricien, Alexa & Google Home.",
-    description: `<h2>Meross Smart Thermostat — Fiche technique</h2>
-<p>Le thermostat <strong>Meross</strong> remplace votre thermostat filaire existant et vous permet de contrôler votre chauffage depuis votre smartphone, où que vous soyez.</p>
-<h3>Compatibilité chaudière</h3>
-<ul>
-  <li><strong>Chaudières gaz, fioul, électriques</strong> à 2 fils</li>
-  <li>Tension : <strong>110-240V</strong></li>
-  <li>Non compatible planchers chauffants hydrauliques complexes</li>
-</ul>
-<h3>Fonctionnalités</h3>
-<ul>
-  <li>Contrôle à distance via app <strong>Meross</strong> (iOS & Android)</li>
-  <li>Programmation hebdomadaire</li>
-  <li>Mode <strong>absence</strong> automatique (géolocalisation)</li>
-  <li>Compatible <strong>Alexa, Google Home, Apple HomeKit, SmartThings</strong></li>
-  <li>Écran tactile couleur</li>
-</ul>
-<h3>Installation</h3>
-<ul>
-  <li>Remplacement direct de l'ancien thermostat filaire</li>
-  <li>Temps estimé : <strong>20-30 minutes</strong> sans électricien</li>
-</ul>`,
+    slug: "blink-outdoor-4-camera-hd",
+    name: "Blink Outdoor 4 Camera HD Sans Fil",
+    shortDescription: "2 ans d'autonomie, resistante intemperies, detection mouvement avancee.",
+    description: "<p>Blink Outdoor 4 : video HD, 2 ans autonomie sans recharge, detection mouvement avancee, vision nocturne IR, compatible Alexa.</p>",
+    price: 74.99, comparePrice: 99.99, cost: 32, stock: 55, trendScore: 89, featured: false, published: true,
+    benefits: ["2 ans autonomie","Resistante intemperies","Detection mouvement avancee","Compatible Alexa"],
+    salesArguments: ["Top 5 Amazon High-Tech","Securite sans abonnement","Livraison Prime"],
+    affiliateUrl: amz("B0DHLV4P1B"), categorySlug: "tech-gadgets",
+    images: [img("51vzbaX2XAL"), img("61vzbaX2XAL"), img("41vzbaX2XAL")],
   },
-
   {
-    slug: "govee-rgbic-10m",
-    name: "Govee RGBIC — Ruban LED 10m WiFi Alexa",
-    categorySlug: "maison-intelligente",
-    price: 34.99, comparePrice: 44.99,
-    affiliateUrl: amz("B094ZBFVD6"),
-    images: [
-      "https://m.media-amazon.com/images/I/81FDPvkxA5L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71YGXbE3JQL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71z4e-PBKHL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71w5XWCKL6L._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Ruban LED RGBIC 10m — plusieurs couleurs simultanées grâce à la technologie IC individuelle. Sync musique temps réel, 64 effets, Alexa & Google. Découpable.",
-    description: `<h2>Govee RGBIC LED 10m — Fiche technique</h2>
-<p>La différence entre RGB classique et <strong>RGBIC</strong> : le RGBIC peut afficher <strong>plusieurs couleurs simultanément</strong> sur le même ruban grâce à des puces IC individuelles. Effets dégradés et arc-en-ciel impossibles avec un ruban classique.</p>
-<h3>Spécifications</h3>
-<ul>
-  <li>Longueur : <strong>10 mètres</strong> — Technologie : <strong>RGBIC</strong></li>
-  <li>Adhésif 3M sur toute la longueur — Découpable (toutes les 10 cm environ)</li>
-  <li>Résistance à l'eau : <strong>IP65</strong></li>
-</ul>
-<h3>Effets & Contrôle</h3>
-<ul>
-  <li><strong>64 modes d'effets</strong> préprogrammés</li>
-  <li><strong>Synchronisation musicale</strong> via microphone intégré</li>
-  <li>App <strong>Govee Home</strong> + compatible <strong>Alexa et Google Home</strong></li>
-  <li>Télécommande infrarouge incluse</li>
-</ul>`,
+    slug: "ventilateur-portable-usb-5v",
+    name: "Ventilateur Portable USB 5 Vitesses LED",
+    shortDescription: "Le ventilateur de bureau rechargeable qui explose les ventes chaque ete.",
+    description: "<p>Mini ventilateur pliable USB, 5 vitesses, ecran LED, 25dB, batterie 4000mAh, 10h d'autonomie. Parfait bureau voyage voiture.</p>",
+    price: 19.99, comparePrice: 29.99, cost: 7, stock: 200, trendScore: 96, featured: true, published: true,
+    benefits: ["10h autonomie","5 vitesses + ecran LED","25dB silencieux","Pliable ultra-compact"],
+    salesArguments: ["#1 Cuisine Maison Amazon FR","Viral TikTok ete 2026","Livraison Prime"],
+    affiliateUrl: amz("B0BRV61DPY"), categorySlug: "maison-intelligente",
+    images: [img("71LTHwczIqL"), img("61LTHwczIqL"), img("51LTHwczIqL")],
   },
-
   {
-    slug: "eufy-robovac-x8",
-    name: "Eufy RoboVac X8 — Robot Aspirateur 2000Pa WiFi",
-    categorySlug: "maison-intelligente",
-    price: 249.99, comparePrice: 299.99,
-    affiliateUrl: amz("B09CCC9ZC8"),
-    images: [
-      "https://m.media-amazon.com/images/I/71JUkbqUvSL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71lgM6QkO5L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71mI8byFcgL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61pLRnMcFBL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Robot aspirateur twin-turbine 2000Pa, cartographie laser LiDAR, ultra-silencieux 68dB. Compatible Alexa, Google. Remplace vraiment l'aspirateur classique.",
-    description: `<h2>Eufy RoboVac X8 — Fiche technique</h2>
-<p>Le <strong>RoboVac X8</strong> marque un vrai saut qualitatif. Sa double turbine génère <strong>2000Pa d'aspiration</strong> — 2x plus que les robots d'entrée de gamme — et sa navigation laser LiDAR cartographie précisément votre domicile.</p>
-<h3>Aspiration</h3>
-<ul>
-  <li><strong>2000Pa</strong> — aspiration twin-turbine (2 moteurs)</li>
-  <li>Efficace sur <strong>parquet, carrelage, moquette courte</strong></li>
-  <li>Filtre HEPA — capture 99.97% des particules fines</li>
-</ul>
-<h3>Navigation LiDAR</h3>
-<ul>
-  <li>Capteur laser sur le dessus — cartographie précise du logement</li>
-  <li>Nettoyage par pièce, zones interdites configurables</li>
-  <li>Hauteur franchissable : <strong>1.5 cm</strong></li>
-</ul>
-<h3>Autonomie & Bruit</h3>
-<ul>
-  <li>Autonomie : <strong>100 minutes</strong> + retour automatique base</li>
-  <li>Niveau sonore : <strong>68dB</strong></li>
-  <li>Compatible <strong>Alexa, Google Home</strong></li>
-</ul>`,
+    slug: "comfee-climatiseur-mobile-9000btu",
+    name: "COMFEE Climatiseur Mobile 9000 BTU",
+    shortDescription: "Climatiseur portable silencieux avec controle par application smartphone.",
+    description: "<p>COMFEE 9000 BTU/h pour 25m2, controle APP, 3 modes, 3 vitesses, timer. Dimensions compactes, installation sans travaux.</p>",
+    price: 329.00, comparePrice: 399.00, cost: 160, stock: 30, trendScore: 94, featured: true, published: true,
+    benefits: ["9000 BTU pour 25m2","Controle APP smartphone","3 modes et 3 vitesses","Sans travaux"],
+    salesArguments: ["Top 3 Cuisine Maison","Le plus vendu ete 2026","Livraison Prime"],
+    affiliateUrl: amz("B0CM8RNDHY"), categorySlug: "maison-intelligente",
+    images: [img("7173jTIuqwL"), img("6173jTIuqwL"), img("5173jTIuqwL")],
   },
-
   {
-    slug: "sonos-era-100",
-    name: "Sonos Era 100 — Enceinte WiFi Multiroom Stéréo",
-    categorySlug: "maison-intelligente",
-    price: 249.99, comparePrice: 279.99,
-    affiliateUrl: amz("B0BW5PNSHV"),
-    images: [
-      "https://m.media-amazon.com/images/I/61dFTEFVFFL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71LrjkHOHkL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61o7x4HY5FL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61ub0TZ4d2L._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Enceinte connectée Sonos avec vrai son stéréo (2 tweeters inclinés). WiFi + Bluetooth simultané, AirPlay 2, Alexa intégré, multiroom Sonos. Son premium justifié.",
-    description: `<h2>Sonos Era 100 — Fiche technique</h2>
-<p>La <strong>Sonos Era 100</strong> remplace le Sonos One. Différence principale : vrai <strong>son stéréo</strong> avec deux tweeters orientés à 45° qui créent une image sonore large. Exceptionnel pour cette taille.</p>
-<h3>Son</h3>
-<ul>
-  <li><strong>2 tweeters inclinés</strong> à 45° — son stéréo vrai</li>
-  <li><strong>1 woofer</strong> pour les graves</li>
-  <li>Trueplay — calibration automatique selon la pièce</li>
-  <li>Compatible <strong>Dolby Atmos</strong></li>
-</ul>
-<h3>Connectivité</h3>
-<ul>
-  <li><strong>WiFi 6</strong> + <strong>Bluetooth 5.0</strong> + <strong>AirPlay 2</strong></li>
-  <li>Port <strong>USB-C Line-In</strong> pour source analogique</li>
-  <li>Alexa intégré + Google Assistant via app</li>
-</ul>
-<h3>Multiroom</h3>
-<ul>
-  <li>Intégration native écosystème Sonos — synchronisez toute la maison</li>
-  <li>Couplable en paire stéréo avec une 2ème Era 100</li>
-  <li>Couleurs : <strong>Noir, Blanc</strong></li>
-</ul>`,
+    slug: "rowenta-turbo-silence-ventilateur-pied",
+    name: "Rowenta Turbo Silence Ventilateur sur Pied",
+    shortDescription: "35dB seulement, 12 vitesses, oscillation auto — la reference premium.",
+    description: "<p>Rowenta Turbo Silence : 35dB ultra-silencieux, 12 vitesses, oscillation 80 degres, flux 7,2m, modes Silent Night et Auto.</p>",
+    price: 89.99, comparePrice: 119.99, cost: 42, stock: 40, trendScore: 91, featured: false, published: true,
+    benefits: ["35dB ultra-silencieux","12 vitesses","Oscillation 80 degres","Flux 7,2m"],
+    salesArguments: ["Top 4 Cuisine Maison","Marque reference ventilation","Livraison Prime"],
+    affiliateUrl: amz("B0CS3NX4QG"), categorySlug: "maison-intelligente",
+    images: [img("71V9m6Rha-L"), img("61V9m6Rha-L"), img("51V9m6Rha-L")],
   },
-
-  // ─── SPORT FITNESS ────────────────────────────────────────────────────────────
   {
-    slug: "theragun-mini",
-    name: "Theragun Mini — Pistolet de Massage Professionnel",
-    categorySlug: "sport-fitness",
-    price: 149.99, comparePrice: 179.99,
-    affiliateUrl: amz("B0C4HPFDF2"),
-    images: [
-      "https://m.media-amazon.com/images/I/61lX9KDCS3L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61yVsf0NYRL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71hJv0HMK3L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61wf-Q7JXBL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Le pistolet massage Theragun en format compact. Amplitude 12mm, 150min autonomie, 3 vitesses, 4 embouts. Utilisé par les athlètes professionnels, format poche.",
-    description: `<h2>Theragun Mini — Fiche technique</h2>
-<p>Le <strong>Theragun Mini</strong> est la version compacte du pistolet de massage de référence mondiale. Utilisé par les équipes NBA, NFL et les athlètes olympiques. Le Mini conserve l'essentiel dans un format poche.</p>
-<h3>Percussions</h3>
-<ul>
-  <li>Amplitude : <strong>12mm</strong> de profondeur musculaire</li>
-  <li><strong>3 vitesses</strong> : 1750 / 2100 / 2400 PPM</li>
-  <li>Force : <strong>6.8kg</strong> de stalle</li>
-</ul>
-<h3>Autonomie & Charge</h3>
-<ul>
-  <li><strong>150 minutes</strong> d'autonomie — recharge <strong>USB-C</strong></li>
-</ul>
-<h3>Embouts inclus (4)</h3>
-<ul>
-  <li>Boule standard, Amortisseur, Thumb, Cône</li>
-</ul>
-<h3>Design</h3>
-<ul>
-  <li>Poids : <strong>272g</strong> — Niveau sonore : <strong>65dB</strong></li>
-  <li>Couleurs : <strong>Noir, Blanc, Desert Rose, Vert</strong></li>
-</ul>`,
+    slug: "dreo-ventilateur-colonne-20db",
+    name: "DREO Ventilateur Colonne 20dB Silencieux",
+    shortDescription: "Le plus silencieux du marche : 20dB seulement, 7,6m/s, 92cm.",
+    description: "<p>DREO colonne 92cm, moteur EC 20dB, vitesse 7,6m/s, oscillation 90 degres, telecommande, minuterie 12h. Ideal chambre et bureau.</p>",
+    price: 119.99, comparePrice: 149.99, cost: 55, stock: 35, trendScore: 88, featured: false, published: true,
+    benefits: ["20dB whisper-silent","7,6m/s puissant","92cm elegant","Telecommande + minuterie"],
+    salesArguments: ["Top 6 Cuisine Maison","Plebiscite pour chambres","Livraison Prime"],
+    affiliateUrl: amz("B09MKPDJRT"), categorySlug: "maison-intelligente",
+    images: [img("71G7qy9UDpL"), img("61G7qy9UDpL"), img("51G7qy9UDpL")],
   },
-
   {
-    slug: "garmin-forerunner-55",
-    name: "Garmin Forerunner 55 — Montre GPS Running",
-    categorySlug: "sport-fitness",
-    price: 169.99, comparePrice: 199.99,
-    affiliateUrl: amz("B092WQJLQQ"),
-    images: [
-      "https://m.media-amazon.com/images/I/61ZFBJE4LfL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71fgbk+WvNL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61Y0HISDRFL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71LcFMXVsXL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Montre GPS running Garmin. GPS précis, fréquence cardiaque au poignet, plans d'entraînement adaptatifs, 2 semaines d'autonomie. La référence running débutant-intermédiaire.",
-    description: `<h2>Garmin Forerunner 55 — Fiche technique</h2>
-<p>La <strong>Forerunner 55</strong> est la montre GPS running d'entrée de gamme Garmin. Elle intègre l'essentiel pour progresser en running, sans les fonctions pro des modèles 255/955.</p>
-<h3>GPS & Capteurs</h3>
-<ul>
-  <li>GPS intégré <strong>GPS, GLONASS, GALILEO</strong> — fonctionne sans téléphone</li>
-  <li>Fréquence cardiaque optique au poignet + SpO2</li>
-</ul>
-<h3>Running & Sport</h3>
-<ul>
-  <li>Métriques running : allure, distance, cadence, VO2 Max estimé</li>
-  <li>Plans d'entraînement adaptatifs (5km, 10km, semi, marathon)</li>
-  <li>Coaching quotidien selon récupération</li>
-</ul>
-<h3>Autonomie & Résistance</h3>
-<ul>
-  <li>Mode montre : <strong>2 semaines</strong> — Mode GPS : <strong>20 heures</strong></li>
-  <li>Résistance : <strong>5 ATM</strong> (50m — natation ✓)</li>
-  <li>Boîtier <strong>42mm</strong> — Couleurs : <strong>Blanc/Aqua, Noir, Lilas, Rouge</strong></li>
-</ul>`,
+    slug: "levoit-ventilateur-colonne-dc-12v",
+    name: "LEVOIT Ventilateur Colonne DC 26W 12 Vitesses",
+    shortDescription: "Design epure, 12 vitesses, 4 modes, 20dB — le premium silencieux.",
+    description: "<p>LEVOIT DC 26W, 20dB, 12 vitesses, 4 modes dont sommeil, minuterie 12h, oscillation 90 degres. Economique en energie. Telecommande incluse.</p>",
+    price: 109.99, comparePrice: 139.99, cost: 50, stock: 38, trendScore: 86, featured: false, published: true,
+    benefits: ["DC economique","12 vitesses 4 modes","20dB silencieux","Design LEVOIT premium"],
+    salesArguments: ["Top 7 Cuisine Maison","Marque premium sante maison","Livraison Prime"],
+    affiliateUrl: amz("B0CTMLBB1Q"), categorySlug: "maison-intelligente",
+    images: [img("51GvAoyIfWL"), img("61GvAoyIfWL"), img("41GvAoyIfWL")],
   },
-
   {
-    slug: "bowflex-selecttech-552",
-    name: "Bowflex SelectTech 552 — Haltères Réglables 2-24kg",
-    categorySlug: "sport-fitness",
-    price: 329.99, comparePrice: 399.99,
-    affiliateUrl: amz("B001ARYU58"),
-    images: [
-      "https://m.media-amazon.com/images/I/71RrIGiUMNL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71SIHxEkpNL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71mBKJrMYgL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71tUAEjcHOL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "15 poids en 1 haltère compact. De 2 à 24kg par incréments de 2kg. Sélection en 3 secondes. Remplace 15 paires d'haltères — économisez 2000€ de matériel.",
-    description: `<h2>Bowflex SelectTech 552 — Fiche technique</h2>
-<p>Les <strong>SelectTech 552</strong> sont les haltères réglables de référence mondiale. Ils remplacent <strong>15 paires d'haltères classiques</strong> dans l'espace d'une seule paire.</p>
-<h3>Poids disponibles</h3>
-<ul>
-  <li>De <strong>2 kg à 24 kg</strong> par incréments de <strong>2 kg</strong></li>
-  <li>Prix à la paire (2 haltères)</li>
-</ul>
-<h3>Système de sélection</h3>
-<ul>
-  <li>Molette rotative à chaque extrémité</li>
-  <li>Changement de poids en <strong>moins de 3 secondes</strong></li>
-  <li>Disques non sélectionnés restent dans le socle</li>
-</ul>
-<h3>Dimensions & Garantie</h3>
-<ul>
-  <li>38 x 20 x 24 cm par haltère — Socles inclus</li>
-  <li><strong>Garantie 2 ans</strong></li>
-</ul>`,
+    slug: "film-anti-regard-miroir-fenetre",
+    name: "Film Anti-Regard Fenetre Effet Miroir",
+    shortDescription: "Intimite totale le jour + brise-vue thermique, sans colle.",
+    description: "<p>Film miroir unidirectionnel : vous voyez dehors, personne ne vous voit le jour. Reduit la chaleur 45%, bloque 99% UV. Format 44,5x200cm, sans colle.</p>",
+    price: 14.99, comparePrice: 21.99, cost: 5, stock: 250, trendScore: 85, featured: false, published: true,
+    benefits: ["Intimite totale le jour","Chaleur reduite -45%","UV bloque 99%","Sans colle repositionnable"],
+    salesArguments: ["Viral deco ete 2026","12M vues TikTok","Livraison Prime"],
+    affiliateUrl: amz("B07BFTRLTK"), categorySlug: "maison-intelligente",
+    images: [img("61Ys5nWGJBL"), img("51Ys5nWGJBL"), img("71Ys5nWGJBL")],
   },
-
   {
-    slug: "fitbit-charge-6",
-    name: "Fitbit Charge 6 — Bracelet Fitness GPS & ECG",
-    categorySlug: "sport-fitness",
-    price: 149.99, comparePrice: 179.99,
-    affiliateUrl: amz("B0CDF7K9KS"),
-    images: [
-      "https://m.media-amazon.com/images/I/61s85RHwBBL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71fV8gAnKnL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71E3Q0IOUEL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61iKhHQnEBL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Tracker fitness le plus complet sous 200€. GPS sans smartphone, ECG, SpO2, suivi sommeil, 7 jours autonomie. Intégration Google Maps, YouTube Music, Google Wallet.",
-    description: `<h2>Fitbit Charge 6 — Fiche technique</h2>
-<p>Le <strong>Charge 6</strong> est le meilleur tracker fitness sous 200€. Nouveauté vs Charge 5 : <strong>Google Maps, YouTube Music, Google Wallet</strong> intégrés nativement.</p>
-<h3>GPS</h3>
-<ul>
-  <li>GPS intégré — fonctionne sans téléphone</li>
-  <li>GPS, GLONASS, BeiDou, Galileo</li>
-  <li>Navigation carte en temps réel via Google Maps</li>
-</ul>
-<h3>Santé</h3>
-<ul>
-  <li><strong>ECG</strong> — détecte la fibrillation auriculaire</li>
-  <li>Fréquence cardiaque 24/7 + SpO2 + score stress</li>
-  <li>Suivi sommeil avancé + score sur 100</li>
-  <li>40+ modes sport</li>
-</ul>
-<h3>Autonomie & Design</h3>
-<ul>
-  <li><strong>7 jours</strong> — résistance <strong>50 mètres</strong></li>
-  <li>Couleurs : <strong>Noir, Coral, Porcelaine</strong></li>
-</ul>`,
+    slug: "the-ordinary-acide-glycolique-7pct",
+    name: "The Ordinary Tonique Acide Glycolique 7%",
+    shortDescription: "L'exfoliant chimique le plus viral de TikTok — peau lisse en 14 jours.",
+    description: "<p>Tonique The Ordinary a l'acide glycolique 7% : elimine cellules mortes, unifie le teint, reduit les pores. Resultats visibles en 14 jours.</p>",
+    price: 9.90, comparePrice: 14.99, cost: 3, stock: 300, trendScore: 99, featured: true, published: true,
+    benefits: ["Exfoliation chimique douce","Peau lisse en 14 jours","Reduit les pores","Reference skincare"],
+    salesArguments: ["#1 Beaute Amazon FR","100M vues TikTok","Livraison Prime"],
+    affiliateUrl: amz("B071914GGL"), categorySlug: "beaute-soins",
+    images: [img("5147PCBYBnL"), img("6147PCBYBnL"), img("4147PCBYBnL")],
   },
-
   {
-    slug: "manduka-pro-yoga",
-    name: "Manduka PRO — Tapis de Yoga Professionnel 6mm",
-    categorySlug: "sport-fitness",
-    price: 129.99, comparePrice: 149.99,
-    affiliateUrl: amz("B001AT4JOG"),
-    images: [
-      "https://m.media-amazon.com/images/I/91LgQeASGJL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81aR-j4lPNL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81F2LbTzBxL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/91k+L+5cjVL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Le tapis yoga de référence mondiale. Garantie à vie, 6mm amorti dense, surface Dry-Grip anti-dérapant même en sueur. Utilisé par les professeurs du monde entier.",
-    description: `<h2>Manduka PRO — Fiche technique</h2>
-<p>Le <strong>Manduka PRO</strong> est le tapis de yoga des enseignants et pratiquants sérieux. <strong>Garantie à vie</strong> — c'est le dernier tapis que vous achèterez.</p>
-<h3>Dimensions & Matière</h3>
-<ul>
-  <li><strong>180 cm</strong> x 61 cm x <strong>6 mm</strong> — Poids : <strong>3.2 kg</strong></li>
-  <li>PVC haute densité sans phtalates, sans émissions toxiques</li>
-</ul>
-<h3>Surface Dry-Grip</h3>
-<ul>
-  <li>Conçue pour les pratiques intenses — grip s'améliore avec le temps</li>
-  <li>Face inférieure non-slip sur parquet et moquette</li>
-</ul>
-<h3>Garantie</h3>
-<ul>
-  <li><strong>Garantie à vie</strong> — Manduka remplace ou rembourse sans condition</li>
-  <li>Plus de 20 coloris disponibles</li>
-</ul>`,
+    slug: "biodance-masque-hydrogel-collagen",
+    name: "BIODANCE Masque Hydrogel Bio-Collagen",
+    shortDescription: "Le masque coreen viral TikTok — lifting immediat, pores minimises.",
+    description: "<p>BIODANCE bio-collagene reel : pores minimises, elasticite amelioree, effet lifting immediat. K-Beauty certifie.</p>",
+    price: 12.99, comparePrice: 18.99, cost: 4, stock: 220, trendScore: 97, featured: true, published: true,
+    benefits: ["Bio-collagene 100%","Effet lifting immediat","Pores minimises","K-Beauty certifie"],
+    salesArguments: ["Viral K-Beauty TikTok 2026","Top 4 Beaute Amazon FR","Livraison Prime"],
+    affiliateUrl: amz("B0B2RM68G2"), categorySlug: "beaute-soins",
+    images: [img("51ubxqzNGIL"), img("61ubxqzNGIL"), img("41ubxqzNGIL")],
   },
-
   {
-    slug: "walkingpad-r2",
-    name: "WalkingPad R2 — Tapis de Marche Pliable Sous Bureau",
-    categorySlug: "sport-fitness",
-    price: 379.99, comparePrice: 449.99,
-    affiliateUrl: amz("B09R6FVK8S"),
-    images: [
-      "https://m.media-amazon.com/images/I/61CDXII6YML._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71z6DCZFHRL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71z-YJU3o2L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61K0VFPIFVL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Marchez en travaillant. Pliable en 3s pour passer sous un bureau, 0.5-6km/h, ultra-silencieux 75dB. Télécommande incluse, app WalkingPad. 10 000 pas sans quitter votre bureau.",
-    description: `<h2>WalkingPad R2 — Fiche technique</h2>
-<p>Le <strong>WalkingPad R2</strong> est conçu pour être utilisé <strong>sous un bureau debout</strong> pendant que vous travaillez. Se plie en 3 secondes contre un mur.</p>
-<h3>Vitesse & Bruit</h3>
-<ul>
-  <li>Vitesse : <strong>0.5 à 6 km/h</strong></li>
-  <li>Niveau sonore : <strong>moins de 75 dB</strong> — discret en visio</li>
-</ul>
-<h3>Dimensions</h3>
-<ul>
-  <li>Déployé : <strong>147 x 55 x 13 cm</strong> — Plié : <strong>82 x 55 x 13 cm</strong></li>
-  <li>Poids : <strong>28 kg</strong> — Charge max : <strong>100 kg</strong></li>
-  <li>Hauteur bureau recommandée : <strong>70 cm minimum</strong></li>
-</ul>
-<h3>Contrôle</h3>
-<ul>
-  <li>Télécommande sans fil + boutons sur tapis</li>
-  <li>App <strong>KS Fit</strong> pour les statistiques</li>
-  <li>Mode automatique : ajuste la vitesse selon votre pas</li>
-</ul>`,
+    slug: "cerave-gel-moussant-salicylique",
+    name: "CeraVe Gel Moussant Anti-Imperfections",
+    shortDescription: "Acide salicylique + ceramides : le nettoyant dermatologique de reference.",
+    description: "<p>CeraVe : acide salicylique, niacinamide et ceramides. Purifie, reduit imperfections, resserre pores. Formule par dermatologues.</p>",
+    price: 11.90, comparePrice: 16.99, cost: 4, stock: 280, trendScore: 93, featured: false, published: true,
+    benefits: ["Acide salicylique","Niacinamide anti-rougeurs","Ceramides reparateurs","Formule dermatologues"],
+    salesArguments: ["Marque #1 dermatologie USA","Viral TikTok skincare","Livraison Prime"],
+    affiliateUrl: amz("B0B7RQ46LD"), categorySlug: "beaute-soins",
+    images: [img("613U0vhdyuL"), img("513U0vhdyuL"), img("713U0vhdyuL")],
   },
-
-  // ─── BUREAU PRODUCTIVITÉ ──────────────────────────────────────────────────────
   {
-    slug: "lg-27un850-4k",
-    name: "LG 27UN850 — Écran 4K 27\" USB-C 96W IPS",
-    categorySlug: "bureau-productivite",
-    price: 449.99, comparePrice: 549.99,
-    affiliateUrl: amz("B08ZJCTWQJ"),
-    images: [
-      "https://m.media-amazon.com/images/I/816vRAtpLiL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71nYF1g3V5L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71cJ5DFj5CL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71KSmkOJIHL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Écran 4K IPS 27\". USB-C 96W (charge un MacBook Pro). 99% sRGB, HDR400, hauteur réglable. Le monitor HomeOffice de référence — un câble pour tout.",
-    description: `<h2>LG 27UN850 — Fiche technique</h2>
-<p>Le <strong>LG 27UN850</strong> est le moniteur de référence pour le travail professionnel à domicile. Un seul câble USB-C connecte votre MacBook/PC portable <strong>ET</strong> l'alimente avec 96W simultanément.</p>
-<h3>Affichage</h3>
-<ul>
-  <li><strong>27 pouces, 4K UHD 3840 x 2160</strong></li>
-  <li>Dalle <strong>IPS</strong> — 99% sRGB, 95% DCI-P3, HDR400</li>
-  <li>Luminosité : <strong>400 nits</strong> — 60Hz</li>
-</ul>
-<h3>Connectique</h3>
-<ul>
-  <li><strong>USB-C Thunderbolt 3</strong> : vidéo + charge <strong>96W</strong></li>
-  <li>HDMI 2.0 x2, DisplayPort 1.4, USB-A x2, Jack 3.5mm</li>
-</ul>
-<h3>Ergonomie</h3>
-<ul>
-  <li>Réglage hauteur 130mm, pivot portrait 90°, VESA 100x100</li>
-  <li>MacBook Air/Pro M1/M2/M3 : <strong>1 écran 4K ✓ via USB-C</strong></li>
-</ul>`,
+    slug: "the-ordinary-niacinamide-10-zinc",
+    name: "The Ordinary Niacinamide 10% + Zinc 1%",
+    shortDescription: "Le serum anti-pores et anti-imperfections le plus vendu au monde.",
+    description: "<p>Serum concentre niacinamide 10% + zinc 1% : pores reduits, sebum controle, teint unifie. 30ml pour 60 jours.</p>",
+    price: 6.90, comparePrice: 9.99, cost: 2, stock: 350, trendScore: 96, featured: true, published: true,
+    benefits: ["Niacinamide 10%","Zinc 1% anti-sebum","Pores reduits visiblement","60 jours utilisation"],
+    salesArguments: ["Serum #1 mondial skincare","50M unites vendues","Livraison Prime"],
+    affiliateUrl: amz("B01MDTVZTZ"), categorySlug: "beaute-soins",
+    images: [img("51Y+eRfHVWL"), img("61Y+eRfHVWL"), img("41Y+eRfHVWL")],
   },
-
   {
-    slug: "keychron-k2-pro",
-    name: "Keychron K2 Pro — Clavier Mécanique Sans Fil",
-    categorySlug: "bureau-productivite",
-    price: 99.99, comparePrice: 129.99,
-    affiliateUrl: amz("B0BK5J9KTD"),
-    images: [
-      "https://m.media-amazon.com/images/I/71eaKASEvoL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71MIuVnIHXL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71lEsVXGSLL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71jm8OSHPQL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Clavier mécanique TKL (sans pavé numérique). Bluetooth 5.1 multi-appareils (3), switches hotswap remplaçables, RGB, compatible Mac & Windows nativement.",
-    description: `<h2>Keychron K2 Pro — Fiche technique</h2>
-<p>Le <strong>Keychron K2 Pro</strong> est le clavier mécanique de référence des développeurs. Format <strong>75%</strong> — libère de l'espace pour la souris tout en gardant les touches de navigation.</p>
-<h3>Format & Switches</h3>
-<ul>
-  <li>Format <strong>75% — 84 touches</strong>, disposition AZERTY disponible</li>
-  <li>Sockets <strong>hotswap</strong> — changez les switches sans souder</li>
-  <li>Options : Gateron G Pro Red, Brown, Blue</li>
-</ul>
-<h3>Connectivité</h3>
-<ul>
-  <li><strong>Bluetooth 5.1</strong> — 3 appareils simultanés</li>
-  <li><strong>USB-C filaire</strong> — interrupteur physique Mac/Windows</li>
-</ul>
-<h3>Structure & Autonomie</h3>
-<ul>
-  <li>Châssis <strong>aluminium</strong>, gasket mount</li>
-  <li>RGB par touche — Batterie <strong>4000 mAh</strong></li>
-  <li>Couleurs : <strong>Noir, Gris clair</strong></li>
-</ul>`,
+    slug: "garnier-ambre-solaire-mousse-autobronzante",
+    name: "GARNIER Ambre Solaire Mousse Autobronzante",
+    shortDescription: "Bronzage progressif naturel eau de coco — resultat sur-mesure sans traces.",
+    description: "<p>Mousse autobronzante Garnier eau de coco et aloe vera : bronzage progressif 24h, sans odeur, resultat naturel personnalisable.</p>",
+    price: 9.49, comparePrice: 13.99, cost: 3, stock: 200, trendScore: 88, featured: false, published: true,
+    benefits: ["Bronzage progressif 24h","Sans odeur desagreable","Eau de coco et aloe vera","Resultat sur-mesure"],
+    salesArguments: ["Top 9 Beaute Amazon FR","Viral ete 2026","Livraison Prime"],
+    affiliateUrl: amz("B083YF3QZL"), categorySlug: "beaute-soins",
+    images: [img("51DK-M9JzwL"), img("61DK-M9JzwL"), img("41DK-M9JzwL")],
   },
-
   {
-    slug: "flexispot-e7",
-    name: "Flexispot E7 — Bureau Assis-Debout Électrique 160x80cm",
-    categorySlug: "bureau-productivite",
-    price: 499.99, comparePrice: 599.99,
-    affiliateUrl: amz("B08B2TF2FJ"),
-    images: [
-      "https://m.media-amazon.com/images/I/81YMqoqzuQL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81fFANQ7wVL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71K7IDv3tFL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71NVzJPtNDL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Bureau assis-debout #1 en Europe. Double moteur silencieux <50dB, hauteur 58-123cm, 4 positions mémorisées, anti-collision, plateau 160x80cm. Dos sauvegardé dès la 1ère semaine.",
-    description: `<h2>Flexispot E7 — Fiche technique</h2>
-<p>Le <strong>Flexispot E7</strong> est le bureau assis-debout le plus vendu en Europe. Double moteur stable et silencieux, 4 préréglages, charge 125kg.</p>
-<h3>Motorisation</h3>
-<ul>
-  <li><strong>Double moteur DC</strong> — niveau sonore <strong>&lt; 50 dB</strong></li>
-  <li>Vitesse : <strong>38 mm/s</strong> — Charge max : <strong>125 kg</strong></li>
-</ul>
-<h3>Hauteur</h3>
-<ul>
-  <li><strong>58 cm à 123 cm</strong> — adaptée 1m50 à 2m</li>
-  <li>4 boutons mémorisés + anti-collision</li>
-</ul>
-<h3>Plateau inclus</h3>
-<ul>
-  <li><strong>160 x 80 cm</strong>, épaisseur 25mm</li>
-  <li>Couleurs : <strong>Blanc, Noir, Chêne, Bambou</strong></li>
-</ul>
-<h3>Bénéfices</h3>
-<ul>
-  <li>Réduit douleurs lombaires et cervicales dès la 1ère semaine</li>
-  <li>Recommandé : 20-30 min debout par heure de travail</li>
-</ul>`,
+    slug: "revlon-uniqone-spray-sans-rincage",
+    name: "Revlon Professional UniqOne Spray 10-en-1",
+    shortDescription: "10 benefices en 1 spray sans rincage — le soin cheveux culte des pros.",
+    description: "<p>UniqOne Revlon : demele, repare, protege chaleur jusqu'a 230C, lisse, hydrate en 1 seul spray. Vegan, tous types cheveux.</p>",
+    price: 13.99, comparePrice: 19.99, cost: 5, stock: 180, trendScore: 87, featured: false, published: true,
+    benefits: ["10 benefices en 1","Protection chaleur 230C","Vegan","Tous types cheveux"],
+    salesArguments: ["Culte des coiffeurs pros","Top 12 Beaute Amazon FR","Livraison Prime"],
+    affiliateUrl: amz("B00M9B66BU"), categorySlug: "beaute-soins",
+    images: [img("61R6wx1zU1L"), img("51R6wx1zU1L"), img("71R6wx1zU1L")],
   },
-
   {
-    slug: "elgato-key-light",
-    name: "Elgato Key Light — Panneau LED Studio 2800 Lumens",
-    categorySlug: "bureau-productivite",
-    price: 199.99, comparePrice: 249.99,
-    affiliateUrl: amz("B07L755X9G"),
-    images: [
-      "https://m.media-amazon.com/images/I/61E6GFG+YHL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71VFpPCLUKL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61bflcVMQlL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61P1YFmB3cL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "Éclairage studio professionnel pour visio, streaming, YouTube. 2800 lumens, température 2900K-7000K réglable, contrôle app & Stream Deck. Zéro éblouissement.",
-    description: `<h2>Elgato Key Light — Fiche technique</h2>
-<p>L'<strong>Elgato Key Light</strong> est le standard d'éclairage pour créateurs de contenu et professionnels en visio. 2800 lumens, lumière douce sans reflets sur les lunettes.</p>
-<h3>Lumière</h3>
-<ul>
-  <li>Puissance : <strong>45W — 2800 lumens</strong></li>
-  <li>Température : <strong>2900K à 7000K</strong> (200 niveaux de luminosité)</li>
-  <li>IRC <strong>90+</strong> — rendu des couleurs très fidèle</li>
-  <li>LED diffusées — <strong>zéro point lumineux visible</strong></li>
-</ul>
-<h3>Contrôle</h3>
-<ul>
-  <li>App <strong>Elgato Control Center</strong> (Mac & Windows) + WiFi 2.4GHz</li>
-  <li>Compatible <strong>Elgato Stream Deck</strong></li>
-</ul>
-<h3>Support</h3>
-<ul>
-  <li>Bras articulé aluminium inclus — fixation bureau (serre-joint)</li>
-  <li>Angle orientable 360° — alimentation secteur 45W</li>
-</ul>`,
+    slug: "bionoble-huile-ricin-bio-pressee-froid",
+    name: "BIONOBLE Huile Ricin Bio Pressee Froid",
+    shortDescription: "L'huile multi-usage virale : cils, sourcils, cheveux et ongles.",
+    description: "<p>BIONOBLE 100% pure, bio certifiee, pressee froid. Favorise pousse cils, sourcils, cheveux. Repare ongles cassants. Pipette de precision incluse.</p>",
+    price: 12.49, comparePrice: 17.99, cost: 4, stock: 240, trendScore: 91, featured: false, published: true,
+    benefits: ["100% pure bio certifiee","Pousse cils et sourcils","Repare les cheveux","Pipette de precision"],
+    salesArguments: ["Viral beaute naturelle TikTok","Top 13 Beaute Amazon FR","Livraison Prime"],
+    affiliateUrl: amz("B08D6G78W6"), categorySlug: "beaute-soins",
+    images: [img("91hbAFc1MEL"), img("81hbAFc1MEL"), img("71hbAFc1MEL")],
   },
-
   {
-    slug: "logitech-brio-4k",
-    name: "Logitech Brio 4K — Webcam 4K HDR USB-C",
-    categorySlug: "bureau-productivite",
-    price: 199.99, comparePrice: 249.99,
-    affiliateUrl: amz("B01N5UOYC4"),
-    images: [
-      "https://m.media-amazon.com/images/I/61E2N2+JGnL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61YD-gSnoTL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71z5K1JVTBL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61s8zEDkqPL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "La webcam de référence absolue. 4K Ultra HD HDR, correction automatique lumière RightLight 3, Windows Hello, 3 champs de vision. Standard des professionnels.",
-    description: `<h2>Logitech Brio 4K — Fiche technique</h2>
-<p>La <strong>Logitech Brio</strong> produit une image nette et bien exposée <strong>quelle que soit la lumière</strong> — même à contre-jour devant une fenêtre.</p>
-<h3>Image</h3>
-<ul>
-  <li>Résolution max : <strong>4K Ultra HD (4096 x 2160) à 30fps</strong></li>
-  <li>1080P à <strong>60fps</strong> + <strong>HDR</strong></li>
-  <li>Technologie <strong>RightLight 3</strong> : correction automatique contre-jour</li>
-</ul>
-<h3>Champs de vision</h3>
-<ul>
-  <li><strong>65°, 78° ou 90°</strong> — sélectionnable dans Logi Tune</li>
-</ul>
-<h3>Windows Hello</h3>
-<ul>
-  <li>Caméra infrarouge intégrée — authentification faciale en 1 seconde</li>
-</ul>
-<h3>Compatibilité</h3>
-<ul>
-  <li>Zoom, Teams, Google Meet, OBS, Streamlabs</li>
-  <li>Câble USB-A + adaptateur USB-C inclus</li>
-</ul>`,
+    slug: "etiaxil-detranspirant-peaux-sensibles",
+    name: "ETIAXIL Detranspirant Peaux Sensibles",
+    shortDescription: "4 jours de protection garantie — le detranspirant medical de reference.",
+    description: "<p>ETIAXIL cliniquement prouve : efficace 4 jours par application. Specialement formule pour peaux sensibles contre transpiration excessive.</p>",
+    price: 9.90, comparePrice: 13.99, cost: 3, stock: 300, trendScore: 86, featured: false, published: true,
+    benefits: ["4 jours de protection","Peaux sensibles","Transpiration excessive","Cliniquement prouve"],
+    salesArguments: ["Top 6 Beaute Amazon FR","Plebiscite par dermatologues","Livraison Prime"],
+    affiliateUrl: amz("B086R8LQJ9"), categorySlug: "beaute-soins",
+    images: [img("61OY86-cVvL"), img("51OY86-cVvL"), img("71OY86-cVvL")],
   },
-
   {
-    slug: "herman-miller-aeron",
-    name: "Herman Miller Aeron — Chaise Ergonomique Taille B",
-    categorySlug: "bureau-productivite",
-    price: 1299.99, comparePrice: 1499.99,
-    affiliateUrl: amz("B00MLSS1SW"),
-    images: [
-      "https://m.media-amazon.com/images/I/81RSpPGT2wL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81nJMRoUmKL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71l9LLlVYTL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71VQpRtL+LL._AC_SL1500_.jpg",
-    ],
-    shortDescription: "La chaise de bureau #1 mondiale. PostureFit SL, matière 8Z Pellicle aérée, 8 réglages, garantie 12 ans. Un investissement qui se rentabilise en quelques semaines.",
-    description: `<h2>Herman Miller Aeron Taille B — Fiche technique</h2>
-<p>La <strong>Herman Miller Aeron</strong> est la chaise recommandée par les médecins du travail et ergonomes. Elle équipe Google, Apple, Twitter et les grandes entreprises tech.</p>
-<h3>Tailles</h3>
-<ul>
-  <li>Taille A : &lt; 1m65, &lt; 68kg</li>
-  <li><strong>Taille B (ce modèle)</strong> : 1m65-1m85, 68-104kg — <strong>la plus vendue</strong></li>
-  <li>Taille C : &gt; 1m85, &gt; 104kg</li>
-</ul>
-<h3>PostureFit SL</h3>
-<ul>
-  <li>Support sacrum ET lombaire indépendamment réglable</li>
-  <li>Maintient la courbure naturelle de la colonne</li>
-</ul>
-<h3>Matière 8Z Pellicle</h3>
-<ul>
-  <li>Tissu maillé respirant — <strong>8 zones de tension différente</strong></li>
-  <li>Aucune surchauffe — air circulant en permanence</li>
-</ul>
-<h3>8 points de réglage + Garantie</h3>
-<ul>
-  <li>Hauteur siège, inclinaison dossier, accoudoirs (hauteur + orientation), profondeur, PostureFit SL</li>
-  <li><strong>Garantie 12 ans</strong> — Durée de vie estimée : <strong>15-20 ans</strong> — Recyclable 91%</li>
-</ul>`,
+    slug: "medicube-body-peel-shot-kbeauty",
+    name: "Medicube Body Peel Shot K-Beauty",
+    shortDescription: "Le serum exfoliant corps coreen viral — peau lisse total body.",
+    description: "<p>Medicube acide hypochloreux : exfolie doucement cellules mortes, estompe taches et zones rugueuses. K-Beauty dermatologiquement teste.</p>",
+    price: 24.99, comparePrice: 34.99, cost: 9, stock: 120, trendScore: 90, featured: true, published: true,
+    benefits: ["Acide hypochloreux innovant","Exfoliation corps complete","Estompe taches et rugosites","K-Beauty teste"],
+    salesArguments: ["Viral K-Beauty TikTok 2026","Top 11 Beaute Amazon FR","Livraison Prime"],
+    affiliateUrl: amz("B0FPCC599C"), categorySlug: "beaute-soins",
+    images: [img("71KFzuBwfDL"), img("61KFzuBwfDL"), img("51KFzuBwfDL")],
   },
 ];
 
 async function main() {
-  console.log("Nettoyage DB complète...");
+  console.log("Reset DB...");
   await prisma.orderItem.deleteMany();
   await prisma.order.deleteMany();
-  await prisma.review.deleteMany();
-  await prisma.trendScore.deleteMany();
+  await prisma.customer.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
-  console.log("DB vidée ✓");
 
-  console.log("Création catégories...");
+  console.log("Categories...");
   for (const cat of CATEGORIES) {
     await prisma.category.create({ data: cat });
   }
-  console.log(`${CATEGORIES.length} catégories créées ✓`);
 
-  console.log("Création produits...");
-  let count = 0;
+  console.log(`Seed ${PRODUCTS.length} produits...`);
+  let ok = 0;
   for (const p of PRODUCTS) {
     const category = await prisma.category.findUnique({ where: { slug: p.categorySlug } });
-    if (!category) { console.warn(`Catégorie introuvable: ${p.categorySlug}`); continue; }
+    if (!category) { console.warn(`Cat introuvable: ${p.categorySlug}`); continue; }
     await prisma.product.create({
       data: {
-        slug: p.slug,
-        name: p.name,
-        description: p.description,
-        shortDescription: p.shortDescription,
-        price: p.price,
-        comparePrice: p.comparePrice,
-        affiliateUrl: p.affiliateUrl,
-        supplierName: "Amazon",
-        published: true,
-        featured: count < 8,
-        cost: 0,
-        stock: 999,
-        trendScore: 85 + Math.floor(Math.random() * 15),
-        categoryId: category.id,
-        images: { create: p.images.map((url, i) => ({ url, alt: p.name, position: i })) }
-      }
+        slug: p.slug, name: p.name, shortDescription: p.shortDescription,
+        description: p.description, price: p.price, comparePrice: p.comparePrice ?? null,
+        cost: p.cost, stock: p.stock, trendScore: p.trendScore, featured: p.featured,
+        published: p.published, affiliateUrl: p.affiliateUrl, categoryId: category.id,
+        benefits: p.benefits, salesArguments: p.salesArguments,
+        tags: [p.categorySlug],
+        images: { create: p.images.map((url, i) => ({ url, alt: p.name, position: i })) },
+      },
     });
-    console.log(`  ✓ ${p.name} (${p.images.length} images)`);
-    count++;
+    ok++;
+    console.log(`  OK ${p.name}`);
   }
-  console.log(`\n✅ ${count} produits créés avec ${count * 4}+ images`);
+  console.log(`\nDone: ${ok}/${PRODUCTS.length} produits.`);
 }
 
-main()
-  .catch(e => { console.error("ERREUR:", e.message); process.exit(1); })
-  .finally(() => prisma.$disconnect());
+main().catch(e => { console.error(e); process.exit(1); }).finally(() => prisma.$disconnect());
