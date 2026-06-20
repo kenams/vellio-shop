@@ -1,25 +1,19 @@
-export const revalidate = 3600;
-import { unstable_cache } from "next/cache";
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ProductDetail from "@/components/product/ProductDetail";
 import { getPremiumProductPresentation, toPublicProduct } from "@/lib/premium-brand";
 
-
-const getProduct = unstable_cache(
-  async (slug: string) => prisma.product.findUnique({
-    where: { slug, published: true },
-    include: {
-      images: { orderBy: { position: "asc" } },
-      trendData: true,
-      reviews: { where: { approved: true }, orderBy: { createdAt: "desc" } },
-      category: true,
-    },
-  }),
-  ["product-detail"],
-  { revalidate: 3600, tags: ["products"] }
-);
+const getProduct = (slug: string) => prisma.product.findUnique({
+  where: { slug, published: true },
+  include: {
+    images: { orderBy: { position: "asc" } },
+    trendData: true,
+    reviews: { where: { approved: true }, orderBy: { createdAt: "desc" } },
+    category: true,
+  },
+});
 
 interface Props { params: { slug: string } }
 

@@ -208,24 +208,25 @@ export function getPremiumProductPresentation(product: ProductLike, locale: Prem
   const categorySlug = product.category?.slug || "";
   const category = getPremiumCategory(categorySlug, product.category?.name, locale);
   const nameMap = locale === "en" ? PRODUCT_NAMES_EN : PRODUCT_NAMES_FR;
-  const name = nameMap[slug] || product.name;
+  const name = product.name || nameMap[slug] || slug;
   const materials = MATERIALS_BY_CATEGORY[categorySlug] || ["Finition soignée", "Format équilibré", "Usage quotidien"];
-  const shortDescription =
-    locale === "en"
-      ? `A refined ${category.shortLabel.toLowerCase()} piece selected for its clean utility and quiet presence.`
-      : `Une pièce ${category.shortLabel.toLowerCase()} sélectionnée pour son utilité nette, sa présence sobre et son dessin maîtrisé.`;
 
-  const highlights = [
-    locale === "en" ? "Clean, premium visual language" : "Langage visuel sobre et premium",
-    locale === "en" ? "Balanced daily utility" : "Utilité quotidienne équilibrée",
-    locale === "en" ? "Selected for daily use" : "Sélectionnée pour un usage quotidien",
-    locale === "en" ? "Gift-ready positioning" : "Positionnement cadeau haut de gamme",
-  ].filter(Boolean).slice(0, 4);
+  const fallbackShortDesc = locale === "en"
+    ? `A ${category.shortLabel.toLowerCase()} product selected for its quality and daily utility.`
+    : `Une pièce ${category.shortLabel.toLowerCase()} sélectionnée pour sa qualité et son utilité au quotidien.`;
+  const shortDescription = (product as any).shortDescription || fallbackShortDesc;
 
-  const description =
-    locale === "en"
-      ? `<p>${shortDescription}</p><p>A balanced object designed to simplify a daily gesture without visual noise. Its role is precise: bring clarity, comfort and presence while remaining easy to integrate.</p>`
-      : `<p>${shortDescription}</p><p>Un objet équilibré, pensé pour simplifier un geste du quotidien sans bruit visuel. Son rôle est précis : apporter de la clarté, du confort et une présence discrète, facile à intégrer.</p>`;
+  const rawBenefits = (product as any).benefits;
+  const benefitsArr: string[] = Array.isArray(rawBenefits) && rawBenefits.length > 0 ? rawBenefits : [];
+  const highlights = benefitsArr.length > 0 ? benefitsArr.slice(0, 4) : [
+    locale === "en" ? "Premium quality" : "Qualité premium",
+    locale === "en" ? "Balanced daily utility" : "Utilité quotidienne",
+    locale === "en" ? "Top Amazon bestseller" : "Bestseller Amazon",
+    locale === "en" ? "Fast Prime delivery" : "Livraison Prime rapide",
+  ];
+
+  const fallbackDesc = `<p>${shortDescription}</p>`;
+  const description = (product as any).description || fallbackDesc;
 
   return {
     name,
