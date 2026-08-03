@@ -10,5 +10,5 @@ $trigger.DaysInterval = 30
 
 Register-ScheduledTask -TaskName "VellioMonthlyRefresh" -Action $action -Trigger $trigger -Description "Refresh mensuel automatique du catalogue Vellio (best-sellers Amazon)" -Force
 
-Write-Host "Tache 'VellioMonthlyRefresh' installee — s'execute tous les 30 jours a 3h du matin."
+Write-Host "Tache 'VellioMonthlyRefresh' installee - s'execute tous les 30 jours a 3h du matin."
 Write-Host "Pour tester immediatement : Start-ScheduledTask -TaskName VellioMonthlyRefresh"
