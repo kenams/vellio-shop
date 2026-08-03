@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 import Link from "next/link";
 import { BarChart3, LayoutDashboard, LogOut, Package, Pencil, ShoppingBag, ShoppingCart } from "lucide-react";
 
-const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
+const ADMIN_TOKEN = process.env.ADMIN_SECRET ?? "__no_admin_secret_configured__";
 
 const navItems = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },

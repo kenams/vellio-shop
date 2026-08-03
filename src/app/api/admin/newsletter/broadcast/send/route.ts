@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 // Alias pour déclencher manuellement une campagne pré-définie
 import { NextRequest, NextResponse } from "next/server";
 
-const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
+const ADMIN_TOKEN = process.env.ADMIN_SECRET ?? "__no_admin_secret_configured__";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://vellio-shop.vercel.app";
 
 function checkAuth(req: NextRequest) {

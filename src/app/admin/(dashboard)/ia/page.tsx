@@ -93,7 +93,7 @@ export default function AdminIAPage() {
     if (!result) return;
     setSaving(true);
     try {
-      const token = process.env.NEXT_PUBLIC_ADMIN_TOKEN || "vellio-admin-2024";
+      const token = process.env.NEXT_PUBLIC_ADMIN_TOKEN ?? "__no_admin_token_configured__";
       const res = await fetch("/api/admin/products", {
         method: "POST",
         headers: {

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
 
-const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
+const ADMIN_TOKEN = process.env.ADMIN_SECRET ?? "__no_admin_secret_configured__";
 const FROM = process.env.EMAIL_FROM || "Vellio <noreply@vellio.fr>";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://vellio-shop.vercel.app";
 

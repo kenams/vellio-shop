@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
+  const ADMIN_TOKEN = process.env.ADMIN_SECRET ?? "__no_admin_secret_configured__";
   const token = req.headers.get("x-admin-token");
   if (token !== ADMIN_TOKEN) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 

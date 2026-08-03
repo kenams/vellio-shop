@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { exportOpportunitiesCsv, generatePremiumOpportunities } from "@/lib/prospecting/scraperService";
 import type { LuxuryDomain } from "@/lib/prospecting/prospectingTypes";
 
-const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
+const ADMIN_TOKEN = process.env.ADMIN_SECRET ?? "__no_admin_secret_configured__";
 
 function isAuthorized(req: NextRequest): boolean {
   const cookieToken = cookies().get("admin_token")?.value;

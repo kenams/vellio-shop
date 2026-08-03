@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 
-const ADMIN_TOKEN = process.env.ADMIN_SECRET || "vellio-admin-2024";
+const ADMIN_TOKEN = process.env.ADMIN_SECRET ?? "__no_admin_secret_configured__";
 const BASE = "https://vellio.fr";
 // IndexNow key — doit correspondre au fichier /public/<key>.txt
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || "vellio-indexnow-2024";

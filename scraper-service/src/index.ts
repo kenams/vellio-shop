@@ -6,7 +6,7 @@ import { uploadImage } from "./cloudinary";
 const app = express();
 app.use(express.json());
 
-const SECRET = process.env.SCRAPER_SECRET || "vellio-scraper-2026";
+const SECRET = process.env.SCRAPER_SECRET ?? "__no_scraper_secret_configured__";
 const PORT = parseInt(process.env.PORT || "3001", 10);
 
 function auth(req: express.Request, res: express.Response, next: express.NextFunction) {
