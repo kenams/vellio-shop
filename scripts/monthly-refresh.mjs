@@ -16,12 +16,13 @@
 
 import { chromium } from "playwright";
 import { PrismaClient } from "@prisma/client";
-import { execFileSync } from "child_process";
+import { execSync } from "child_process";
 import { readFileSync, existsSync, unlinkSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PROJECT_ROOT = path.join(__dirname, "..");
 const PROFILE_DIR = path.join(process.env.USERPROFILE || "C:\\Users\\kenam", ".vellio-scraper-profile");
 const TAG = "vellio42-21";
 const amz = (asin) => `https://www.amazon.fr/dp/${asin}?tag=${TAG}`;
@@ -50,6 +51,23 @@ function extractProductData() {
   return { title, price, images: [...new Set(images)].slice(0, 6), bullets: bullets.slice(0, 4) };
 }
 
+// Hors-sujet pour une boutique tech/beaut\u00e9/sport \u2014 trouv\u00e9 lors du premier
+// run de test (2026-08-04) : cartes \u00e0 collectionner, anti-moustique, etc.
+// se sont gliss\u00e9s dans les classements "meilleures ventes" g\u00e9n\u00e9riques.
+const OFF_TOPIC_KEYWORDS = [
+  "sticker", "panini", "coupe du monde", "carte \u00e0 collectionner",
+  "insect", "anti-moustique", "r\u00e9pulsif", "moustique",
+];
+
+function isOnTopic(title) {
+  const lower = title.toLowerCase();
+  return !OFF_TOPIC_KEYWORDS.some((kw) => lower.includes(kw));
+}
+
+// Le titre Amazon complet sert de nom produit tel quel (tronqu\u00e9) \u2014
+// d\u00e9couper sur la virgule/tiret produisait parfois juste la marque seule
+// ("Rimmel", "Maybelline New York") quand le titre commen\u00e7ait par une
+// simple liste de mots-cl\u00e9s SEO. On garde le titre r\u00e9el, plus fiable.
 function slugify(text) {
   return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 60);
@@ -71,7 +89,13 @@ async function urlOk(url) {
 function loadDbCredentials() {
   const tmpFile = path.join(__dirname, ".vellio-refresh-env-tmp");
   try {
-    execFileSync("npx", ["vercel", "env", "pull", tmpFile, "--environment=production", "--yes"], { cwd: __dirname, stdio: "ignore" });
+    // execSync (pas execFileSync) car npx.cmd sur Windows a besoin d'un
+    // vrai shell pour être résolu correctement. Aucune entrée utilisateur
+    // dans la commande — tmpFile vient uniquement de __dirname.
+    execSync(`npx vercel env pull "${tmpFile}" --environment=production --yes`, {
+      cwd: PROJECT_ROOT,
+      stdio: "pipe",
+    });
     const content = readFileSync(tmpFile, "utf8");
     const match = content.match(/^DATABASE_POSTGRES_PRISMA_URL="?(.*?)"?$/m);
     if (match) {
@@ -129,8 +153,11 @@ async function main() {
         await page.goto(`https://www.amazon.fr/dp/${asin}`, { waitUntil: "domcontentloaded", timeout: 20000 });
         const data = await page.evaluate(extractProductData).catch(() => null);
         if (!data || !data.title || !data.images?.length) continue;
+        if (!isOnTopic(data.title)) { console.log(`  SKIP (hors-sujet): ${data.title.slice(0, 50)}`); continue; }
 
-        const slug = slugify(data.title.split(",")[0].split("-")[0]) || asin.toLowerCase();
+        // Titre complet (pas juste le premier segment avant virgule/tiret,
+        // qui donnait parfois juste la marque seule sur certains titres SEO).
+        const slug = slugify(data.title.slice(0, 80)) || asin.toLowerCase();
         if (existingSlugs.has(slug)) continue;
 
         const price = parsePrice(data.price);
