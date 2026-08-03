@@ -32,7 +32,6 @@ export interface PremiumProductPresentation {
   materials: string[];
   highlights: string[];
   care: string;
-  review: { author: string; role: string; quote: string };
 }
 
 const CATEGORY_FR: Record<string, PremiumCategory> = {
@@ -160,30 +159,6 @@ const MATERIALS_BY_CATEGORY: Record<string, string[]> = {
   "enfant-famille": ["Textile résistant", "Bords doux", "Usage quotidien"],
 };
 
-const REVIEW_QUOTES = [
-  {
-    author: "Claire M.",
-    role: "Cliente vérifiée",
-    quote: "Une pièce sobre, utile et beaucoup plus élégante que les alternatives habituelles.",
-  },
-  {
-    author: "Nora B.",
-    role: "Cliente vérifiée",
-    quote: "La finition est nette, l'emballage soigné et l'objet s'intègre très bien à la maison.",
-  },
-  {
-    author: "Antoine R.",
-    role: "Client vérifié",
-    quote: "Simple, précis, sans surcharge. C'est exactement ce que j'attendais d'une sélection premium.",
-  },
-];
-
-function stableIndex(seed: string, length: number): number {
-  let hash = 0;
-  for (let i = 0; i < seed.length; i += 1) hash = (hash * 33 + seed.charCodeAt(i)) >>> 0;
-  return hash % length;
-}
-
 function getSlug(product: ProductLike): string {
   return product.slug || slugify(product.name);
 }
@@ -238,7 +213,6 @@ export function getPremiumProductPresentation(product: ProductLike, locale: Prem
     materials,
     highlights,
     care: locale === "en" ? "Wipe with a soft, dry cloth. Avoid abrasive products." : "Nettoyer avec un chiffon doux et sec. Éviter les produits abrasifs.",
-    review: REVIEW_QUOTES[stableIndex(slug, REVIEW_QUOTES.length)],
   };
 }
 

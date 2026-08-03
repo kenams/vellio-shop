@@ -2,16 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Sparkles, Star, TrendingUp, Zap } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLangStore } from "@/store/langStore";
 import { getT } from "@/lib/i18n";
 
 const heroImage = "https://images.pexels.com/photos/28255125/pexels-photo-28255125.jpeg?auto=compress&cs=tinysrgb&w=1800&h=1200&fit=crop";
 
-const floatingCards = [
-  { emoji: "🕯️", name: "Bougie Ambre Noire", price: "42€", rating: 4.9, orders: 312 },
-  { emoji: "🎧", name: "Casque Signature", price: "189€", rating: 4.8, orders: 217 },
+const trustPoints = [
+  { emoji: "✅", label: "Produits vendus et expédiés par Amazon" },
+  { emoji: "🔒", label: "Paiement sécurisé Stripe" },
+  { emoji: "↩️", label: "Retours 30 jours" },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -108,47 +109,17 @@ export default function Hero() {
             <span className="text-xs font-semibold text-white/75">Tendances en temps réel</span>
           </motion.div>
 
-          {/* Product cards */}
-          {floatingCards.map((card, i) => (
-            <motion.div key={card.name} {...m(slideX(0.24 + i * 0.1, 40))}
+          {/* Trust points — vrais, aucune statistique inventée */}
+          {trustPoints.map((point, i) => (
+            <motion.div key={point.label} {...m(slideX(0.24 + i * 0.1, 40))}
               className="rounded-2xl border border-white/12 bg-white/8 p-4 backdrop-blur-md"
             >
-              <div className="flex items-start gap-3">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/12 bg-white/10 text-2xl">{card.emoji}</span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-white">{card.name}</p>
-                  <div className="mt-1 flex items-center gap-2">
-                    <div className="flex items-center gap-0.5">
-                      {[1,2,3,4,5].map((s) => (
-                        <Star key={s} className="h-3 w-3 fill-brand-accent text-brand-accent" />
-                      ))}
-                    </div>
-                    <span className="text-[11px] text-white/55">{card.rating} · {card.orders} commandes</span>
-                  </div>
-                </div>
-                <span className="text-sm font-semibold text-brand-accent">{card.price}</span>
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/12 bg-white/10 text-2xl">{point.emoji}</span>
+                <p className="text-sm font-semibold text-white">{point.label}</p>
               </div>
             </motion.div>
           ))}
-
-          {/* Aggregate rating card */}
-          <motion.div {...m(slideX(0.44, 40))}
-            className="rounded-2xl border border-brand-accent/25 bg-brand-accent/8 p-4 backdrop-blur-md"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-accent">Score Vellio</p>
-                <div className="mt-2 flex items-baseline gap-2">
-                  <span className="font-serif text-4xl font-semibold text-white">4.8</span>
-                  <div className="flex">
-                    {[1,2,3,4,5].map((s) => <Star key={s} className="h-4 w-4 fill-brand-accent text-brand-accent" />)}
-                  </div>
-                </div>
-                <p className="mt-1 text-xs text-white/50">Basé sur 2 400+ avis vérifiés</p>
-              </div>
-              <Zap className="h-8 w-8 text-brand-accent/60" />
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

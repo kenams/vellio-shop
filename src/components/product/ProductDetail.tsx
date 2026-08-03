@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Check, ChevronDown, ChevronUp, Copy, ExternalLink, ShieldCheck, Star, Truck } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, ChevronUp, Copy, ExternalLink, ShieldCheck, Truck } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { useLangStore } from "@/store/langStore";
 import { getPremiumProductPresentation } from "@/lib/premium-brand";
@@ -17,12 +17,6 @@ import type { Product } from "@/types";
 interface Props {
   product: Product;
   related: Product[];
-}
-
-function getReviewCount(seed: string): number {
-  let hash = 0;
-  for (let i = 0; i < seed.length; i += 1) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
-  return 38 + (hash % 84);
 }
 
 export default function ProductDetail({ product, related }: Props) {
@@ -41,7 +35,6 @@ export default function ProductDetail({ product, related }: Props) {
   }
   const [openPanel, setOpenPanel] = useState<"details" | "care" | "delivery" | null>("details");
   const hasComparePrice = Boolean(product.comparePrice && product.comparePrice > product.price);
-  const reviewCount = getReviewCount(product.id);
 
   function handleShare(platform: "whatsapp" | "twitter" | "copy") {
     const url = `https://vellio.fr/produits/${product.slug}`;
@@ -71,7 +64,6 @@ export default function ProductDetail({ product, related }: Props) {
             sku: product.slug,
             url: `https://vellio.fr/produits/${product.slug}`,
             brand: { "@type": "Brand", name: "Vellio" },
-            aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount, bestRating: "5" },
             offers: {
               "@type": "Offer",
               price: product.price.toFixed(2),
@@ -187,14 +179,6 @@ export default function ProductDetail({ product, related }: Props) {
             <h1 className="mt-4 text-balance font-serif text-5xl font-semibold leading-[0.94] text-brand sm:text-6xl">{presentation.name}</h1>
 
             <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-brand/55">
-              <span className="inline-flex items-center gap-1.5">
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <Star key={item} className="h-4 w-4 fill-brand-accent text-brand-accent" />
-                ))}
-                <span className="ml-1 font-semibold text-brand">4.8</span>
-              </span>
-              <span>{reviewCount} avis vérifiés</span>
-              <span className="hidden h-1 w-1 rounded-full bg-brand/25 sm:inline-flex" />
               <span>{presentation.badge}</span>
             </div>
 
@@ -242,7 +226,7 @@ export default function ProductDetail({ product, related }: Props) {
               </p>
             </div>
 
-            <UrgencyBar productId={product.id} />
+            <UrgencyBar />
 
             <StickyAffiliate
               name={presentation.name}
@@ -277,15 +261,6 @@ export default function ProductDetail({ product, related }: Props) {
                   {openPanel === panel.id && <div className="px-5 pb-5">{panel.content}</div>}
                 </div>
               ))}
-            </div>
-
-            <div className="mt-8 rounded-[1.25rem] border border-brand-accent/20 bg-white/65 p-5">
-              <div className="flex items-center gap-1 text-brand-accent">
-                {[1, 2, 3, 4, 5].map((item) => <Star key={item} className="h-4 w-4 fill-current" />)}
-              </div>
-              <p className="mt-3 text-sm leading-7 text-brand/65">“{presentation.review.quote}”</p>
-              <p className="mt-4 text-sm font-semibold text-brand">{presentation.review.author}</p>
-              <p className="text-xs text-brand/45">{presentation.review.role}</p>
             </div>
           </div>
         </div>

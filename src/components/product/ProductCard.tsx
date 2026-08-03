@@ -2,25 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Star, Zap } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { formatPrice } from "@/lib/utils";
 import { useLangStore } from "@/store/langStore";
 import { getPremiumProductPresentation } from "@/lib/premium-brand";
 import ScoreBadge from "@/components/ui/ScoreBadge";
 import type { Product } from "@/types";
-
-function getStockSeed(id: string): number {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
-  return 3 + (h % 8);
-}
-
-function getReviewCount(id: string): number {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = ((h << 5) - h + id.charCodeAt(i)) >>> 0;
-  return 38 + (h % 84);
-}
 
 export default function ProductCard({ product }: { product: Product }) {
   const locale = useLangStore((s) => s.locale);
@@ -30,9 +18,6 @@ export default function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
   const hasComparePrice = Boolean(product.comparePrice && product.comparePrice > product.price);
   const discountPct = hasComparePrice ? Math.round(100 - (product.price / product.comparePrice!) * 100) : 0;
-  const stockCount = getStockSeed(product.id);
-  const lowStock = stockCount <= 4;
-  const reviewCount = getReviewCount(product.id);
 
   return (
     <Link
@@ -70,11 +55,6 @@ export default function ProductCard({ product }: { product: Product }) {
           <span className="rounded-full border border-white/35 bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-brand backdrop-blur">
             {presentation.badge}
           </span>
-          {lowStock && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-orange-500/90 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur">
-              <Zap className="h-2.5 w-2.5" /> {stockCount} restants
-            </span>
-          )}
         </div>
 
         {/* Top-right: ScoreBadge + discount */}
@@ -101,10 +81,6 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="p-4 sm:p-5">
         <div className="mb-2 flex items-center justify-between gap-3">
           <p className="truncate text-[10px] font-semibold uppercase tracking-[0.22em] text-brand/45">{presentation.categoryShortLabel}</p>
-          <div className="flex items-center gap-1 text-brand-accent">
-            <Star className="h-3 w-3 fill-current" />
-            <span className="text-[11px] font-semibold text-brand/50">4.8 <span className="text-brand/35">({reviewCount})</span></span>
-          </div>
         </div>
         <h3 className="line-clamp-2 min-h-[2.65rem] text-sm font-semibold leading-snug text-brand transition-colors group-hover:text-primary-700 sm:text-base">
           {presentation.name}
