@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/next";
 import CookieConsent from "@/components/ui/CookieConsent";
 import StoreHydrator from "@/components/ui/StoreHydrator";
 import ExitIntent from "@/components/ui/ExitIntent";
@@ -71,7 +72,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${inter.variable} ${cormorant.variable}`}>
       <head>
-        <script defer data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       </head>
       <body>
@@ -86,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
