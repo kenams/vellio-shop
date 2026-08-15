@@ -1,8 +1,10 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 const ADMIN_TOKEN = process.env.ADMIN_SECRET ?? "__no_admin_secret_configured__";
-const BASE = "https://vellio.fr";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://vellio.kah-digital.ch";
+const HOST = new URL(BASE).host;
 // IndexNow key — doit correspondre au fichier /public/<key>.txt
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || "vellio-indexnow-2024";
 
@@ -11,43 +13,34 @@ function checkAuth(req: NextRequest) {
   return secret === ADMIN_TOKEN;
 }
 
-const ALL_URLS = [
-  `${BASE}/`,
-  `${BASE}/produits`,
-  `${BASE}/blog`,
-  `${BASE}/cadeaux-premium`,
-  `${BASE}/objets-design-maison`,
-  `${BASE}/blog/meilleurs-cadeaux-homme-originaux-2026`,
-  `${BASE}/blog/idee-cadeau-anniversaire-original-femme`,
-  `${BASE}/blog/accessoires-bureau-design-premium-teletravail`,
-  `${BASE}/blog/objets-design-tendance-maison-2026`,
-  `${BASE}/blog/art-du-detail-maison-vellio`,
-  `${BASE}/blog/tech-signature-sans-bruit-visuel`,
-  `${BASE}/blog/cadeaux-haut-de-gamme-utiles`,
-  `${BASE}/blog/rituels-beaute-minimalistes`,
-  `${BASE}/categorie/maison-intelligente`,
-  `${BASE}/categorie/tech-gadgets`,
-  `${BASE}/categorie/beaute-soin`,
-  `${BASE}/categorie/gadgets-voiture`,
-  `${BASE}/categorie/bureau-productivite`,
-  `${BASE}/categorie/mode-accessoires`,
-  `${BASE}/categorie/sport-outdoor`,
-  `${BASE}/categorie/cadeaux-premium`,
-];
-
 export async function GET(req: NextRequest) {
   if (!checkAuth(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
-  const engines = [
-    "https://api.indexnow.org/indexnow",
-    "https://www.bing.com/indexnow",
+  const [categories, products] = await Promise.all([
+    prisma.category.findMany({ select: { slug: true } }),
+    prisma.product.findMany({
+      where: { published: true },
+      select: { slug: true },
+      orderBy: { updatedAt: "desc" },
+      take: 500,
+    }),
+  ]);
+
+  const urlList = [
+    `${BASE}/`,
+    `${BASE}/produits`,
+    `${BASE}/blog`,
+    ...categories.map((c) => `${BASE}/categorie/${c.slug}`),
+    ...products.map((p) => `${BASE}/produits/${p.slug}`),
   ];
 
+  const engines = ["https://api.indexnow.org/indexnow", "https://www.bing.com/indexnow"];
+
   const payload = {
-    host: "vellio.fr",
+    host: HOST,
     key: INDEXNOW_KEY,
     keyLocation: `${BASE}/${INDEXNOW_KEY}.txt`,
-    urlList: ALL_URLS,
+    urlList,
   };
 
   const results: Record<string, string> = {};
@@ -60,10 +53,10 @@ export async function GET(req: NextRequest) {
         body: JSON.stringify(payload),
       });
       results[engine] = `${res.status} ${res.statusText}`;
-    } catch (e: any) {
-      results[engine] = `error: ${e.message}`;
+    } catch (e: unknown) {
+      results[engine] = `error: ${e instanceof Error ? e.message : String(e)}`;
     }
   }
 
-  return NextResponse.json({ ok: true, submitted: ALL_URLS.length, results });
+  return NextResponse.json({ ok: true, submitted: urlList.length, results });
 }
