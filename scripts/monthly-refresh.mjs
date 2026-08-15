@@ -37,6 +37,11 @@ const CATEGORY_PAGES = [
   { url: "https://www.amazon.fr/s?k=body+gainant+invisible+femme&s=review-rank", category: "beaute-soins" },
   { url: "https://www.amazon.fr/s?k=legging+gainant+push+up+fesses&s=review-rank", category: "sport-fitness" },
   { url: "https://www.amazon.fr/s?k=palette+maquillage+tendance&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=huile+de+ricin+cils+sourcils&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=serum+acide+hyaluronique+visage&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=creme+raffermissante+corps+ventre&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=ceinture+abdominale+sudation&s=review-rank", category: "sport-fitness" },
+  { url: "https://www.amazon.fr/s?k=rouge+a+levres+longue+tenue&s=review-rank", category: "beaute-soins" },
 ];
 
 function extractProductData() {
