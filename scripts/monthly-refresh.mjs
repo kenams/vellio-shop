@@ -31,6 +31,12 @@ const CATEGORY_PAGES = [
   { url: "https://www.amazon.fr/gp/bestsellers/electronics", category: "tech-gadgets" },
   { url: "https://www.amazon.fr/gp/bestsellers/beauty", category: "beaute-soins" },
   { url: "https://www.amazon.fr/gp/bestsellers/sports", category: "sport-fitness" },
+  { url: "https://www.amazon.fr/s?k=complement+minceur+brule+graisse&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=soin+anti-age+visage&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=gainant+femme+fessier+push+up&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=body+gainant+invisible+femme&s=review-rank", category: "beaute-soins" },
+  { url: "https://www.amazon.fr/s?k=legging+gainant+push+up+fesses&s=review-rank", category: "sport-fitness" },
+  { url: "https://www.amazon.fr/s?k=palette+maquillage+tendance&s=review-rank", category: "beaute-soins" },
 ];
 
 function extractProductData() {
@@ -47,7 +53,19 @@ function extractProductData() {
   }
   const bullets = [...document.querySelectorAll("#feature-bullets li")].map((el) => el.textContent.trim()).filter(Boolean);
   const title = document.getElementById("productTitle")?.textContent.trim();
-  const price = document.querySelector(".a-price .a-offscreen")?.textContent.trim();
+  const priceSelectors = [
+    ".a-price .a-offscreen",
+    "#corePrice_feature_div .a-offscreen",
+    "#corePriceDisplay_desktop_feature_div .a-offscreen",
+    ".apexPriceToPay .a-offscreen",
+    "#tp_price_block_total_price_ww .a-offscreen",
+    "#sns-base-price",
+  ];
+  let price;
+  for (const sel of priceSelectors) {
+    const el = document.querySelector(sel);
+    if (el?.textContent?.trim()) { price = el.textContent.trim(); break; }
+  }
   return { title, price, images: [...new Set(images)].slice(0, 6), bullets: bullets.slice(0, 4) };
 }
 
@@ -135,7 +153,7 @@ async function main() {
 
   const page = await context.newPage();
   let added = 0;
-  const MAX_NEW = 15;
+  const MAX_NEW = 20;
 
   for (const { url, category } of CATEGORY_PAGES) {
     if (added >= MAX_NEW) break;
@@ -145,7 +163,7 @@ async function main() {
       return [...new Set(links.map((a) => a.getAttribute("href")?.match(/\/dp\/([A-Z0-9]{10})/)?.[1]).filter(Boolean))];
     }).catch(() => []);
 
-    const newAsins = asins.filter((a) => !existingAsins.has(a)).slice(0, 6);
+    const newAsins = asins.filter((a) => !existingAsins.has(a)).slice(0, 8);
 
     for (const asin of newAsins) {
       if (added >= MAX_NEW) break;
